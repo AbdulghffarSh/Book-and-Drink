@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "298165326407",
+    "firebase_url": "https://book-and-drink-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "book-and-drink",
+    "storage_bucket": "book-and-drink.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298165326407:android:5127d81b3784792b5cd762",
+        "android_client_info": {
+          "package_name": "com.abdulghffar.drink"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "298165326407-tbmchr4cj0snhcuaukfdr6vhl6t13ndb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJAKQWhW3PY_Lw10VvrYmalDPnHP28K8Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "298165326407-tbmchr4cj0snhcuaukfdr6vhl6t13ndb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
