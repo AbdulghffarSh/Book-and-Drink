@@ -12,10 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Drink">
         <activity
-            android:name=".homeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".profile"
+            android:name=".mainActivity"
             android:exported="false" />
         <activity
             android:name=".signIn"

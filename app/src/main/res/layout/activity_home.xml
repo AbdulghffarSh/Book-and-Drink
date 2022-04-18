@@ -5,35 +5,34 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:background="#DFD8D8"
-tools:context=".homeActivity">
+tools:context=".mainActivity">
 
 
-<RelativeLayout
-android:id="@+id/header"
-android:layout_width="match_parent"
-android:layout_height="70dp"
-android:background="#0A2658"
-    >
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#0A2658">
 
-<ImageView
-    android:layout_width="60dp"
-    android:layout_height="60dp"
-    android:layout_alignParentEnd="true"
-    android:layout_marginEnd="30dp"
-    android:src="@drawable/user"
-    android:layout_centerVertical="true"/>
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="30dp"
+            android:src="@drawable/user" />
 
-<TextView
-    android:id="@+id/name"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerInParent="true"
-    android:text="Name"
-    android:textSize="30sp"
-    android:textColor="@color/white"
-    android:fontFamily="@font/main_font"/>
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/main_font"
+            android:text="Name"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
 
-</RelativeLayout>
+    </RelativeLayout>
 
 <RelativeLayout
     android:layout_width="match_parent"
@@ -70,15 +69,14 @@ android:background="#0A2658"
 
                 </androidx.cardview.widget.CardView>
 
-            <GridLayout
-                android:id="@+id/grid"
-                android:layout_below="@+id/imageSliderCardView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    <GridLayout
+        android:id="@+id/grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/imageSliderCardView">
 
 
-
-            </GridLayout>
+    </GridLayout>
 
 
 </RelativeLayout>

@@ -1,10 +1,14 @@
 package com.abdulghffar.drink;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,40 +28,50 @@ import com.smarteist.autoimageslider.SliderView;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class homeActivity extends AppCompatActivity {
-    private StorageReference listRef;
-    SliderView sliderView;
-    int[] images = {R.drawable.one};
+public class mainActivity extends AppCompatActivity {
+
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
 TextView name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_main);
         setup();
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
-        name.setText(firebaseUser.getEmail());
-
 
     }
 
     private void setup() {
 
 
-        sliderView = findViewById(R.id.imageSlider);
-
-        SliderAdapter sliderAdapter = new SliderAdapter(images);
-
-        sliderView.setSliderAdapter(sliderAdapter);
-        sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
-        sliderView.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
-        sliderView.startAutoCycle();
         name = (TextView)findViewById(R.id.name);
 
     }
 
+
+    private void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout,fragment);
+        fragmentTransaction.commit();
+
+
+    }
+
+    public void homeButton(View view) {
+        name.setText("Home");
+        replaceFragment(new homeFragment());
+
+
+    }
+
+    public void profileFragment(View view) {
+        name.setText("Profile");
+        replaceFragment(new profileFragment());
+
+    }
 }
 
 
