@@ -1,26 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="#0A2658"
-        >
-
+        android:background="#0A2658">
 
 
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/header_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Name"
-            android:textSize="30sp"
+            android:fontFamily="@font/main_font"
+            android:text="Home"
             android:textColor="@color/white"
-            android:fontFamily="@font/main_font"/>
+            android:textSize="40sp" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/cart"
+            android:clickable="true"
+            />
 
     </RelativeLayout>
 
@@ -28,38 +37,44 @@
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/navigationBar"
+        android:layout_above="@+id/bottomBar"
         android:layout_below="@+id/header" />
 
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navigationBar"
+<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--        android:id="@+id/navigationBar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:background="#0A2658">-->
+
+<!--        <ImageView-->
+
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="#0A2658"-->
+<!--            android:clickable="true"-->
+<!--            android:onClick="homeButton"-->
+<!--            android:src="@drawable/home" />-->
+
+<!--        <ImageView-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_marginLeft="300dp"-->
+<!--            android:backgroundTint="#0A2658"-->
+<!--            android:clickable="true"-->
+<!--            android:onClick="profileFragment"-->
+<!--            android:src="@drawable/user" />-->
+
+<!--    </com.google.android.material.bottomnavigation.BottomNavigationView>-->
+
+    <me.ibrahimsn.lib.SmoothBottomBar
+        android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:background="#0A2658" >
-
-        <ImageView
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/home"
-            android:background="#0A2658"
-            android:onClick="homeButton"
-            android:clickable="true"
-            />
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/user"
-            android:backgroundTint="#0A2658"
-            android:layout_marginLeft="300dp"
-            android:onClick="profileFragment"
-            android:clickable="true"
-            />
-
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        android:layout_height="70dp"
+        app:backgroundColor="@color/colorPrimary"
+        app:menu="@menu/menu"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

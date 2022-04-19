@@ -1,5 +1,6 @@
 package com.abdulghffar.drink;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -8,12 +9,15 @@ import androidx.fragment.app.FragmentTransaction;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -28,11 +32,19 @@ import com.smarteist.autoimageslider.SliderView;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
+import me.ibrahimsn.lib.OnItemReselectedListener;
+import me.ibrahimsn.lib.OnItemSelectedListener;
+import me.ibrahimsn.lib.SmoothBottomBar;
+
 public class mainActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
-TextView name;
+    TextView header;
+    SmoothBottomBar bottomBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,16 +53,37 @@ TextView name;
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
+        bottomBar.setOnItemSelected((Function1<? super Integer, Unit>) o -> {
+            switch(o) {
+                case 0:
+                    homeFragment();
+                    break;
+                case 1:
+                    profileFragment();
+                    break;
+                case 2:
+                    profileFragment();
+                    break;
+                default:
+                    homeFragment();
+            }
+            return null;
+        });
+
     }
 
     private void setup() {
 
 
-        name = (TextView)findViewById(R.id.name);
+        header = (TextView) findViewById(R.id.header_title);
+        bottomBar = (SmoothBottomBar) findViewById(R.id.bottomBar);
+
+
+
+
+
 
     }
-
-
     private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -60,18 +93,22 @@ TextView name;
 
     }
 
-    public void homeButton(View view) {
-        name.setText("Home");
+    public void homeFragment() {
+        header.setText("Home");
         replaceFragment(new homeFragment());
 
 
     }
 
-    public void profileFragment(View view) {
-        name.setText("Profile");
+    public void profileFragment() {
+        header.setText("Profile");
         replaceFragment(new profileFragment());
 
     }
+
+
+
+
 }
 
 
