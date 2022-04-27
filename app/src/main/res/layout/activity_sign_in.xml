@@ -1,107 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DFD8D8"
+    android:background="@drawable/background"
+    android:orientation="vertical"
+    tools:context=".signIn"
+android:id="@+id/header"
     android:gravity="center_horizontal"
-    tools:context=".signIn">
-
-    <ScrollView
-        android:id="@+id/scrollView"
+    >
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/signinButton"
-        android:layout_below="@+id/signin"
-        android:layout_marginBottom="50dp">
-
-        <LinearLayout
-
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/email"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:fontFamily="@font/main_font"
-                android:gravity="center"
-                android:hint="E-mail"
-                android:inputType="textEmailAddress" />
-
-            <EditText
-                android:id="@+id/password"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/email"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="@font/main_font"
-                android:gravity="center"
-                android:hint="Password"
-                android:inputType="textPassword" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:clickable="true"
-                android:fontFamily="@font/main_font"
-                android:onClick="signUp"
-                android:text="Don't Have an Account?"
-                android:textColor="#0a2658"
-                android:textSize="20sp" />
-        </LinearLayout>
-    </ScrollView>
-
-    <ImageView
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/header" />
+        android:layout_height="40dp" />
 
     <TextView
         android:id="@+id/signin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/header"
-        android:layout_centerHorizontal="true"
         android:fontFamily="@font/main_font"
         android:text="SignIn"
-        android:textColor="#0a2658"
+        android:textColor="#d3d3d3"
         android:textSize="100sp" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+/>
+    <ScrollView
 
-
-    <Button
-        android:id="@+id/signinButton"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:fillViewport="true">
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
-        android:backgroundTint="#0a2658"
-        android:fontFamily="@font/main_font"
-        android:text="SignIn"
-        android:textSize="19sp" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/signinButton"
-        android:layout_centerInParent="true"
-        android:visibility="gone"/>
+        android:gravity="center"
+        android:orientation="vertical">
 
 
+<Space
+    android:layout_width="match_parent"
+    android:layout_height="50dp"/>
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/main_font"
+            android:gravity="center"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress"
 
-</RelativeLayout>
+            />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/email"
+            android:fontFamily="@font/main_font"
+            android:gravity="center"
+            android:hint="Password"
+            android:inputType="textPassword" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:fontFamily="@font/main_font"
+            android:onClick="signUp"
+            android:text="Don't Have an Account?"
+            android:textColor="#0a2658"
+            android:textSize="20sp" />
+
+
+        <Button
+            android:id="@+id/signinButton"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:backgroundTint="#0a2658"
+            android:fontFamily="@font/main_font"
+            android:text="SignIn"
+            android:textSize="19sp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/signinButton"
+            android:visibility="gone" />
+
+
+    </LinearLayout>
+    </ScrollView>
+</LinearLayout>

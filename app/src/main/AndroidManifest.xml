@@ -13,13 +13,16 @@
         android:theme="@style/Theme.Drink">
         <activity
             android:name=".mainActivity"
-            android:exported="false" />
+            android:exported="false"
+            />
         <activity
             android:name=".signIn"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".signUp"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".splashScreen"
             android:exported="true">
