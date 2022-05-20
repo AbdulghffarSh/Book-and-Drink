@@ -4,12 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -144,7 +149,10 @@ public class signUp extends AppCompatActivity {
         myRef.child("userName").setValue(user.getFullName());
         myRef.child("userNumber").setValue(user.getPhoneNumber());
     }
+    public void signIn(View view) {
+        startActivity(new Intent(signUp.this,signIn.class));
 
+    }
 
     private void setup() {
         email = (EditText) findViewById(R.id.email);
@@ -161,5 +169,14 @@ public class signUp extends AppCompatActivity {
 
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
 
+        TextView textView = (TextView) findViewById(R.id.signIn);
+        String text = "Already have an account ? Sign in";
+        SpannableString ss = new SpannableString(text);
+        ForegroundColorSpan color1 = new ForegroundColorSpan(Color.rgb(10, 38, 80));
+        ForegroundColorSpan color2 = new ForegroundColorSpan(Color.rgb(0, 218, 248));
+        ss.setSpan(color1, 1, 25, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(color2, 26, 33, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        textView.setText(ss);
     }
 }

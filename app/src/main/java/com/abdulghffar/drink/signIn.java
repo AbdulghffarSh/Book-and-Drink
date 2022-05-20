@@ -4,11 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,6 +43,19 @@ public class signIn extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String passwordText = password.getText().toString();
+                String emailText = email.getText().toString();
+
+
+                if (emailText.isEmpty()) {
+                    Toasty.warning(signIn.this, "Please enter your Email", Toast.LENGTH_SHORT, true).show();
+                    return;
+                }
+                if (passwordText.isEmpty()) {
+                    Toasty.warning(signIn.this, "Please enter your Password", Toast.LENGTH_SHORT, true).show();
+                    return;
+                }
+                else{
                 mAuth.signInWithEmailAndPassword(email.getText().toString(),password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -54,7 +72,7 @@ public class signIn extends AppCompatActivity {
                         }
                     }
                 });
-            }
+            }}
         });
 
     }
@@ -69,7 +87,15 @@ public class signIn extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
         signInButton = (Button) findViewById(R.id.signinButton);
 
+        TextView textView = (TextView) findViewById(R.id.singUp);
+        String text = "Don't Have an Account? Sign up";
+        SpannableString ss = new SpannableString(text);
+        ForegroundColorSpan color1 = new ForegroundColorSpan(Color.rgb(10, 38, 80));
+        ForegroundColorSpan color2 = new ForegroundColorSpan(Color.rgb(0, 218, 248));
+        ss.setSpan(color1, 1, 22, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(color2, 23, 30, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
+        textView.setText(ss);
 
     }
 

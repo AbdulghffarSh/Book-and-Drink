@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".profileFragment"
-    android:background="#D3D3D3"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -28,11 +27,11 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="0dp"
             android:layout_toEndOf="@+id/profilePic"
-            android:fontFamily="@font/main_font"
+            android:fontFamily="@font/itim"
             android:gravity="center"
             android:text="Hello"
-            android:textSize="40dp"
             android:textColor="#0A2658"
+            android:textSize="40dp"
 
             />
 
