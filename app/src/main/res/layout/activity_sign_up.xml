@@ -19,7 +19,7 @@
         android:fontFamily="@font/itim"
         android:text="Welcome to our Cafe\nLet’s Sign you up first"
         android:textColor="#CC021536"
-        android:textSize="25sp" />
+        android:textSize="20sp" />
 
     <LinearLayout
         android:id="@+id/signuplayout"

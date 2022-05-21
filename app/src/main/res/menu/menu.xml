@@ -8,11 +8,16 @@
 
     <item
         android:id="@+id/item1"
+        android:title="BookShop"
+        android:icon="@drawable/bookshop"/>
+
+    <item
+        android:id="@+id/item2"
         android:title="Cart"
         android:icon="@drawable/cart"/>
 
     <item
-        android:id="@+id/item2"
+        android:id="@+id/item3"
         android:title="Profile"
         android:icon="@drawable/user"/>
 

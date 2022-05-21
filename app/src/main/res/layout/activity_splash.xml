@@ -9,7 +9,7 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/browser_actions_context_menu_max_width"
         android:layout_height="300dp"
         android:layout_centerInParent="true"
         android:src="@drawable/logo" />
@@ -31,6 +31,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="Created By Abdulghffar" />
+        android:text="Created By Abdulghffar"
+        android:fontFamily="@font/itim"
+        android:textStyle="italic|bold"/>
 
 </RelativeLayout>
