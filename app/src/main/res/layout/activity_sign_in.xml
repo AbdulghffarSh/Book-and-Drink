@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/header"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".signIn"
-android:id="@+id/header"
     android:gravity="center_horizontal"
-    >
+    android:orientation="vertical"
+    tools:context=".signIn">
+
     <Space
         android:layout_width="match_parent"
         android:layout_height="40dp" />
@@ -23,76 +23,71 @@ android:id="@+id/header"
         android:text="Welcome Back !"
         android:textColor="#CC021536"
         android:textSize="20sp" />
+
     <Space
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-/>
+        android:layout_height="40dp" />
 
 
-        <LinearLayout
-            android:id="@+id/singInLayout"
+    <LinearLayout
+        android:id="@+id/singInLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+
+        <EditText
+            android:id="@+id/email"
             android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="57dp"
+            android:layout_marginEnd="57dp"
+            android:background="@drawable/rounded_edittext"
+            android:fontFamily="@font/itim"
+
+            android:gravity="center"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress"
+
+            />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/email"
+            android:layout_marginStart="57dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="57dp"
+            android:background="@drawable/rounded_edittext"
+            android:fontFamily="@font/itim"
+            android:gravity="center"
+            android:hint="Password"
+            android:inputType="textPassword" />
+
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_centerInParent="true">
+            android:layout_above="@+id/signinButton"
+            android:visibility="gone" />
 
 
-
-
-            <EditText
-                android:background="@drawable/rounded_edittext"
-                android:id="@+id/email"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:fontFamily="@font/itim"
-                android:hint="E-mail"
-                android:inputType="textEmailAddress"
-
-                android:gravity="center"
-                android:layout_marginStart="57dp"
-                android:layout_marginEnd="57dp"
-
-                />
-
-            <EditText
-                android:layout_marginTop="20dp"
-                android:background="@drawable/rounded_edittext"
-                android:id="@+id/password"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@+id/email"
-                android:fontFamily="@font/itim"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:gravity="center"
-                android:layout_marginStart="57dp"
-                android:layout_marginEnd="57dp"/>
-
-
-
-
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/signinButton"
-                android:visibility="gone" />
-
-
-        </LinearLayout>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/singUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/signinButton"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
         android:clickable="true"
         android:fontFamily="@font/itim"
         android:onClick="signUp"
         android:text="Don't Have an Account? Sign up"
-android:layout_centerHorizontal="true"
         android:textColor="#0A2658"
         android:textSize="15sp" />
 

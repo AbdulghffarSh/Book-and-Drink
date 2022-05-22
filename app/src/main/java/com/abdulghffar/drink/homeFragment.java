@@ -1,5 +1,7 @@
 package com.abdulghffar.drink;
 
+import static android.content.ContentValues.TAG;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,6 +25,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.StorageReference;
 import com.smarteist.autoimageslider.SliderView;
 
@@ -31,12 +37,13 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class homeFragment extends Fragment {
 
     View view;
-    ArrayList<String> imagesArraylist = new ArrayList<String>();
-
+    ArrayList<item> drinks = new ArrayList<item>();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,35 +53,43 @@ public class homeFragment extends Fragment {
         StrictMode.setThreadPolicy(policy);
 
         view = inflater.inflate(R.layout.fragment_home, container, false);
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("images");
 
 
 
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot images: dataSnapshot.getChildren()){
-                    String imageLink=images.child("link").getValue().toString();
-                    imagesArraylist.add(imageLink);
-                }
-                System.out.println(imagesArraylist.get(0));
-                try {
 
-                    ImageView advImage = (ImageView)view.findViewById(R.id.advImage);
-                    Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(imagesArraylist.get(0)).getContent());
-                    advImage.setImageBitmap(bitmap);
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+        db.collection("Drinks")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
 
-        // Inflate the layout for this fragment
+                                String   itemName =  Objects.requireNonNull(document.getData().get("drinkName")).toString();
+                                float itemPrice = Float.parseFloat((Objects.requireNonNull(document.getData().get("price")).toString()));
+                                String   itemDescription =  Objects.requireNonNull(document.getData().get("description")).toString();
+                                String   itemPicURL =  Objects.requireNonNull(document.getData().get("imgUrl")).toString();
+                                item newItem = new item(itemName,itemPrice,itemDescription,itemPicURL);
+                                drinks.add(newItem);
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+
+
+
+
+
+
+
+
+
         return view;
     }
-
 }
+
+
+

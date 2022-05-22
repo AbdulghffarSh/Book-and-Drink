@@ -3,26 +3,23 @@
 
     <item
         android:id="@+id/item0"
-        android:title="Shop"
-        android:icon="@drawable/shop"/>
+        android:icon="@drawable/shop"
+        android:title="Shop" />
 
     <item
         android:id="@+id/item1"
-        android:title="BookShop"
-        android:icon="@drawable/bookshop"/>
+        android:icon="@drawable/bookshop"
+        android:title="BookShop" />
 
     <item
         android:id="@+id/item2"
-        android:title="Cart"
-        android:icon="@drawable/cart"/>
+        android:icon="@drawable/cart"
+        android:title="Cart" />
 
     <item
         android:id="@+id/item3"
-        android:title="Profile"
-        android:icon="@drawable/user"/>
-
-
-
+        android:icon="@drawable/user"
+        android:title="Profile" />
 
 
 </menu>
