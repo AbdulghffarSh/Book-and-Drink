@@ -1,10 +1,10 @@
 package com.abdulghffar.drink;
 
-import static android.content.ContentValues.TAG;
-
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,29 +14,35 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.Map;
 
 public class homeFragment extends Fragment {
 
     View view;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private RecyclerView recyclerView;
-    private Adapter adapter;
-    String itemPicURL;
-    ArrayList<item> drinks= new ArrayList<>();
 
-
-    float itemPrice;
-    String itemName;
-    String itemDescription;
+    RecyclerView recyclerView;
+    ArrayList<item> itemArrayList;
+    Adapter adapter;
+    FirebaseFirestore db;
 
 
     @Override
@@ -48,50 +54,49 @@ public class homeFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        //addData
+        recyclerView = view.findViewById(R.id.recyclerview);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        db.collection("Drinks")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
+        db = FirebaseFirestore.getInstance();
+        itemArrayList = new ArrayList<>();
+        adapter = new Adapter(view.getContext(), itemArrayList);
+        recyclerView.setAdapter(adapter);
 
 
-                                itemName = (document.getData().get("drinkName")).toString();
-                                itemPrice = Float.parseFloat((Objects.requireNonNull(document.getData().get("price")).toString()));
-                                itemDescription = Objects.requireNonNull(document.getData().get("description")).toString();
-                                itemPicURL = Objects.requireNonNull(document.getData().get("imgUrl")).toString();
-
-                                drinks.add(new item(itemName, itemPrice, itemDescription, itemPicURL));                            }
-                        } else {
-                            Log.w(TAG, "Error getting documents.", task.getException());
-                        }
-
-                    }
-
-                });
-
-
-        System.out.println("drinks            "+drinks);
-
-
-//        recyclerView = view.findViewById(R.id.recycler_view);
-//
-//        adapter = new Adapter(drinks);
-//
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-//
-//        recyclerView.setLayoutManager(layoutManager);
-//
-//        recyclerView.setAdapter(adapter);
+        EventChangeListener();
 
 
         return view;
     }
 
+
+    private void EventChangeListener() {
+
+        db.collection("Drinks").orderBy("itemName", Query.Direction.ASCENDING)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                        if (error != null) {
+
+                            Log.e("Firesore error", error.getMessage());
+                            return;
+                        }
+
+                        for (DocumentChange dc : value.getDocumentChanges()) {
+
+                            if (dc.getType() == DocumentChange.Type.ADDED) {
+                                itemArrayList.add(dc.getDocument().toObject(item.class));
+                            }
+
+                            adapter.notifyDataSetChanged();
+
+                        }
+                    }
+                });
+
+    }
 
 
 }

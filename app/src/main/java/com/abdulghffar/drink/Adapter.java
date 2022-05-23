@@ -1,6 +1,6 @@
 package com.abdulghffar.drink;
 
-import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,42 +13,55 @@ import java.util.ArrayList;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
+    Context context;
+    ArrayList<item> itemArrayList;
 
-    private ArrayList<item> drinks;
-
-    public Adapter(ArrayList<item> drinks) {
-        this.drinks = drinks;
+    public Adapter(Context context, ArrayList<item> itemArrayList) {
+        this.context = context;
+        this.itemArrayList = itemArrayList;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.card, parent, false);
-        return new ViewHolder(view);
+    public Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        View v = LayoutInflater.from(context).inflate(R.layout.item,parent,false);
+
+
+        return new ViewHolder(v);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.itemName.setText(drinks.get(position).getItemName());
-        holder.itemPrice.setText(Float.toString(drinks.get(position).getItemPrice()));
-        holder.itemDescription.setText(drinks.get(position).getItemPicURL());
+    public void onBindViewHolder(@NonNull Adapter.ViewHolder holder, int position) {
+
+        item item = itemArrayList.get(position);
+
+
+        holder.itemName.setText(item.getItemName());
+        holder.itemPrice.setText(item.getItemPrice());
+        holder.itemDescription.setText(item.getItemDescription());
+
+
+
+
     }
 
     @Override
     public int getItemCount() {
-        return (drinks != null) ? drinks.size() : 0;
+        return itemArrayList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView itemName, itemPrice, itemDescription;
+    public static class ViewHolder extends RecyclerView.ViewHolder{
+        TextView itemName,itemPrice,itemDescription;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemName = itemView.findViewById(R.id.itemName);
-            itemPrice = itemView.findViewById(R.id.itemPrice);
-            itemDescription = itemView.findViewById(R.id.itemDescription);
+
+                    itemName= itemView.findViewById(R.id.itemName);
+                    itemPrice= itemView.findViewById(R.id.itemPrice);
+                    itemDescription= itemView.findViewById(R.id.itemDescription);
+
         }
     }
+
 }
