@@ -1,7 +1,8 @@
 package com.abdulghffar.drink;
 
-public class item {
-    private String itemName,itemPrice,itemDescription;
+
+public class item{
+    private String itemID,itemName,itemPrice,itemDescription;
 
 
     public void setItemName(String itemName) {
@@ -26,6 +27,14 @@ public class item {
 
     public String getItemDescription() {
         return itemDescription;
+    }
+
+    public String getItemID() {
+        return itemID;
+    }
+
+    public void setItemID(String itemID) {
+        this.itemID = itemID;
     }
 
     public item(String itemName, String itemPrice, String itemDescription) {

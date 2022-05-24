@@ -1,9 +1,8 @@
 package com.abdulghffar.drink;
 
-import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,26 +13,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.widget.ListView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.List;
+import java.util.Random;
 
 public class homeFragment extends Fragment {
 
@@ -48,6 +42,10 @@ public class homeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        Bundle bundle= getArguments();
+
+        addData(bundle);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -64,37 +62,17 @@ public class homeFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
-        EventChangeListener();
-
+//        EventChangeListener();
 
         return view;
     }
 
+    private void addData(Bundle bundle) {
 
-    private void EventChangeListener() {
+                System.out.println(bundle.getStringArrayList("lists"));
 
-        db.collection("Drinks").orderBy("itemName", Query.Direction.ASCENDING)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                        if (error != null) {
 
-                            Log.e("Firesore error", error.getMessage());
-                            return;
-                        }
-
-                        for (DocumentChange dc : value.getDocumentChanges()) {
-
-                            if (dc.getType() == DocumentChange.Type.ADDED) {
-                                itemArrayList.add(dc.getDocument().toObject(item.class));
-                            }
-
-                            adapter.notifyDataSetChanged();
-
-                        }
-                    }
-                });
 
     }
 
