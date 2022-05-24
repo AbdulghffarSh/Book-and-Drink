@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,16 +37,31 @@ public class homeFragment extends Fragment {
     RecyclerView recyclerView;
     ArrayList<item> itemArrayList;
     Adapter adapter;
-    FirebaseFirestore db;
+
+
+    ArrayList<String> itemIDArrayList;
+    ArrayList<String> itemNameArrayList;
+    ArrayList<String> itemPriceArrayList;
+    ArrayList<String> itemDescriptionArrayList;
+    ArrayList<String> itemPicURLArrayList;
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Bundle bundle= getArguments();
+        itemIDArrayList = new ArrayList<>();
+        itemNameArrayList = new ArrayList<>();
+        itemPriceArrayList = new ArrayList<>();
+        itemDescriptionArrayList = new ArrayList<>();
+        itemArrayList = new ArrayList<>();
+        itemPicURLArrayList= new ArrayList<>();
+        Bundle bundle = getArguments();
 
         addData(bundle);
+
+        System.out.println(itemArrayList);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -54,25 +70,29 @@ public class homeFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
 
-        db = FirebaseFirestore.getInstance();
-        itemArrayList = new ArrayList<>();
+
         adapter = new Adapter(view.getContext(), itemArrayList);
         recyclerView.setAdapter(adapter);
 
-
-//        EventChangeListener();
 
         return view;
     }
 
     private void addData(Bundle bundle) {
 
-                System.out.println(bundle.getStringArrayList("lists"));
+        itemIDArrayList = bundle.getStringArrayList("itemIDArrayList");
+//        itemPicURLArrayList = bundle.getStringArrayList("itemPicURLArrayList");
+        itemNameArrayList = bundle.getStringArrayList("itemNameArrayList");
+        itemPriceArrayList = bundle.getStringArrayList("itemPriceArrayList");
+        itemDescriptionArrayList = bundle.getStringArrayList("itemDescriptionArrayList");
 
+        for (int i = 0; i < (itemIDArrayList.size() - 1); i++) {
+            itemArrayList.add(new item(itemIDArrayList.get(i), itemNameArrayList.get(i), itemPriceArrayList.get(i), itemDescriptionArrayList.get(i)));
+        }
 
-
+        System.out.println(itemArrayList);
 
     }
 

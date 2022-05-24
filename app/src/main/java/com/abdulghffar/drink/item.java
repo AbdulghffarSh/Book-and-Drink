@@ -4,6 +4,12 @@ package com.abdulghffar.drink;
 public class item{
     private String itemID,itemName,itemPrice,itemDescription;
 
+    public item(String itemID, String itemName, String itemPrice, String itemDescription) {
+        this.itemID = itemID;
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
+        this.itemDescription = itemDescription;
+    }
 
     public void setItemName(String itemName) {
         this.itemName = itemName;
@@ -45,4 +51,6 @@ public class item{
 
     public item() {
     }
+
+
 }

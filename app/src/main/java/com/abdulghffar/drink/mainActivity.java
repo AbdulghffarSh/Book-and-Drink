@@ -104,16 +104,26 @@ public class mainActivity extends AppCompatActivity {
 
     public void homeFragment() {
 
-
         ArrayList<String> itemIDArrayList = new ArrayList<>();
+//        ArrayList<String> itemPicURLArrayList= new ArrayList<>();
         ArrayList<String> itemNameArrayList = new ArrayList<>();
         ArrayList<String> itemPriceArrayList = new ArrayList<>();
         ArrayList<String> itemDescriptionArrayList = new ArrayList<>();
 
 
+        for(item item : itemArrayList) {
+            itemIDArrayList.add(item.getItemID());
+
+            itemNameArrayList.add(item.getItemName());
+            itemPriceArrayList.add(item.getItemPrice());
+            itemDescriptionArrayList.add(item.getItemDescription());
+        }
+
+
 
         Bundle bundle = new Bundle();
         bundle.putStringArrayList("itemIDArrayList",itemIDArrayList);
+//        bundle.putStringArrayList("itemPicURLArrayList",itemPicURLArrayList);
         bundle.putStringArrayList("itemNameArrayList",itemNameArrayList);
         bundle.putStringArrayList("itemPriceArrayList",itemPriceArrayList);
         bundle.putStringArrayList("itemDescriptionArrayList",itemDescriptionArrayList);

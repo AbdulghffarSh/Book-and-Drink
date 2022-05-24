@@ -39,7 +39,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         holder.itemName.setText(item.getItemName());
         holder.itemPrice.setText(item.getItemPrice());
-        holder.itemDescription.setText(item.getItemDescription());
 
 
 
@@ -59,7 +58,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
                     itemName= itemView.findViewById(R.id.itemName);
                     itemPrice= itemView.findViewById(R.id.itemPrice);
-                    itemDescription= itemView.findViewById(R.id.itemDescription);
 
         }
     }
