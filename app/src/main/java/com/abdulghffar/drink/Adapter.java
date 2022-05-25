@@ -25,7 +25,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @Override
     public Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(context).inflate(R.layout.item,parent,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.item, parent, false);
 
 
         return new ViewHolder(v);
@@ -41,8 +41,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         holder.itemPrice.setText(item.getItemPrice());
 
 
-
-
     }
 
     @Override
@@ -50,14 +48,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         return itemArrayList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
-        TextView itemName,itemPrice,itemDescription;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView itemName, itemPrice, itemDescription;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-                    itemName= itemView.findViewById(R.id.itemName);
-                    itemPrice= itemView.findViewById(R.id.itemPrice);
+            itemName = itemView.findViewById(R.id.itemName);
+            itemPrice = itemView.findViewById(R.id.itemPrice);
 
         }
     }

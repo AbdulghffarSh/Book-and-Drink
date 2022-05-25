@@ -60,10 +60,9 @@ public class mainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         setup();
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
 
         bottomBar.setOnItemSelected((Function1<? super Integer, Unit>) o -> {
             switch (o) {
@@ -85,7 +84,8 @@ public class mainActivity extends AppCompatActivity {
     }
 
     private void setup() {
-
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
         EventChangeListener();
         header = (TextView) findViewById(R.id.header_title);
         bottomBar = (SmoothBottomBar) findViewById(R.id.bottomBar);
@@ -105,35 +105,36 @@ public class mainActivity extends AppCompatActivity {
     public void homeFragment() {
 
         ArrayList<String> itemIDArrayList = new ArrayList<>();
-//        ArrayList<String> itemPicURLArrayList= new ArrayList<>();
+        ArrayList<String> itemPicURLArrayList = new ArrayList<>();
         ArrayList<String> itemNameArrayList = new ArrayList<>();
         ArrayList<String> itemPriceArrayList = new ArrayList<>();
         ArrayList<String> itemDescriptionArrayList = new ArrayList<>();
 
 
-        for(item item : itemArrayList) {
+        for (item item : itemArrayList) {
             itemIDArrayList.add(item.getItemID());
-
+            itemPicURLArrayList.add(item.getItemPicURL());
             itemNameArrayList.add(item.getItemName());
             itemPriceArrayList.add(item.getItemPrice());
             itemDescriptionArrayList.add(item.getItemDescription());
+
+
         }
 
 
-
         Bundle bundle = new Bundle();
-        bundle.putStringArrayList("itemIDArrayList",itemIDArrayList);
-//        bundle.putStringArrayList("itemPicURLArrayList",itemPicURLArrayList);
-        bundle.putStringArrayList("itemNameArrayList",itemNameArrayList);
-        bundle.putStringArrayList("itemPriceArrayList",itemPriceArrayList);
-        bundle.putStringArrayList("itemDescriptionArrayList",itemDescriptionArrayList);
+        bundle.putStringArrayList("itemIDArrayList", itemIDArrayList);
+        bundle.putStringArrayList("itemPicURLArrayList", itemPicURLArrayList);
+        bundle.putStringArrayList("itemNameArrayList", itemNameArrayList);
+        bundle.putStringArrayList("itemPriceArrayList", itemPriceArrayList);
+        bundle.putStringArrayList("itemDescriptionArrayList", itemDescriptionArrayList);
 
         homeFragment homeFragment = new homeFragment();
         homeFragment.setArguments(bundle);
 
 
         header.setText("Home");
-    replaceFragment(homeFragment);
+        replaceFragment(homeFragment);
 
 
     }
@@ -143,8 +144,6 @@ public class mainActivity extends AppCompatActivity {
         replaceFragment(new profileFragment());
 
     }
-
-
 
 
     private void EventChangeListener() {
@@ -167,7 +166,7 @@ public class mainActivity extends AppCompatActivity {
                             if (dc.getType() == DocumentChange.Type.ADDED) {
 
                                 itemArrayList.add(dc.getDocument().toObject(item.class));
-                                itemArrayList.get(itemArrayList.size()-1).setItemID(dc.getDocument().getId().toString());
+                                itemArrayList.get(itemArrayList.size() - 1).setItemID(dc.getDocument().getId().toString());
                             }
 
                         }

@@ -1,6 +1,7 @@
 package com.abdulghffar.drink;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -26,6 +27,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -46,7 +49,6 @@ public class homeFragment extends Fragment {
     ArrayList<String> itemPicURLArrayList;
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,7 +58,7 @@ public class homeFragment extends Fragment {
         itemPriceArrayList = new ArrayList<>();
         itemDescriptionArrayList = new ArrayList<>();
         itemArrayList = new ArrayList<>();
-        itemPicURLArrayList= new ArrayList<>();
+        itemPicURLArrayList = new ArrayList<>();
         Bundle bundle = getArguments();
 
         addData(bundle);
@@ -83,19 +85,30 @@ public class homeFragment extends Fragment {
     private void addData(Bundle bundle) {
 
         itemIDArrayList = bundle.getStringArrayList("itemIDArrayList");
-//        itemPicURLArrayList = bundle.getStringArrayList("itemPicURLArrayList");
+        itemPicURLArrayList = bundle.getStringArrayList("itemPicURLArrayList");
         itemNameArrayList = bundle.getStringArrayList("itemNameArrayList");
         itemPriceArrayList = bundle.getStringArrayList("itemPriceArrayList");
         itemDescriptionArrayList = bundle.getStringArrayList("itemDescriptionArrayList");
 
+
         for (int i = 0; i < (itemIDArrayList.size() - 1); i++) {
-            itemArrayList.add(new item(itemIDArrayList.get(i), itemNameArrayList.get(i), itemPriceArrayList.get(i), itemDescriptionArrayList.get(i)));
+            itemArrayList.add(new item(itemIDArrayList.get(i),
+                    itemNameArrayList.get(i), itemPriceArrayList.get(i), itemDescriptionArrayList.get(i),itemPicURLArrayList.get(i)));
         }
 
-        System.out.println(itemArrayList);
+
+
 
     }
-
+    public static Drawable LoadImageFromWebOperations(String url) {
+        try {
+            InputStream is = (InputStream) new URL(url).getContent();
+            Drawable d = Drawable.createFromStream(is, "src name");
+            return d;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
 }
 
