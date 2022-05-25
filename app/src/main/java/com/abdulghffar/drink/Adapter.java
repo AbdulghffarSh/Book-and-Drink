@@ -49,7 +49,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         if(item.getItemPicURL()!=null && !item.getItemPicURL().isEmpty()) {
             Picasso.get()
-                    .load(item.getItemPicURL())
+                    .load(item.getItemPicURL()).transform(new RoundedTransformation(30,0))
                     .placeholder(R.drawable.no_image)
                     .error(R.drawable.no_image)
                     // To fit image into imageView
