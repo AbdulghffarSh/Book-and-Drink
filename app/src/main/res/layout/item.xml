@@ -5,10 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     card_view:cardCornerRadius="7dp"
-    card_view:cardUseCompatPadding="true"
     card_view:cardElevation="0dp"
-    >
-
+    card_view:cardUseCompatPadding="true">
 
 
     <LinearLayout
@@ -22,15 +20,15 @@
             android:id="@+id/itemName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
             android:background="@drawable/rounded_edittext"
             android:fontFamily="@font/itim"
+            android:gravity="left"
             android:paddingHorizontal="20dp"
             android:text="itemName"
             android:textColor="@color/black"
             android:textSize="17sp"
-            android:textStyle="bold"
-            android:layout_gravity="left"
-            android:gravity="left"/>
+            android:textStyle="bold" />
 
 
         <ImageView
@@ -41,17 +39,18 @@
 
 
     </LinearLayout>
+
     <TextView
         android:id="@+id/itemPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
+        android:layout_marginRight="15dp"
         android:fontFamily="@font/itim"
-android:text="Price"
+        android:text="Price"
         android:textColor="@color/black"
-        android:textStyle="bold"
         android:textSize="20sp"
-        android:layout_marginRight="15dp"/>
+        android:textStyle="bold" />
 
 
 </androidx.cardview.widget.CardView>

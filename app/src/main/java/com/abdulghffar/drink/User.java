@@ -7,7 +7,7 @@ public class User {
     private String phoneNumber;
     private String gender;
 
-    public User(String uID, String email, String fullName, String phoneNumber,String gender) {
+    public User(String uID, String email, String fullName, String phoneNumber, String gender) {
         this.uID = uID;
         this.email = email;
         this.fullName = fullName;
@@ -30,6 +30,7 @@ public class User {
     public String getPhoneNumber() {
         return phoneNumber;
     }
+
     public String getGender() {
         return gender;
     }
@@ -49,6 +50,7 @@ public class User {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
     public void setGender(String gender) {
         this.gender = gender;
     }

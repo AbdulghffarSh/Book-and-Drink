@@ -24,7 +24,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     public Adapter(Context context, ArrayList<item> itemArrayList) {
 
 
-
         this.context = context;
         this.itemArrayList = itemArrayList;
     }
@@ -45,11 +44,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         item item = itemArrayList.get(position);
         holder.itemName.setText(item.getItemName());
         holder.itemPrice.setText(item.getItemPrice());
-//        holder.itemImage.setImageResource(1);
 
-        if(item.getItemPicURL()!=null && !item.getItemPicURL().isEmpty()) {
+        if (item.getItemPicURL() != null && !item.getItemPicURL().isEmpty()) {
             Picasso.get()
-                    .load(item.getItemPicURL()).transform(new RoundedTransformation(30,0))
+                    .load(item.getItemPicURL()).transform(new RoundedTransformation(30, 0))
                     .placeholder(R.drawable.no_image)
                     .error(R.drawable.no_image)
                     // To fit image into imageView
@@ -58,7 +56,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                     .noFade()
                     .into(holder.itemImage);
         } else {
-            holder.itemImage.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.no_image));
+            holder.itemImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.no_image));
         }
 
 
@@ -72,6 +70,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView itemName, itemPrice;
         ImageView itemImage;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 

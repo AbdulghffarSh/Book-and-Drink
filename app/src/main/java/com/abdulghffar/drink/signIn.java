@@ -54,33 +54,30 @@ public class signIn extends AppCompatActivity {
                 if (passwordText.isEmpty()) {
                     Toasty.warning(signIn.this, "Please enter your Password", Toast.LENGTH_SHORT, true).show();
                     return;
+                } else {
+                    mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            progressBar.setVisibility(View.VISIBLE);
+                            if (task.isSuccessful()) {
+                                progressBar.setVisibility(View.GONE);
+
+                                Toasty.success(signIn.this, "You have been successfully logged in", Toast.LENGTH_SHORT, true).show();
+                                startActivity(new Intent(signIn.this, mainActivity.class));
+                            } else {
+                                Toasty.error(signIn.this, task.getException().getMessage(), Toast.LENGTH_SHORT, true).show();
+
+                            }
+                        }
+                    });
                 }
-                else{
-                mAuth.signInWithEmailAndPassword(email.getText().toString(),password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressBar.setVisibility(View.VISIBLE);
-                        if (task.isSuccessful()){
-                            progressBar.setVisibility(View.GONE);
-
-                            Toasty.success(signIn.this,"You have been successfully logged in",Toast.LENGTH_SHORT,true).show();
-                            startActivity(new Intent(signIn.this, mainActivity.class));
-                        }
-                        else{
-                            Toasty.error(signIn.this, task.getException().getMessage(), Toast.LENGTH_SHORT, true).show();
-
-                        }
-                    }
-                });
-            }}
+            }
         });
 
     }
 
 
-
-
-    private void setup(){
+    private void setup() {
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         email = (EditText) findViewById(R.id.email);
@@ -100,10 +97,8 @@ public class signIn extends AppCompatActivity {
     }
 
 
-
-
     public void signUp(View view) {
-        startActivity(new Intent(signIn.this,signUp.class));
+        startActivity(new Intent(signIn.this, signUp.class));
 
     }
 }
