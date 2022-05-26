@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,17 +10,21 @@
 
 
     <RelativeLayout
+        android:id="@+id/profileData"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:padding="10dp"
+        >
+
 
         <ImageView
             android:id="@+id/profilePic"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_centerVertical="true"
             android:layout_marginStart="30dp"
-            android:src="@drawable/user" />
+            android:src="@drawable/guy" />
 
         <TextView
             android:id="@+id/name"
@@ -32,11 +36,88 @@
             android:layout_toEndOf="@+id/profilePic"
             android:fontFamily="@font/itim"
             android:gravity="center"
-            android:text="Hello"
+            android:text="Name"
             android:textColor="#0A2658"
             android:textSize="40dp"
 
             />
 
     </RelativeLayout>
-</LinearLayout>
+
+    <LinearLayout
+        android:layout_below="@+id/profileData"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:orientation="vertical"
+        >
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Your personal information"
+            android:fontFamily="@font/itim"
+            android:background="@drawable/border"
+            android:padding="10dp"
+            />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Your address"
+            android:fontFamily="@font/itim"
+            android:background="@drawable/border"
+            android:padding="10dp"
+            />
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:gravity="center">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/whatsappButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_whatsapp"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/emailButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_email"
+            android:layout_toRightOf="@+id/whatsappButton"
+            android:layout_marginStart="20dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/callButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_call"
+            android:layout_marginStart="20dp"
+            android:layout_toRightOf="@+id/emailButton"
+
+            />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
