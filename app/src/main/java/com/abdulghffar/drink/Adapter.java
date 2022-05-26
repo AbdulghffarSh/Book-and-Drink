@@ -19,13 +19,13 @@ import java.util.ArrayList;
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     Context context;
-    ArrayList<item> drinksItemArrayList;
+    ArrayList<item> itemArrayList;
 
-    public Adapter(Context context, ArrayList<item> drinksItemArrayList) {
+    public Adapter(Context context, ArrayList<item> itemArrayList) {
 
 
         this.context = context;
-        this.drinksItemArrayList = drinksItemArrayList;
+        this.itemArrayList = itemArrayList;
     }
 
     @NonNull
@@ -41,7 +41,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull Adapter.ViewHolder holder, int position) {
 
-        item item = drinksItemArrayList.get(position);
+        item item = itemArrayList.get(position);
         holder.itemName.setText(item.getItemName());
         holder.itemPrice.setText(item.getItemPrice() + " JD");
 
@@ -64,7 +64,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return drinksItemArrayList.size();
+        return itemArrayList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
