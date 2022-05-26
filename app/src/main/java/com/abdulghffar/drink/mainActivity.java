@@ -67,13 +67,15 @@ public class mainActivity extends AppCompatActivity {
         bottomBar.setOnItemSelected((Function1<? super Integer, Unit>) o -> {
             switch (o) {
                 case 0:
+                    System.out.println("homeFragment");
                     homeFragment();
                     break;
                 case 1:
+                    System.out.println("bookShopFragment");
                     bookShopFragment();
                     break;
                 case 2:
-                    profileFragment();
+                    bookShopFragment();
                     break;
                 case 3:
                     profileFragment();
@@ -107,30 +109,30 @@ public class mainActivity extends AppCompatActivity {
 
     public void homeFragment() {
 
-        ArrayList<String> itemIDArrayList = new ArrayList<>();
-        ArrayList<String> itemPicURLArrayList = new ArrayList<>();
-        ArrayList<String> itemNameArrayList = new ArrayList<>();
-        ArrayList<String> itemPriceArrayList = new ArrayList<>();
-        ArrayList<String> itemDescriptionArrayList = new ArrayList<>();
+        ArrayList<String> drinksIDArrayList = new ArrayList<>();
+        ArrayList<String> drinksPicURLArrayList = new ArrayList<>();
+        ArrayList<String> drinksNameArrayList = new ArrayList<>();
+        ArrayList<String> drinksPriceArrayList = new ArrayList<>();
+        ArrayList<String> drinksDescriptionArrayList = new ArrayList<>();
 
 
         for (item item : drinksItemArrayList) {
-            itemIDArrayList.add(item.getItemID());
-            itemPicURLArrayList.add(item.getItemPicURL());
-            itemNameArrayList.add(item.getItemName());
-            itemPriceArrayList.add(item.getItemPrice());
-            itemDescriptionArrayList.add(item.getItemDescription());
+            drinksIDArrayList.add(item.getItemID());
+            drinksPicURLArrayList.add(item.getItemPicURL());
+            drinksNameArrayList.add(item.getItemName());
+            drinksPriceArrayList.add(item.getItemPrice());
+            drinksDescriptionArrayList.add(item.getItemDescription());
 
 
         }
 
 
         Bundle bundle = new Bundle();
-        bundle.putStringArrayList("itemIDArrayList", itemIDArrayList);
-        bundle.putStringArrayList("itemPicURLArrayList", itemPicURLArrayList);
-        bundle.putStringArrayList("itemNameArrayList", itemNameArrayList);
-        bundle.putStringArrayList("itemPriceArrayList", itemPriceArrayList);
-        bundle.putStringArrayList("itemDescriptionArrayList", itemDescriptionArrayList);
+        bundle.putStringArrayList("drinksIDArrayList", drinksIDArrayList);
+        bundle.putStringArrayList("drinksPicURLArrayList", drinksPicURLArrayList);
+        bundle.putStringArrayList("drinksNameArrayList", drinksNameArrayList);
+        bundle.putStringArrayList("drinksPriceArrayList", drinksPriceArrayList);
+        bundle.putStringArrayList("drinksDescriptionArrayList", drinksDescriptionArrayList);
 
         homeFragment homeFragment = new homeFragment();
         homeFragment.setArguments(bundle);
@@ -144,30 +146,29 @@ public class mainActivity extends AppCompatActivity {
 
     public void bookShopFragment() {
 
-        ArrayList<String> itemIDArrayList = new ArrayList<>();
-        ArrayList<String> itemPicURLArrayList = new ArrayList<>();
-        ArrayList<String> itemNameArrayList = new ArrayList<>();
-        ArrayList<String> itemPriceArrayList = new ArrayList<>();
-        ArrayList<String> itemDescriptionArrayList = new ArrayList<>();
+        ArrayList<String> booksIDArrayList = new ArrayList<>();
+        ArrayList<String> booksPicURLArrayList = new ArrayList<>();
+        ArrayList<String> booksNameArrayList = new ArrayList<>();
+        ArrayList<String> booksPriceArrayList = new ArrayList<>();
+        ArrayList<String> booksDescriptionArrayList = new ArrayList<>();
 
 
-        for (item item : drinksItemArrayList) {
-            itemIDArrayList.add(item.getItemID());
-            itemPicURLArrayList.add(item.getItemPicURL());
-            itemNameArrayList.add(item.getItemName());
-            itemPriceArrayList.add(item.getItemPrice());
-            itemDescriptionArrayList.add(item.getItemDescription());
+        for (item item : booksItemArrayList) {
+            booksIDArrayList.add(item.getItemID());
+            booksPicURLArrayList.add(item.getItemPicURL());
+            booksNameArrayList.add(item.getItemName());
+            booksPriceArrayList.add(item.getItemPrice());
+            booksDescriptionArrayList.add(item.getItemDescription());
 
 
         }
 
-
         Bundle bundle = new Bundle();
-        bundle.putStringArrayList("itemIDArrayList", itemIDArrayList);
-        bundle.putStringArrayList("itemPicURLArrayList", itemPicURLArrayList);
-        bundle.putStringArrayList("itemNameArrayList", itemNameArrayList);
-        bundle.putStringArrayList("itemPriceArrayList", itemPriceArrayList);
-        bundle.putStringArrayList("itemDescriptionArrayList", itemDescriptionArrayList);
+        bundle.putStringArrayList("booksIDArrayList", booksIDArrayList);
+        bundle.putStringArrayList("booksPicURLArrayList", booksPicURLArrayList);
+        bundle.putStringArrayList("booksNameArrayList", booksNameArrayList);
+        bundle.putStringArrayList("booksPriceArrayList", booksPriceArrayList);
+        bundle.putStringArrayList("booksDescriptionArrayList", booksDescriptionArrayList);
 
         bookShopFragment bookShopFragment = new bookShopFragment();
         bookShopFragment.setArguments(bundle);
@@ -217,6 +218,7 @@ public class mainActivity extends AppCompatActivity {
 
                 });
 
+
         db.collection("Books").orderBy("itemName", Query.Direction.ASCENDING)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
@@ -241,6 +243,7 @@ public class mainActivity extends AppCompatActivity {
                     }
 
                 });
+
 
     }
 }

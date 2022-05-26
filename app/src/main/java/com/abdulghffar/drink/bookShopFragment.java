@@ -26,11 +26,11 @@ public class bookShopFragment extends Fragment {
 
     ImageButton imageButton;
 
-    ArrayList<String> itemIDArrayList;
-    ArrayList<String> itemNameArrayList;
-    ArrayList<String> itemPriceArrayList;
-    ArrayList<String> itemDescriptionArrayList;
-    ArrayList<String> itemPicURLArrayList;
+    ArrayList<String> booksIDArrayList;
+    ArrayList<String> booksNameArrayList;
+    ArrayList<String> booksDescriptionArrayList;
+    ArrayList<String> booksPicURLArrayList;
+    ArrayList<String> booksPriceArrayList;
     ArrayList<item> cartArrayList;
 
     @Override
@@ -40,13 +40,12 @@ public class bookShopFragment extends Fragment {
         cartArrayList = new ArrayList<>();
 
 
-        itemIDArrayList = new ArrayList<>();
-        itemNameArrayList = new ArrayList<>();
-        itemPriceArrayList = new ArrayList<>();
-        itemDescriptionArrayList = new ArrayList<>();
+        booksIDArrayList = new ArrayList<>();
+        booksPicURLArrayList = new ArrayList<>();
+        booksNameArrayList = new ArrayList<>();
+        booksPriceArrayList = new ArrayList<>();
         itemArrayList = new ArrayList<>();
-        itemPicURLArrayList = new ArrayList<>();
-
+        booksDescriptionArrayList = new ArrayList<>();
 
 
         Bundle bundle = getArguments();
@@ -72,17 +71,17 @@ public class bookShopFragment extends Fragment {
     }
 
     private void addData(Bundle bundle) {
+        itemArrayList.clear();
+        booksIDArrayList = bundle.getStringArrayList("booksIDArrayList");
+        booksPicURLArrayList = bundle.getStringArrayList("booksPicURLArrayList");
+        booksNameArrayList = bundle.getStringArrayList("booksNameArrayList");
+        booksPriceArrayList = bundle.getStringArrayList("booksPriceArrayList");
+        booksDescriptionArrayList = bundle.getStringArrayList("booksDescriptionArrayList");
 
-        itemIDArrayList = bundle.getStringArrayList("itemIDArrayList");
-        itemPicURLArrayList = bundle.getStringArrayList("itemPicURLArrayList");
-        itemNameArrayList = bundle.getStringArrayList("itemNameArrayList");
-        itemPriceArrayList = bundle.getStringArrayList("itemPriceArrayList");
-        itemDescriptionArrayList = bundle.getStringArrayList("itemDescriptionArrayList");
 
-
-        for (int i = 0; i < (itemIDArrayList.size() - 1); i++) {
-            itemArrayList.add(new item(itemIDArrayList.get(i),
-                    itemNameArrayList.get(i), itemPriceArrayList.get(i), itemDescriptionArrayList.get(i),itemPicURLArrayList.get(i)));
+        for (int i = 0; i < (booksIDArrayList.size() - 1); i++) {
+            itemArrayList.add(new item(booksIDArrayList.get(i),
+                    booksNameArrayList.get(i), booksPriceArrayList.get(i), booksDescriptionArrayList.get(i),booksPicURLArrayList.get(i)));
         }
 
 

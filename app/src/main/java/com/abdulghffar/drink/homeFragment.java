@@ -44,11 +44,11 @@ public class homeFragment extends Fragment {
 
     ImageButton imageButton;
 
-    ArrayList<String> itemIDArrayList;
-    ArrayList<String> itemNameArrayList;
-    ArrayList<String> itemPriceArrayList;
-    ArrayList<String> itemDescriptionArrayList;
-    ArrayList<String> itemPicURLArrayList;
+    ArrayList<String> drinksIDArrayList;
+    ArrayList<String> drinksNameArrayList;
+    ArrayList<String> drinksPriceArrayList;
+    ArrayList<String> drinksDescriptionArrayList;
+    ArrayList<String> drinksPicURLArrayList;
     ArrayList<item> cartArrayList;
 
     @Override
@@ -58,12 +58,12 @@ public class homeFragment extends Fragment {
         cartArrayList = new ArrayList<>();
 
 
-        itemIDArrayList = new ArrayList<>();
-        itemNameArrayList = new ArrayList<>();
-        itemPriceArrayList = new ArrayList<>();
-        itemDescriptionArrayList = new ArrayList<>();
+        drinksIDArrayList = new ArrayList<>();
+        drinksNameArrayList = new ArrayList<>();
+        drinksPriceArrayList = new ArrayList<>();
+        drinksDescriptionArrayList = new ArrayList<>();
         drinksItemArrayList = new ArrayList<>();
-        itemPicURLArrayList = new ArrayList<>();
+        drinksPicURLArrayList = new ArrayList<>();
 
 //        imageButton = (imageButton).findViewById(R.id.add);
 //        imageButton.setOnClickListener(new View.OnClickListener() {
@@ -97,16 +97,16 @@ public class homeFragment extends Fragment {
 
     private void addData(Bundle bundle) {
 
-        itemIDArrayList = bundle.getStringArrayList("itemIDArrayList");
-        itemPicURLArrayList = bundle.getStringArrayList("itemPicURLArrayList");
-        itemNameArrayList = bundle.getStringArrayList("itemNameArrayList");
-        itemPriceArrayList = bundle.getStringArrayList("itemPriceArrayList");
-        itemDescriptionArrayList = bundle.getStringArrayList("itemDescriptionArrayList");
+        drinksIDArrayList = bundle.getStringArrayList("drinksIDArrayList");
+        drinksPicURLArrayList = bundle.getStringArrayList("drinksPicURLArrayList");
+        drinksNameArrayList = bundle.getStringArrayList("drinksNameArrayList");
+        drinksPriceArrayList = bundle.getStringArrayList("drinksPriceArrayList");
+        drinksDescriptionArrayList = bundle.getStringArrayList("drinksDescriptionArrayList");
 
 
-        for (int i = 0; i < (itemIDArrayList.size() - 1); i++) {
-            drinksItemArrayList.add(new item(itemIDArrayList.get(i),
-                    itemNameArrayList.get(i), itemPriceArrayList.get(i), itemDescriptionArrayList.get(i),itemPicURLArrayList.get(i)));
+        for (int i = 0; i < (drinksIDArrayList.size() - 1); i++) {
+            drinksItemArrayList.add(new item(drinksIDArrayList.get(i),
+                    drinksNameArrayList.get(i), drinksPriceArrayList.get(i), drinksDescriptionArrayList.get(i),drinksPicURLArrayList.get(i)));
         }
 
 
