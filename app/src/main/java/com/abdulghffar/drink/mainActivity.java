@@ -54,7 +54,8 @@ public class mainActivity extends AppCompatActivity {
     TextView header;
     SmoothBottomBar bottomBar;
     FirebaseFirestore db;
-    ArrayList<item> itemArrayList;
+    ArrayList<item> drinksItemArrayList;
+    ArrayList<item> booksItemArrayList;
 
 
     @Override
@@ -63,16 +64,18 @@ public class mainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         setup();
-
         bottomBar.setOnItemSelected((Function1<? super Integer, Unit>) o -> {
             switch (o) {
                 case 0:
                     homeFragment();
                     break;
                 case 1:
-                    profileFragment();
+                    bookShopFragment();
                     break;
                 case 2:
+                    profileFragment();
+                    break;
+                case 3:
                     profileFragment();
                     break;
                 default:
@@ -111,7 +114,7 @@ public class mainActivity extends AppCompatActivity {
         ArrayList<String> itemDescriptionArrayList = new ArrayList<>();
 
 
-        for (item item : itemArrayList) {
+        for (item item : drinksItemArrayList) {
             itemIDArrayList.add(item.getItemID());
             itemPicURLArrayList.add(item.getItemPicURL());
             itemNameArrayList.add(item.getItemName());
@@ -139,6 +142,44 @@ public class mainActivity extends AppCompatActivity {
 
     }
 
+    public void bookShopFragment() {
+
+        ArrayList<String> itemIDArrayList = new ArrayList<>();
+        ArrayList<String> itemPicURLArrayList = new ArrayList<>();
+        ArrayList<String> itemNameArrayList = new ArrayList<>();
+        ArrayList<String> itemPriceArrayList = new ArrayList<>();
+        ArrayList<String> itemDescriptionArrayList = new ArrayList<>();
+
+
+        for (item item : drinksItemArrayList) {
+            itemIDArrayList.add(item.getItemID());
+            itemPicURLArrayList.add(item.getItemPicURL());
+            itemNameArrayList.add(item.getItemName());
+            itemPriceArrayList.add(item.getItemPrice());
+            itemDescriptionArrayList.add(item.getItemDescription());
+
+
+        }
+
+
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList("itemIDArrayList", itemIDArrayList);
+        bundle.putStringArrayList("itemPicURLArrayList", itemPicURLArrayList);
+        bundle.putStringArrayList("itemNameArrayList", itemNameArrayList);
+        bundle.putStringArrayList("itemPriceArrayList", itemPriceArrayList);
+        bundle.putStringArrayList("itemDescriptionArrayList", itemDescriptionArrayList);
+
+        bookShopFragment bookShopFragment = new bookShopFragment();
+        bookShopFragment.setArguments(bundle);
+
+
+        header.setText("BookShop");
+        replaceFragment(bookShopFragment);
+
+
+    }
+
+
     public void profileFragment() {
         header.setText("Profile");
         replaceFragment(new profileFragment());
@@ -148,7 +189,8 @@ public class mainActivity extends AppCompatActivity {
 
     private void EventChangeListener() {
         db = FirebaseFirestore.getInstance();
-        itemArrayList = new ArrayList<>();
+        drinksItemArrayList = new ArrayList<>();
+        booksItemArrayList = new ArrayList<>();
 
         db.collection("Drinks").orderBy("itemName", Query.Direction.ASCENDING)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -165,8 +207,33 @@ public class mainActivity extends AppCompatActivity {
 
                             if (dc.getType() == DocumentChange.Type.ADDED) {
 
-                                itemArrayList.add(dc.getDocument().toObject(item.class));
-                                itemArrayList.get(itemArrayList.size() - 1).setItemID(dc.getDocument().getId().toString());
+                                drinksItemArrayList.add(dc.getDocument().toObject(item.class));
+                                drinksItemArrayList.get(drinksItemArrayList.size() - 1).setItemID(dc.getDocument().getId().toString());
+                            }
+
+                        }
+
+                    }
+
+                });
+
+        db.collection("Books").orderBy("itemName", Query.Direction.ASCENDING)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                        if (error != null) {
+
+                            Log.e("Firesore error", error.getMessage());
+                            return;
+                        }
+
+                        for (DocumentChange dc : value.getDocumentChanges()) {
+
+                            if (dc.getType() == DocumentChange.Type.ADDED) {
+
+                                booksItemArrayList.add(dc.getDocument().toObject(item.class));
+                                booksItemArrayList.get(booksItemArrayList.size() - 1).setItemID(dc.getDocument().getId().toString());
                             }
 
                         }

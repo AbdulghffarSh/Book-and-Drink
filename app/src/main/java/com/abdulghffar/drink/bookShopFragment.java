@@ -1,45 +1,27 @@
 package com.abdulghffar.drink;
 
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ListView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
-public class homeFragment extends Fragment {
+public class bookShopFragment extends Fragment {
 
     View view;
 
     RecyclerView recyclerView;
-    ArrayList<item> drinksItemArrayList;
+    ArrayList<item> itemArrayList;
     Adapter adapter;
 
     ImageButton imageButton;
@@ -62,16 +44,10 @@ public class homeFragment extends Fragment {
         itemNameArrayList = new ArrayList<>();
         itemPriceArrayList = new ArrayList<>();
         itemDescriptionArrayList = new ArrayList<>();
-        drinksItemArrayList = new ArrayList<>();
+        itemArrayList = new ArrayList<>();
         itemPicURLArrayList = new ArrayList<>();
 
-//        imageButton = (imageButton).findViewById(R.id.add);
-//        imageButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+
 
         Bundle bundle = getArguments();
 
@@ -88,7 +64,7 @@ public class homeFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
 
 
-        adapter = new Adapter(view.getContext(), drinksItemArrayList);
+        adapter = new Adapter(view.getContext(), itemArrayList);
         recyclerView.setAdapter(adapter);
 
 
@@ -105,7 +81,7 @@ public class homeFragment extends Fragment {
 
 
         for (int i = 0; i < (itemIDArrayList.size() - 1); i++) {
-            drinksItemArrayList.add(new item(itemIDArrayList.get(i),
+            itemArrayList.add(new item(itemIDArrayList.get(i),
                     itemNameArrayList.get(i), itemPriceArrayList.get(i), itemDescriptionArrayList.get(i),itemPicURLArrayList.get(i)));
         }
 
