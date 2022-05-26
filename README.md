@@ -10,5 +10,7 @@ You need a Book&Drink account first, which you are going to use in this app.
   
 ## Details
 In this project i used Firestore for database and storing data as documents
-  
+  this is an example for the document in Firestore:
+![image](https://user-images.githubusercontent.com/63399959/170445210-c822ddb0-202e-4f37-849d-65c7a90991d8.png)
+
 and used Firestorage for saving images the items that will be displayed in the application,
