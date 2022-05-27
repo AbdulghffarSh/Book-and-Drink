@@ -5,18 +5,16 @@
     android:layout_height="match_parent"
     tools:context=".profileFragment"
     android:orientation="vertical"
+    android:paddingHorizontal="5dp"
     >
-
-
 
     <RelativeLayout
         android:id="@+id/profileData"
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/border"
-        android:padding="10dp"
-        >
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_button"
+        android:backgroundTint="#E1E5EB">
 
 
         <ImageView
@@ -49,7 +47,6 @@
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/border"
         android:orientation="vertical"
         >
 
@@ -59,8 +56,8 @@
             android:layout_height="wrap_content"
             android:text="Your personal information"
             android:fontFamily="@font/itim"
-            android:background="@drawable/border"
-            android:padding="10dp"
+            android:background="@drawable/rounded_edittext"
+            android:padding="15dp"
             />
         <Space
             android:layout_width="match_parent"
@@ -71,17 +68,18 @@
             android:layout_height="wrap_content"
             android:text="Your address"
             android:fontFamily="@font/itim"
-            android:background="@drawable/border"
-            android:padding="10dp"
+            android:background="@drawable/rounded_edittext"
+            android:padding="15dp"
             />
 
 
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/contact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/logout"
         android:layout_marginBottom="20dp"
         android:gravity="center">
 
@@ -91,33 +89,56 @@
             android:layout_height="60dp"
             android:background="@null"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_whatsapp"
-            />
+            android:src="@drawable/ic_whatsapp" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/emailButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:layout_marginStart="20dp"
+            android:layout_toRightOf="@+id/whatsappButton"
             android:background="@null"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_email"
-            android:layout_toRightOf="@+id/whatsappButton"
-            android:layout_marginStart="20dp"
-            />
+            android:src="@drawable/ic_email" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/callButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:layout_marginStart="20dp"
+            android:layout_toRightOf="@+id/emailButton"
             android:background="@null"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_call"
-            android:layout_marginStart="20dp"
-            android:layout_toRightOf="@+id/emailButton"
 
             />
-
-
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:clickable="true"
+        android:gravity="center"
+        android:onClick="logout"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_logout" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/itim"
+            android:text="Logout"
+            android:textColor="#6A6969" />
+
+    </LinearLayout>
+
 
 </RelativeLayout>
