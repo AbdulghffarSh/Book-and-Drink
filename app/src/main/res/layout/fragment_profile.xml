@@ -3,19 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".profileFragment"
     android:orientation="vertical"
     android:paddingHorizontal="5dp"
-    >
+    tools:context=".profileFragment"
+    android:background="@drawable/rounded_button"
+    android:backgroundTint="#E1E5EB">
 
     <RelativeLayout
         android:id="@+id/profileData"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@drawable/rounded_button"
-        android:backgroundTint="#E1E5EB">
-
+        >
 
 
         <ImageView
@@ -42,75 +41,162 @@
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_below="@+id/profileData"
-        android:layout_marginTop="20dp"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/rounded_button"
-        android:backgroundTint="#E1E5EB"
-
-        >
+        android:layout_height="match_parent"
+        android:layout_above="@+id/contact"
+        android:layout_below="@+id/profileData">
 
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Your information:"
-            android:fontFamily="@font/itim"
-            android:padding="15dp"
-            android:textStyle="bold"
-            android:textColor="@color/colorPrimary"
-            />
-        <TextView
-            android:id="@+id/info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/itim"
-            android:paddingHorizontal="40dp"
+            android:layout_below="@+id/profileData"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
 
-            />
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Your address"
-            android:fontFamily="@font/itim"
-            android:padding="15dp"
-            android:textStyle="bold"
-            android:textColor="@color/colorPrimary"
-            />
-        <ImageButton
-            android:id="@+id/editButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_edit"
-            android:background="@null"
-            android:layout_gravity="end"
-            android:paddingHorizontal="15dp"
-            />
-        <TextView
-            android:id="@+id/address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/itim"
-            android:paddingHorizontal="40dp"
+            >
 
-            />
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            />
-<EditText
-    android:id="@+id/edittext"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="fdsfdsf"/>
-    </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/itim"
+                android:padding="15dp"
+                android:text="Your information:"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/itim"
+                android:paddingHorizontal="40dp"
+
+                />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/itim"
+                android:padding="15dp"
+                android:text="Your address"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/editButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="@null"
+                android:paddingHorizontal="15dp"
+                android:src="@drawable/ic_edit" />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/itim"
+                android:paddingHorizontal="40dp"
+
+                />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <EditText
+                android:id="@+id/city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_edittext"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/itim"
+                android:hint="City"
+                android:padding="10dp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <EditText
+                android:id="@+id/street"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_edittext"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/itim"
+                android:hint="Street"
+                android:padding="10dp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <EditText
+                android:id="@+id/building"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_edittext"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/itim"
+                android:hint="Building No."
+                android:padding="10dp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <EditText
+                android:id="@+id/apartment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_edittext"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/itim"
+                android:hint="Apartment No."
+                android:padding="10dp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <EditText
+                android:id="@+id/newPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_edittext"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/itim"
+                android:hint="New phone number"
+                android:padding="10dp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <Button
+                android:id="@+id/saveNewData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/colorPrimary"
+                android:fontFamily="@font/itim"
+                android:text="Save"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+        </LinearLayout>
+    </ScrollView>
 
     <RelativeLayout
         android:id="@+id/contact"
@@ -118,20 +204,21 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/logout"
         android:layout_marginBottom="20dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginTop="20dp">
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/whatsappButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="@null"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_whatsapp" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/emailButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginStart="20dp"
             android:layout_toRightOf="@+id/whatsappButton"
             android:background="@null"

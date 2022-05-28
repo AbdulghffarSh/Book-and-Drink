@@ -147,18 +147,18 @@
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:background="@drawable/rounded_button"
         android:id="@+id/signupButton"
         android:layout_width="325dp"
         android:layout_height="64dp"
         android:layout_above="@+id/signIn"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
+        android:background="@drawable/rounded_button"
         android:backgroundTint="#0A2658"
         android:fontFamily="@font/itim"
         android:text="SignUp"
-        android:textSize="18sp"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/signIn"

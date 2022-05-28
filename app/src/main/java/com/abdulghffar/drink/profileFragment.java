@@ -1,25 +1,20 @@
 package com.abdulghffar.drink;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +23,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.w3c.dom.Text;
+import java.util.HashMap;
 
 import es.dmoral.toasty.Toasty;
 
@@ -44,34 +39,47 @@ public class profileFragment extends Fragment {
     TextView address;
     ImageButton editButton;
 
-    EditText editText;
+    EditText city;
+    EditText street;
+    EditText building;
+    EditText apartment;
+    EditText phoneNumber;
+
+    Button saveButton;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_profile, container, false);
-        name = (TextView) view.findViewById(R.id.name);
-        avatar = (ImageView) view.findViewById(R.id.avatar);
-        whatsapp = (ImageButton) view.findViewById(R.id.whatsappButton);
-        email = (ImageButton) view.findViewById(R.id.emailButton);
-        info = (TextView) view.findViewById(R.id.info);
-        address = (TextView) view.findViewById(R.id.address);
-        editText = (EditText) view.findViewById(R.id.edittext);
-        editButton = (ImageButton) view.findViewById(R.id.editButton);
-        editText.setVisibility(View.GONE);
+
+        setup();
+
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(address.getVisibility() == View.VISIBLE){
+                if (address.getVisibility() == View.VISIBLE) {
                     address.setVisibility(View.GONE);
-                    editText.setVisibility(View.VISIBLE);
-                }
-                else{
+
+                    city.setVisibility(View.VISIBLE);
+                    street.setVisibility(View.VISIBLE);
+                    building.setVisibility(View.VISIBLE);
+                    apartment.setVisibility(View.VISIBLE);
+                    phoneNumber.setVisibility(View.VISIBLE);
+                    saveButton.setVisibility(View.VISIBLE);
+
+                } else {
                     address.setVisibility(View.VISIBLE);
-                    editText.setVisibility(View.GONE);
+                    city.setVisibility(View.GONE);
+                    street.setVisibility(View.GONE);
+                    building.setVisibility(View.GONE);
+                    apartment.setVisibility(View.GONE);
+                    phoneNumber.setVisibility(View.GONE);
+                    saveButton.setVisibility(View.GONE);
 
 
                 }
@@ -104,7 +112,12 @@ public class profileFragment extends Fragment {
         });
 
 
-        getUserData();
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeUserData();
+            }
+        });
 
         return view;
     }
@@ -130,17 +143,23 @@ public class profileFragment extends Fragment {
                         avatar.setImageResource(R.drawable.girl);
                     }
 
-                    info.setText(user.getFullName()+"\n"+user.getEmail()+"\n"+user.getPhoneNumber()+"\n"+user.getGender());
+                    info.setText(user.getFullName() + "\n" + user.getEmail() + "\n" + user.getPhoneNumber() + "\n" + user.getGender());
                     if (user.getAddress() != null) {
                         address.setText(user.getAddress().toString());
-                    }
-                    else{
+
+                        city.setText(user.getAddress().get("city"));
+                        street.setText(user.getAddress().get("street"));
+                        building.setText(user.getAddress().get("building"));
+                        apartment.setText(user.getAddress().get("apartment"));
+                        phoneNumber.setText(user.getPhoneNumber());
+
+                    } else {
                         address.setText("There is no address");
                     }
+
+
                 }
             });
-
-
 
 
         } else {
@@ -150,5 +169,67 @@ public class profileFragment extends Fragment {
 
     }
 
+    public void setup() {
 
+        name = (TextView) view.findViewById(R.id.name);
+        avatar = (ImageView) view.findViewById(R.id.avatar);
+        whatsapp = (ImageButton) view.findViewById(R.id.whatsappButton);
+        email = (ImageButton) view.findViewById(R.id.emailButton);
+        info = (TextView) view.findViewById(R.id.info);
+        address = (TextView) view.findViewById(R.id.address);
+
+
+        city = (EditText) view.findViewById(R.id.city);
+        street = (EditText) view.findViewById(R.id.street);
+        building = (EditText) view.findViewById(R.id.building);
+        apartment = (EditText) view.findViewById(R.id.apartment);
+        phoneNumber = (EditText) view.findViewById(R.id.newPhoneNumber);
+        saveButton = (Button) view.findViewById(R.id.saveNewData);
+
+        editButton = (ImageButton) view.findViewById(R.id.editButton);
+
+        city.setVisibility(View.GONE);
+        street.setVisibility(View.GONE);
+        building.setVisibility(View.GONE);
+        apartment.setVisibility(View.GONE);
+        phoneNumber.setVisibility(View.GONE);
+        saveButton.setVisibility(View.GONE);
+        getUserData();
+        changeUserData();
+
+
+    }
+
+    private void changeUserData() {
+
+
+        db = FirebaseFirestore.getInstance();
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser != null) {
+            DocumentReference docRef = db.collection("Users").document(firebaseUser.getUid());
+            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    user = documentSnapshot.toObject(User.class);
+                    HashMap<String, String> newAddress = new HashMap<>();
+                    newAddress.put("city", city.getText().toString());
+                    newAddress.put("street", street.getText().toString());
+                    newAddress.put("building", building.getText().toString());
+                    newAddress.put("apartment", apartment.getText().toString());
+
+                    user.setAddress(newAddress);
+
+
+                    db.collection("users")
+                            .document(firebaseUser.getUid())
+                            .update("address", newAddress, "phoneNumber", phoneNumber.getText().toString());
+
+                }
+            });
+
+
+        }
+
+    }
 }
