@@ -44,8 +44,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/contact"
-        android:layout_below="@+id/profileData">
+        android:layout_below="@+id/profileData"
+        android:layout_above="@+id/logout">
 
 
         <LinearLayout
@@ -195,38 +195,39 @@
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="50dp" />
+        <LinearLayout
+            android:id="@+id/contact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/whatsappButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_whatsapp" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/emailButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_toRightOf="@+id/whatsappButton"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_email" />
+
+
         </LinearLayout>
-    </ScrollView>
-
-    <RelativeLayout
-        android:id="@+id/contact"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/logout"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:layout_marginTop="20dp">
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/whatsappButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_whatsapp" />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/emailButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="20dp"
-            android:layout_toRightOf="@+id/whatsappButton"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_email" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
 
 
-    </RelativeLayout>
+
 
     <LinearLayout
         android:id="@+id/logout"
@@ -253,6 +254,10 @@
             android:textColor="#6A6969" />
 
     </LinearLayout>
+        </LinearLayout>
+
+
+    </ScrollView>
 
 
 </RelativeLayout>

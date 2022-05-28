@@ -202,34 +202,58 @@ public class profileFragment extends Fragment {
 
     private void changeUserData() {
 
-
-        db = FirebaseFirestore.getInstance();
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (firebaseUser != null) {
-            DocumentReference docRef = db.collection("Users").document(firebaseUser.getUid());
-            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @SuppressLint("SetTextI18n")
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    user = documentSnapshot.toObject(User.class);
-                    HashMap<String, String> newAddress = new HashMap<>();
-                    newAddress.put("city", city.getText().toString());
-                    newAddress.put("street", street.getText().toString());
-                    newAddress.put("building", building.getText().toString());
-                    newAddress.put("apartment", apartment.getText().toString());
-
-                    user.setAddress(newAddress);
-
-
-                    db.collection("users")
-                            .document(firebaseUser.getUid())
-                            .update("address", newAddress, "phoneNumber", phoneNumber.getText().toString());
-
-                }
-            });
-
-
+        if (city.getText().toString().isEmpty()) {
+            Toasty.warning(view.getContext(), "Please fill the city field", Toast.LENGTH_SHORT, true).show();
+            return;
         }
+        if (street.getText().toString().isEmpty()) {
+            Toasty.warning(view.getContext(), "Please fill the street field", Toast.LENGTH_SHORT, true).show();
+            return;
+        }
+        if (building.getText().toString().isEmpty()) {
+            Toasty.warning(view.getContext(), "Please fill the building field", Toast.LENGTH_SHORT, true).show();
+            return;
+        }
+        if (apartment.getText().toString().isEmpty()) {
+            Toasty.warning(view.getContext(), "Please fill the apartment field", Toast.LENGTH_SHORT, true).show();
+            return;
+        }
+        if (phoneNumber.getText().toString().isEmpty()) {
+            Toasty.warning(view.getContext(), "Please fill the phoneNumber field", Toast.LENGTH_SHORT, true).show();
+            return;
+        } else {
+            db = FirebaseFirestore.getInstance();
+            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+            if (firebaseUser != null) {
+                System.out.println("This is the user" + firebaseUser);
+                DocumentReference docRef = db.collection("Users").document(firebaseUser.getUid());
+                docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @SuppressLint({"SetTextI18n", "CheckResult"})
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        user = documentSnapshot.toObject(User.class);
+                        HashMap<String, String> newAddress = new HashMap<>();
+                        newAddress.put("city", city.getText().toString());
+                        newAddress.put("street", street.getText().toString());
+                        newAddress.put("building", building.getText().toString());
+                        newAddress.put("apartment", apartment.getText().toString());
+
+                        user.setAddress(newAddress);
+
+
+                        db.collection("Users")
+                                .document(firebaseUser.getUid())
+                                .update("address", newAddress, "phoneNumber", phoneNumber.getText().toString());
+
+                        Toasty.success(view.getContext(), "Your information has been changed successfully", Toast.LENGTH_SHORT, true).show();
+
+                    }
+                });
+
+
+            }
+        }
+
 
     }
 }
