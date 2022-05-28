@@ -18,11 +18,10 @@
 
 
         <ImageView
-            android:id="@+id/profilePic"
+            android:id="@+id/avatar"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginStart="30dp"
-            android:src="@drawable/guy" />
+            android:layout_marginStart="30dp" />
 
         <TextView
             android:id="@+id/name"
@@ -31,12 +30,12 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="0dp"
-            android:layout_toEndOf="@+id/profilePic"
+            android:layout_toEndOf="@+id/avatar"
             android:fontFamily="@font/itim"
             android:gravity="center"
             android:text="Name"
             android:textColor="#0A2658"
-            android:textSize="40dp"
+            android:textSize="20dp"
 
             />
 
@@ -48,16 +47,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="@drawable/rounded_button"
+        android:backgroundTint="#E1E5EB"
+
         >
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Your personal information"
+            android:text="Your information:"
             android:fontFamily="@font/itim"
-            android:background="@drawable/rounded_edittext"
             android:padding="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            />
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/itim"
+            android:paddingHorizontal="40dp"
+
             />
         <Space
             android:layout_width="match_parent"
@@ -68,10 +79,31 @@
             android:layout_height="wrap_content"
             android:text="Your address"
             android:fontFamily="@font/itim"
-            android:background="@drawable/rounded_edittext"
             android:padding="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
             />
+        <ImageButton
+            android:id="@+id/editButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit"
+            android:background="@null"
+            android:layout_gravity="end"
+            android:paddingHorizontal="15dp"
+            />
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/itim"
+            android:paddingHorizontal="40dp"
 
+            />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            />
 
     </LinearLayout>
 
@@ -101,17 +133,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/ic_email" />
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/callButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="20dp"
-            android:layout_toRightOf="@+id/emailButton"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_call"
 
-            />
     </RelativeLayout>
 
     <LinearLayout

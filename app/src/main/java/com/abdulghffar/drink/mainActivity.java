@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -41,6 +42,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import es.dmoral.toasty.Toasty;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 import me.ibrahimsn.lib.OnItemReselectedListener;
@@ -243,6 +245,14 @@ public class mainActivity extends AppCompatActivity {
                     }
 
                 });
+
+
+    }
+    public void logout(View view){
+        Bundle bundle = new Bundle();
+        bundle.putString("logout", "logout");
+        startActivity(new Intent(this, signIn.class).putExtras(bundle));
+
 
 
     }

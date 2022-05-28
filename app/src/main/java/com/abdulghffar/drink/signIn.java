@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -94,11 +95,32 @@ public class signIn extends AppCompatActivity {
 
         textView.setText(ss);
 
+
+        try {
+
+            if (this.getIntent().getExtras().getString("logout").equals("logout")) {
+
+                logout();
+
+            }
+
+        } catch (Exception e) {
+            Log.e("Error: ", e.getMessage());
+        }
+
     }
 
 
     public void signUp(View view) {
         startActivity(new Intent(signIn.this, signUp.class));
+
+    }
+
+    public void logout() {
+
+        FirebaseAuth.getInstance().signOut();
+        Toasty.success(signIn.this, "You have successfully logged out", Toast.LENGTH_LONG, true).show();
+
 
     }
 }

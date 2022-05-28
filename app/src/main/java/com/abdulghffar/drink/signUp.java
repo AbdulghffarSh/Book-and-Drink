@@ -1,5 +1,7 @@
 package com.abdulghffar.drink;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +11,7 @@ import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,8 +25,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
 
 import es.dmoral.toasty.Toasty;
 
@@ -36,6 +43,8 @@ public class signUp extends AppCompatActivity {
     private EditText fullName;
     private EditText phoneNumber;
     private RadioGroup radioGroup;
+
+    FirebaseFirestore db;
 
 
     FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
@@ -71,40 +80,40 @@ public class signUp extends AppCompatActivity {
         //check if information is correct
         //E-mail
         if (emailText.isEmpty()) {
-            Toasty.warning(signUp.this, "Please enter your E-mail", Toast.LENGTH_SHORT, true).show();
+            Toasty.warning(signUp.this, "Please enter your E-mail", Toast.LENGTH_LONG, true).show();
             return;
         }
 
         //Password
         if (passwordText.isEmpty()) {
-            Toasty.warning(signUp.this, "Please enter your Password", Toast.LENGTH_SHORT, true).show();
+            Toasty.warning(signUp.this, "Please enter your Password", Toast.LENGTH_LONG, true).show();
             return;
         }
 
         if (rePasswordText.isEmpty()) {
-            Toasty.warning(signUp.this, "Please re-enter your Password ", Toast.LENGTH_SHORT, true).show();
+            Toasty.warning(signUp.this, "Please re-enter your Password ", Toast.LENGTH_LONG, true).show();
             return;
         }
 
         if (!passwordText.equals(rePasswordText)) {
-            Toasty.error(signUp.this, "The two Passwords do not match", Toast.LENGTH_SHORT, true).show();
+            Toasty.error(signUp.this, "The two Passwords do not match", Toast.LENGTH_LONG, true).show();
             return;
         }
 
         //Name
         if (fullNameText.isEmpty()) {
-            Toasty.warning(signUp.this, "Please enter your name", Toast.LENGTH_SHORT, true).show();
+            Toasty.warning(signUp.this, "Please enter your name", Toast.LENGTH_LONG, true).show();
             return;
         }
 
 
         //Phone Number
         if (phoneNumberText.isEmpty()) {
-            Toasty.warning(signUp.this, "Please enter your Phone Number", Toast.LENGTH_SHORT, true).show();
+            Toasty.warning(signUp.this, "Please enter your Phone Number", Toast.LENGTH_LONG, true).show();
             return;
         }
         if (radioGroup.getCheckedRadioButtonId() == -1) {
-            Toasty.warning(signUp.this, "Please choose your gender", Toast.LENGTH_SHORT, true).show();
+            Toasty.warning(signUp.this, "Please choose your gender", Toast.LENGTH_LONG, true).show();
             return;
         }
         mAuth.createUserWithEmailAndPassword(emailText, passwordText).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -113,8 +122,25 @@ public class signUp extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     // Sign in success, update UI with the signed-in user's information
-                    Toasty.success(signUp.this, "Successfully signed up", Toast.LENGTH_SHORT, true).show();
+                    Toasty.success(signUp.this, "Successfully signed up", Toast.LENGTH_LONG, true).show();
                     FirebaseUser newUser = mAuth.getCurrentUser();
+
+
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(fullNameText)
+                            .build();
+
+                    assert newUser != null;
+                    newUser.updateProfile(profileUpdates)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.d(TAG, "User profile updated.");
+                                    }
+                                }
+                            });
+
                     writeNewUser(newUser);
                     Intent intent = new Intent(signUp.this, signIn.class);
                     startActivity(intent);
@@ -123,7 +149,7 @@ public class signUp extends AppCompatActivity {
 
                 } else {
                     // If sign in fails, display a message to the user.
-                    Toasty.error(signUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT, true).show();
+                    Toasty.error(signUp.this, task.getException().getMessage(), Toast.LENGTH_LONG, true).show();
                 }
 
             }
@@ -132,6 +158,8 @@ public class signUp extends AppCompatActivity {
     }
 
     private void writeNewUser(FirebaseUser newUser) {
+        db = FirebaseFirestore.getInstance();
+
         int checkedRadioButtonId = radioGroup.getCheckedRadioButtonId();
         String genderText = "";
         if (checkedRadioButtonId == R.id.maleButton) {
@@ -141,16 +169,12 @@ public class signUp extends AppCompatActivity {
             System.out.println(checkedRadioButtonId);
         }
         assert newUser != null;
-        User user = new User(newUser.getUid(), email.getText().toString(), fullName.getText().toString(), phoneNumber.getText().toString(), genderText);
-        myRef.child(user.getuID());
-        myRef = mDatabase.getReference("users/" + user.getuID());
-        myRef.child("userEmail").setValue(user.getEmail());
-        myRef.child("userGender").setValue(genderText);
-        myRef.child("userName").setValue(user.getFullName());
-        myRef.child("userNumber").setValue(user.getPhoneNumber());
+        User user = new User(newUser.getUid(), email.getText().toString(), fullName.getText().toString(), phoneNumber.getText().toString(), genderText,null );
+        db.collection("Users").document(user.getuID()).set(user);
     }
+
     public void signIn(View view) {
-        startActivity(new Intent(signUp.this,signIn.class));
+        startActivity(new Intent(signUp.this, signIn.class));
 
     }
 
