@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,6 +42,9 @@ public class profileFragment extends Fragment {
     ImageButton email;
     TextView info;
     TextView address;
+    ImageButton editButton;
+
+    EditText editText;
 
 
     @Override
@@ -54,6 +58,16 @@ public class profileFragment extends Fragment {
         email = (ImageButton) view.findViewById(R.id.emailButton);
         info = (TextView) view.findViewById(R.id.info);
         address = (TextView) view.findViewById(R.id.address);
+        editText = (EditText) view.findViewById(R.id.edittext);
+        editButton = (ImageButton) view.findViewById(R.id.editButton);
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editText.setVisibility(View.GONE);
+            }
+        });
+
 
         whatsapp.setOnClickListener(new View.OnClickListener() {
             @Override
