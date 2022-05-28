@@ -163,7 +163,7 @@ public class signUp extends AppCompatActivity {
             System.out.println(checkedRadioButtonId);
         }
         assert newUser != null;
-        User user = new User(newUser.getUid(), email.getText().toString(), fullName.getText().toString(), phoneNumber.getText().toString(), genderText, null);
+        User user = new User(newUser.getUid(), email.getText().toString(), fullName.getText().toString(), phoneNumber.getText().toString(), genderText, null,null);
         db.collection("Users").document(user.getuID()).set(user);
     }
 

@@ -47,15 +47,13 @@ public class mainActivity extends AppCompatActivity {
         bottomBar.setOnItemSelected((Function1<? super Integer, Unit>) o -> {
             switch (o) {
                 case 0:
-                    System.out.println("homeFragment");
                     homeFragment();
                     break;
                 case 1:
-                    System.out.println("bookShopFragment");
                     bookShopFragment();
                     break;
                 case 2:
-                    bookShopFragment();
+                    cartFragment();
                     break;
                 case 3:
                     profileFragment();
@@ -231,6 +229,13 @@ public class mainActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString("logout", "logout");
         startActivity(new Intent(this, signIn.class).putExtras(bundle));
+
+
+    }
+
+    public void cartFragment(){
+        header.setText("Cart");
+        replaceFragment(new cartFragment());
 
 
     }

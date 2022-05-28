@@ -9,14 +9,16 @@ public class User {
     private String phoneNumber;
     private String gender;
     private Map<String, String> address;
+    private Map<String, Long> cart;
 
-    public User(String uID, String email, String fullName, String phoneNumber, String gender, Map<String, String> address) {
+    public User(String uID, String email, String fullName, String phoneNumber, String gender, Map<String, String> address, Map<String, Long> cart) {
         this.uID = uID;
         this.email = email;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.gender = gender;
         this.address = address;
+        this.cart = cart;
     }
 
     public String getuID() {
@@ -68,5 +70,13 @@ public class User {
 
     public void setAddress(Map<String, String> address) {
         this.address = address;
+    }
+
+    public Map<String, Long> getCart() {
+        return cart;
+    }
+
+    public void setCart(Map<String, Long> cart) {
+        this.cart = cart;
     }
 }
