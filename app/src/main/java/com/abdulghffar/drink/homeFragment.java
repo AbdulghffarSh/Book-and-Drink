@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -57,13 +58,7 @@ public class homeFragment extends Fragment {
         drinksItemArrayList = new ArrayList<>();
         drinksPicURLArrayList = new ArrayList<>();
 
-//        imageButton = (imageButton).findViewById(R.id.add);
-//        imageButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+
 
         Bundle bundle = getArguments();
 
@@ -82,6 +77,9 @@ public class homeFragment extends Fragment {
 
         adapter = new Adapter(view.getContext(), drinksItemArrayList);
         recyclerView.setAdapter(adapter);
+
+
+
 
 
         return view;
@@ -103,6 +101,7 @@ public class homeFragment extends Fragment {
 
 
     }
+
 
 }
 

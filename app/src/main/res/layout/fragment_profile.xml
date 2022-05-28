@@ -175,7 +175,8 @@
                 android:backgroundTint="@color/white"
                 android:fontFamily="@font/itim"
                 android:hint="New phone number"
-                android:padding="10dp" />
+                android:padding="10dp"
+                android:inputType="phone"/>
 
             <Space
                 android:layout_width="match_parent"

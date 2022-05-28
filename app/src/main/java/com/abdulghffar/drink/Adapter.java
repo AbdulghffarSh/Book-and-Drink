@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +21,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     Context context;
     ArrayList<item> itemArrayList;
+    ArrayList<item> cart;
+
 
     public Adapter(Context context, ArrayList<item> itemArrayList) {
 
@@ -33,6 +36,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     public Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View v = LayoutInflater.from(context).inflate(R.layout.item, parent, false);
+
 
 
         return new ViewHolder(v);
@@ -59,6 +63,17 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             holder.itemImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.no_image));
         }
 
+        holder.addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                item selectedItem = itemArrayList.get(holder.getAdapterPosition());
+                System.out.println(selectedItem.getItemName());
+
+            }
+        });
+
+
 
     }
 
@@ -70,6 +85,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView itemName, itemPrice;
         ImageView itemImage;
+        ImageButton addButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -77,8 +93,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             itemName = itemView.findViewById(R.id.itemName);
             itemPrice = itemView.findViewById(R.id.itemPrice);
             itemImage = itemView.findViewById(R.id.img);
+            addButton = itemView.findViewById(R.id.addButton);
 
         }
     }
+
+
 
 }

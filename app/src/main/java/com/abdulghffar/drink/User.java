@@ -8,9 +8,9 @@ public class User {
     private String fullName;
     private String phoneNumber;
     private String gender;
-    private Map<String,String> address;
+    private Map<String, String> address;
 
-    public User(String uID, String email, String fullName, String phoneNumber, String gender, Map<String,String> address) {
+    public User(String uID, String email, String fullName, String phoneNumber, String gender, Map<String, String> address) {
         this.uID = uID;
         this.email = email;
         this.fullName = fullName;
@@ -62,11 +62,11 @@ public class User {
         this.gender = gender;
     }
 
-    public Map<String,String> getAddress() {
+    public Map<String, String> getAddress() {
         return address;
     }
 
-    public void setAddress(Map<String,String> address) {
+    public void setAddress(Map<String, String> address) {
         this.address = address;
     }
 }

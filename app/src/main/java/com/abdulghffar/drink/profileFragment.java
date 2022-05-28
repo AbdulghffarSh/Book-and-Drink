@@ -195,7 +195,7 @@ public class profileFragment extends Fragment {
         phoneNumber.setVisibility(View.GONE);
         saveButton.setVisibility(View.GONE);
         getUserData();
-        changeUserData();
+
 
 
     }
