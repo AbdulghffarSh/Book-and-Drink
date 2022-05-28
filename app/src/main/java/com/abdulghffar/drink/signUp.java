@@ -2,9 +2,6 @@ package com.abdulghffar.drink;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,10 +12,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,11 +29,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
-
 import es.dmoral.toasty.Toasty;
 
 public class signUp extends AppCompatActivity {
+    FirebaseFirestore db;
+    FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = mDatabase.getReference();
     private FirebaseAuth mAuth;
     private Button signUpButton;
     private EditText email;
@@ -43,12 +43,6 @@ public class signUp extends AppCompatActivity {
     private EditText fullName;
     private EditText phoneNumber;
     private RadioGroup radioGroup;
-
-    FirebaseFirestore db;
-
-
-    FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = mDatabase.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,7 +163,7 @@ public class signUp extends AppCompatActivity {
             System.out.println(checkedRadioButtonId);
         }
         assert newUser != null;
-        User user = new User(newUser.getUid(), email.getText().toString(), fullName.getText().toString(), phoneNumber.getText().toString(), genderText,null );
+        User user = new User(newUser.getUid(), email.getText().toString(), fullName.getText().toString(), phoneNumber.getText().toString(), genderText, null);
         db.collection("Users").document(user.getuID()).set(user);
     }
 

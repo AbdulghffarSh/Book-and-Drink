@@ -60,11 +60,21 @@ public class profileFragment extends Fragment {
         address = (TextView) view.findViewById(R.id.address);
         editText = (EditText) view.findViewById(R.id.edittext);
         editButton = (ImageButton) view.findViewById(R.id.editButton);
+        editText.setVisibility(View.GONE);
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editText.setVisibility(View.GONE);
+                if(address.getVisibility() == View.VISIBLE){
+                    address.setVisibility(View.GONE);
+                    editText.setVisibility(View.VISIBLE);
+                }
+                else{
+                    address.setVisibility(View.VISIBLE);
+                    editText.setVisibility(View.GONE);
+
+
+                }
             }
         });
 
