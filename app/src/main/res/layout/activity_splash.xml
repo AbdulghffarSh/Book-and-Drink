@@ -20,7 +20,7 @@
         android:layout_below="@+id/logo"
         android:layout_centerInParent="true"
         android:fontFamily="@font/itim"
-        android:text="Book Cafe"
+        android:text="Book&amp;Drink"
         android:textColor="#0A2658"
         android:textSize="50sp"
         android:textStyle="bold" />
