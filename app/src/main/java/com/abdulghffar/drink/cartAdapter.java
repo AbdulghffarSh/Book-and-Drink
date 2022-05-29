@@ -17,14 +17,17 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class cartAdapter extends RecyclerView.Adapter<cartAdapter.ViewHolder> {
+public class cartAdapter extends RecyclerView.Adapter <
+        cartAdapter.ViewHolder >
+{
 
     Context context;
-    ArrayList<item> itemArrayList;
-    ArrayList<item> cart;
+    ArrayList < item > itemArrayList;
+    ArrayList < item > cart;
 
 
-    public cartAdapter(Context context, ArrayList<item> itemArrayList) {
+    public cartAdapter (Context context, ArrayList < item > itemArrayList)
+    {
 
 
         this.context = context;
@@ -32,68 +35,85 @@ public class cartAdapter extends RecyclerView.Adapter<cartAdapter.ViewHolder> {
     }
 
     @NonNull
-    @Override
-    public cartAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    @ Override
+    public cartAdapter.
+            ViewHolder onCreateViewHolder (@NonNull ViewGroup parent, int viewType)
+    {
 
-        View v = LayoutInflater.from(context).inflate(R.layout.cart_item, parent, false);
+        View v =
+                LayoutInflater.from (context).inflate (R.layout.cart_item, parent,
+                        false);
 
 
 
-        return new ViewHolder(v);
+        return new ViewHolder (v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull cartAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder (@NonNull cartAdapter.ViewHolder holder,
+                                  int position)
+    {
 
-        item item = itemArrayList.get(position);
-        holder.itemName.setText(item.getItemName());
-        holder.itemPrice.setText(item.getItemPrice() + " JD");
+        item item = itemArrayList.get (position);
+        holder.itemName.setText (item.getItemName ());
+        holder.itemPrice.setText (item.getItemPrice () + " JD");
 
-        if (item.getItemPicURL() != null && !item.getItemPicURL().isEmpty()) {
-            Picasso.get()
-                    .load(item.getItemPicURL()).transform(new RoundedTransformation(30, 0))
-                    .placeholder(R.drawable.no_image)
-                    .error(R.drawable.no_image)
+        if (item.getItemPicURL () != null && !item.getItemPicURL ().isEmpty ())
+        {
+            Picasso.get ().load (item.getItemPicURL ()).
+                    transform (new RoundedTransformation (30, 0)).placeholder (R.
+                    drawable.
+                    no_image).
+                    error (R.drawable.no_image)
                     // To fit image into imageView
-                    .fit()
+                    .fit ()
                     // To prevent fade animation
-                    .noFade()
-                    .into(holder.itemImage);
-        } else {
-            holder.itemImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.no_image));
+                    .noFade ().into (holder.itemImage);
+        }
+        else
+        {
+            holder.itemImage.setImageDrawable (ContextCompat.
+                    getDrawable (context,
+                            R.drawable.no_image));
         }
 
-        holder.addButton.setOnClickListener(new View.OnClickListener() {
+        holder.addButton.setOnClickListener (new View.OnClickListener ()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick (View v)
+            {
 
-                item selectedItem = itemArrayList.get(holder.getAdapterPosition());
-                System.out.println(selectedItem.getItemName());
-
-            }
+                item selectedItem =
+                        itemArrayList.get (holder.
+                                getAdapterPosition
+                                        ());
+                System.out.println (selectedItem.
+                        getItemName ());}
         });
 
 
 
     }
 
-    @Override
-    public int getItemCount() {
-        return itemArrayList.size();
+    @Override public int getItemCount ()
+    {
+        return itemArrayList.size ();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder
+    {
         TextView itemName, itemPrice;
         ImageView itemImage;
         ImageButton addButton;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
+        public ViewHolder (@NonNull View itemView)
+        {
+            super (itemView);
 
-            itemName = itemView.findViewById(R.id.itemName);
-            itemPrice = itemView.findViewById(R.id.itemPrice);
-            itemImage = itemView.findViewById(R.id.img);
-            addButton = itemView.findViewById(R.id.addButton);
+            itemName = itemView.findViewById (R.id.itemName);
+            itemPrice = itemView.findViewById (R.id.itemPrice);
+            itemImage = itemView.findViewById (R.id.img);
+            addButton = itemView.findViewById (R.id.addButton);
 
         }
     }

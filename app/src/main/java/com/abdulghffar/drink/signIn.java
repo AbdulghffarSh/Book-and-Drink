@@ -24,101 +24,144 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import es.dmoral.toasty.Toasty;
 
-public class signIn extends AppCompatActivity {
+public class signIn extends AppCompatActivity
+{
     ProgressBar progressBar;
     private FirebaseAuth mAuth;
     private EditText email;
     private EditText password;
     private Button signInButton;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
+    @Override protected void onCreate (Bundle savedInstanceState)
+    {
+        super.onCreate (savedInstanceState);
+        setContentView (R.layout.activity_sign_in);
 
-        mAuth = FirebaseAuth.getInstance();
-        setup();
-
-
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String passwordText = password.getText().toString();
-                String emailText = email.getText().toString();
+        mAuth = FirebaseAuth.getInstance ();
+        setup ();
 
 
-                if (emailText.isEmpty()) {
-                    Toasty.warning(signIn.this, "Please enter your Email", Toast.LENGTH_SHORT, true).show();
-                    return;
-                }
-                if (passwordText.isEmpty()) {
-                    Toasty.warning(signIn.this, "Please enter your Password", Toast.LENGTH_SHORT, true).show();
-                    return;
-                } else {
-                    mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            progressBar.setVisibility(View.VISIBLE);
-                            if (task.isSuccessful()) {
-                                progressBar.setVisibility(View.GONE);
-
-                                Toasty.success(signIn.this, "You have been successfully logged in", Toast.LENGTH_SHORT, true).show();
-                                startActivity(new Intent(signIn.this, mainActivity.class));
-                            } else {
-                                Toasty.error(signIn.this, task.getException().getMessage(), Toast.LENGTH_SHORT, true).show();
-
-                            }
-                        }
-                    });
-                }
-            }
-        });
+        signInButton.setOnClickListener (new View.OnClickListener ()
+                                         {
+                                             @Override public void onClick (View v)
+                                             {
+                                                 String passwordText =
+                                                         password.getText ().toString ();
+                                                 String emailText =
+                                                         email.getText ().toString ();
+                                                 if (emailText.isEmpty ())
+                                                 {
+                                                     Toasty.warning (signIn.this,
+                                                             "Please enter your Email",
+                                                             Toast.LENGTH_SHORT,
+                                                             true).show (); return;}
+                                                 if (passwordText.isEmpty ())
+                                                 {
+                                                     Toasty.warning (signIn.this,
+                                                             "Please enter your Password",
+                                                             Toast.LENGTH_SHORT,
+                                                             true).show (); return;}
+                                                 else
+                                                 {
+                                                     mAuth.
+                                                             signInWithEmailAndPassword (email.getText
+                                                                             ().toString
+                                                                             (),
+                                                                     password.getText
+                                                                             ().toString
+                                                                             ()).addOnCompleteListener
+                                                             (new OnCompleteListener < AuthResult > ()
+                                                              {
+                                                                  @Override
+                                                                  public void
+                                                                  onComplete
+                                                                          (@NonNull Task < AuthResult > task)
+                                                                  {
+                                                                      progressBar.setVisibility
+                                                                              (View.VISIBLE);
+                                                                      if (task.isSuccessful ())
+                                                                      {
+                                                                          progressBar.setVisibility
+                                                                                  (View.GONE);
+                                                                          Toasty.success (signIn.this,
+                                                                                  "You have been successfully logged in",
+                                                                                  Toast.LENGTH_SHORT,
+                                                                                  true).show ();
+                                                                          startActivity (new
+                                                                                  Intent
+                                                                                  (signIn.this,
+                                                                                          mainActivity.class));}
+                                                                      else
+                                                                      {
+                                                                          Toasty.error (signIn.this,
+                                                                                  task.getException
+                                                                                          ().getMessage
+                                                                                          (),
+                                                                                  Toast.LENGTH_SHORT,
+                                                                                  true).show ();}
+                                                                  }
+                                                              }
+                                                             );}
+                                             }
+                                         }
+        );
 
     }
 
 
-    private void setup() {
+    private void setup ()
+    {
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        email = (EditText) findViewById(R.id.email);
-        password = (EditText) findViewById(R.id.password);
-        signInButton = (Button) findViewById(R.id.signinButton);
+        progressBar = (ProgressBar) findViewById (R.id.progressBar);
+        email = (EditText) findViewById (R.id.email);
+        password = (EditText) findViewById (R.id.password);
+        signInButton = (Button) findViewById (R.id.signinButton);
 
-        TextView textView = (TextView) findViewById(R.id.singUp);
+        TextView textView = (TextView) findViewById (R.id.singUp);
         String text = "Don't Have an Account? Sign up";
-        SpannableString ss = new SpannableString(text);
-        ForegroundColorSpan color1 = new ForegroundColorSpan(Color.rgb(10, 38, 80));
-        ForegroundColorSpan color2 = new ForegroundColorSpan(Color.rgb(0, 218, 248));
-        ss.setSpan(color1, 1, 22, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ss.setSpan(color2, 23, 30, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        SpannableString ss = new SpannableString (text);
+        ForegroundColorSpan color1 =
+                new ForegroundColorSpan (Color.rgb (10, 38, 80));
+        ForegroundColorSpan color2 =
+                new ForegroundColorSpan (Color.rgb (0, 218, 248));
+        ss.setSpan (color1, 1, 22, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan (color2, 23, 30, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        textView.setText(ss);
+        textView.setText (ss);
 
 
-        try {
+        try
+        {
 
-            if (this.getIntent().getExtras().getString("logout").equals("logout")) {
+            if (this.getIntent ().getExtras ().
+                    getString ("logout").equals ("logout"))
+            {
 
-                logout();
+                logout ();
 
             }
 
-        } catch (Exception e) {
-            Log.e("Error: ", e.getMessage());
+        }
+        catch (Exception e)
+        {
+            Log.e ("Error: ", e.getMessage ());
         }
 
     }
 
 
-    public void signUp(View view) {
-        startActivity(new Intent(signIn.this, signUp.class));
+    public void signUp (View view)
+    {
+        startActivity (new Intent (signIn.this, signUp.class));
 
     }
 
-    public void logout() {
+    public void logout ()
+    {
 
-        FirebaseAuth.getInstance().signOut();
-        Toasty.success(signIn.this, "You have successfully logged out", Toast.LENGTH_LONG, true).show();
+        FirebaseAuth.getInstance ().signOut ();
+        Toasty.success (signIn.this, "You have successfully logged out",
+                Toast.LENGTH_LONG, true).show ();
 
 
     }

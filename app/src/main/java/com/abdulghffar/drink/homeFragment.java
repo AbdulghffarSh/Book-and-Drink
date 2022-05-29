@@ -17,66 +17,74 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class homeFragment extends Fragment {
+public class homeFragment extends Fragment
+{
 
     View view;
 
     RecyclerView recyclerView;
-    ArrayList<item> drinksItemArrayList;
+    ArrayList < item > drinksItemArrayList;
     Adapter adapter;
 
     ImageButton imageButton;
 
-    ArrayList<String> drinksIDArrayList;
-    ArrayList<String> drinksNameArrayList;
-    ArrayList<String> drinksPriceArrayList;
-    ArrayList<String> drinksDescriptionArrayList;
-    ArrayList<String> drinksPicURLArrayList;
-    ArrayList<item> cartArrayList;
+    ArrayList < String > drinksIDArrayList;
+    ArrayList < String > drinksNameArrayList;
+    ArrayList < String > drinksPriceArrayList;
+    ArrayList < String > drinksDescriptionArrayList;
+    ArrayList < String > drinksPicURLArrayList;
+    ArrayList < item > cartArrayList;
 
-    public static Drawable LoadImageFromWebOperations(String url) {
-        try {
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
+    public static Drawable LoadImageFromWebOperations (String url)
+    {
+        try
+        {
+            InputStream is = (InputStream) new URL (url).getContent ();
+            Drawable d = Drawable.createFromStream (is, "src name");
             return d;
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             return null;
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView (LayoutInflater inflater, ViewGroup container,
+                              Bundle savedInstanceState)
+    {
 
-        cartArrayList = new ArrayList<>();
-
-
-        drinksIDArrayList = new ArrayList<>();
-        drinksNameArrayList = new ArrayList<>();
-        drinksPriceArrayList = new ArrayList<>();
-        drinksDescriptionArrayList = new ArrayList<>();
-        drinksItemArrayList = new ArrayList<>();
-        drinksPicURLArrayList = new ArrayList<>();
+        cartArrayList = new ArrayList <> ();
 
 
-
-        Bundle bundle = getArguments();
-
-        addData(bundle);
-
-
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
-        view = inflater.inflate(R.layout.fragment_home, container, false);
-
-        recyclerView = view.findViewById(R.id.recyclerview);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
+        drinksIDArrayList = new ArrayList <> ();
+        drinksNameArrayList = new ArrayList <> ();
+        drinksPriceArrayList = new ArrayList <> ();
+        drinksDescriptionArrayList = new ArrayList <> ();
+        drinksItemArrayList = new ArrayList <> ();
+        drinksPicURLArrayList = new ArrayList <> ();
 
 
-        adapter = new Adapter(view.getContext(), drinksItemArrayList);
-        recyclerView.setAdapter(adapter);
+
+        Bundle bundle = getArguments ();
+
+        addData (bundle);
+
+
+        StrictMode.ThreadPolicy policy =
+                new StrictMode.ThreadPolicy.Builder ().permitAll ().build ();
+        StrictMode.setThreadPolicy (policy);
+
+        view = inflater.inflate (R.layout.fragment_home, container, false);
+
+        recyclerView = view.findViewById (R.id.recyclerview);
+        recyclerView.setHasFixedSize (true);
+        recyclerView.setLayoutManager (new
+                GridLayoutManager (view.getContext (), 2));
+
+
+        adapter = new Adapter (view.getContext (), drinksItemArrayList);
+        recyclerView.setAdapter (adapter);
 
 
 
@@ -85,18 +93,25 @@ public class homeFragment extends Fragment {
         return view;
     }
 
-    private void addData(Bundle bundle) {
+    private void addData (Bundle bundle)
+    {
 
-        drinksIDArrayList = bundle.getStringArrayList("drinksIDArrayList");
-        drinksPicURLArrayList = bundle.getStringArrayList("drinksPicURLArrayList");
-        drinksNameArrayList = bundle.getStringArrayList("drinksNameArrayList");
-        drinksPriceArrayList = bundle.getStringArrayList("drinksPriceArrayList");
-        drinksDescriptionArrayList = bundle.getStringArrayList("drinksDescriptionArrayList");
+        drinksIDArrayList = bundle.getStringArrayList ("drinksIDArrayList");
+        drinksPicURLArrayList =
+                bundle.getStringArrayList ("drinksPicURLArrayList");
+        drinksNameArrayList = bundle.getStringArrayList ("drinksNameArrayList");
+        drinksPriceArrayList = bundle.getStringArrayList ("drinksPriceArrayList");
+        drinksDescriptionArrayList =
+                bundle.getStringArrayList ("drinksDescriptionArrayList");
 
 
-        for (int i = 0; i < (drinksIDArrayList.size() - 1); i++) {
-            drinksItemArrayList.add(new item(drinksIDArrayList.get(i),
-                    drinksNameArrayList.get(i), drinksPriceArrayList.get(i), drinksDescriptionArrayList.get(i), drinksPicURLArrayList.get(i)));
+        for (int i = 0; i < (drinksIDArrayList.size () - 1); i++)
+        {
+            drinksItemArrayList.add (new item (drinksIDArrayList.get (i),
+                    drinksNameArrayList.get (i),
+                    drinksPriceArrayList.get (i),
+                    drinksDescriptionArrayList.get (i),
+                    drinksPicURLArrayList.get (i)));
         }
 
 
@@ -104,6 +119,3 @@ public class homeFragment extends Fragment {
 
 
 }
-
-
-
