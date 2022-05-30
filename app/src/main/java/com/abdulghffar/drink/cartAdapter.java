@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class cartAdapter extends RecyclerView.Adapter <
+public class  cartAdapter extends RecyclerView.Adapter <
         cartAdapter.ViewHolder >
 {
 
