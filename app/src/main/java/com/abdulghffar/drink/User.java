@@ -10,11 +10,11 @@ public class User
     private String phoneNumber;
     private String gender;
     private Map < String, String > address;
-    private Map < String, Long > cart;
+    private Map < String, Integer > cart;
 
     public User (String uID, String email, String fullName, String phoneNumber,
                  String gender, Map < String, String > address, Map < String,
-            Long > cart)
+            Integer > cart)
     {
         this.uID = uID;
         this.email = email;
@@ -89,12 +89,12 @@ public class User
         this.address = address;
     }
 
-    public Map < String, Long > getCart ()
+    public Map < String, Integer > getCart ()
     {
         return cart;
     }
 
-    public void setCart (Map < String, Long > cart)
+    public void setCart (Map < String, Integer > cart)
     {
         this.cart = cart;
     }

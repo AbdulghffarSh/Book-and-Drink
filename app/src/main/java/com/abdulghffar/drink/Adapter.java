@@ -110,7 +110,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                                                               // if the user has cart
 
                                                               if(user.getCart() == null){
-                                                                  Map<String,Long> EmptyMap = Collections.emptyMap();
+                                                                  Map<String,Integer> EmptyMap = new Map<String, Integer>();
 
                                                                   user.setCart(EmptyMap);
 
@@ -118,15 +118,19 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
                                                               if (user.getCart() != null) {
 
-                                                                Map<String , Long> cart = user.getCart();
+                                                                Map<String , Integer> cart = user.getCart();
                                                                 if(cart.containsKey(item.getItemID())){
+                                                                    int x = cart.get(item.getItemID()) + 1;
 
-                                                                    cart.put(item.getItemID(), cart.get(item.getItemID()) + 1);
+                                                                    cart.put(item.getItemID(), x);
 
 
                                                                 }
                                                                   if(!cart.containsKey(item.getItemID())){
-                                                                      cart.put(item.getItemID(), 1L);
+//                                                                      cart.put(item.getItemID(), 1);
+                                                                      cart.put("test",15);
+
+                                                                      System.out.println(cart);
                                                                   }
 
                                                               }
