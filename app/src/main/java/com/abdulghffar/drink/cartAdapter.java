@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class  cartAdapter extends RecyclerView.Adapter <
         cartAdapter.ViewHolder >
@@ -23,7 +24,7 @@ public class  cartAdapter extends RecyclerView.Adapter <
 
     Context context;
     ArrayList < item > itemArrayList;
-    ArrayList < item > cart;
+    HashMap<String,Integer > cart;
 
 
     public cartAdapter (Context context, ArrayList < item > itemArrayList)

@@ -25,6 +25,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
@@ -110,29 +111,29 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                                                               // if the user has cart
 
                                                               if(user.getCart() == null){
-                                                                  Map<String,Integer> EmptyMap = new Map<String, Integer>();
+                                                                  Map<String,Integer> newCart = new HashMap<String,Integer>();
+                                                                  user.setCart(newCart);
+                                                                  System.out.println("Cart is Null\nCreated one");
 
-                                                                  user.setCart(EmptyMap);
 
                                                               }
 
                                                               if (user.getCart() != null) {
-
-                                                                Map<String , Integer> cart = user.getCart();
-                                                                if(cart.containsKey(item.getItemID())){
-                                                                    int x = cart.get(item.getItemID()) + 1;
-
-                                                                    cart.put(item.getItemID(), x);
-
-
+                                                                  System.out.println("User has Map");
+                                                                  Map<String , Integer> cart = user.getCart();
+                                                                  if(cart.containsKey(item.getItemID())){
+                                                                    cart.put(item.getItemID(), cart.get(item.getItemID()) + 1);
                                                                 }
                                                                   if(!cart.containsKey(item.getItemID())){
-//                                                                      cart.put(item.getItemID(), 1);
-                                                                      cart.put("test",15);
-
-                                                                      System.out.println(cart);
+                                                                      cart.put(item.getItemID(), 1);
+                                                                      user.setCart(cart);
                                                                   }
 
+                                                                  db.
+                                                                          collection ("Users").document
+                                                                          (firebaseUser.getUid
+                                                                                  ()).update ("cart",
+                                                                          cart);
                                                               }
 
                                                           }
