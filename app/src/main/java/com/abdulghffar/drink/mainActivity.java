@@ -1,5 +1,6 @@
 package com.abdulghffar.drink;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,9 +13,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -22,6 +26,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
@@ -37,6 +43,8 @@ public class mainActivity extends AppCompatActivity
     FirebaseFirestore db;
     ArrayList < item > drinksItemArrayList;
     ArrayList < item > booksItemArrayList;
+    User user;
+
 
 
     @Override protected void onCreate (Bundle savedInstanceState)
@@ -95,6 +103,8 @@ public class mainActivity extends AppCompatActivity
         ArrayList < String > drinksDescriptionArrayList = new ArrayList <> ();
 
 
+
+
         for (item item:drinksItemArrayList)
         {
             drinksIDArrayList.add (item.getItemID ());
@@ -102,7 +112,6 @@ public class mainActivity extends AppCompatActivity
             drinksNameArrayList.add (item.getItemName ());
             drinksPriceArrayList.add (item.getItemPrice ());
             drinksDescriptionArrayList.add (item.getItemDescription ());
-
 
         }
 
@@ -152,8 +161,9 @@ public class mainActivity extends AppCompatActivity
         bundle.putStringArrayList ("booksPicURLArrayList", booksPicURLArrayList);
         bundle.putStringArrayList ("booksNameArrayList", booksNameArrayList);
         bundle.putStringArrayList ("booksPriceArrayList", booksPriceArrayList);
-        bundle.putStringArrayList ("booksDescriptionArrayList",
-                booksDescriptionArrayList);
+        bundle.putStringArrayList ("booksDescriptionArrayList", booksDescriptionArrayList);
+
+
 
         bookShopFragment bookShopFragment = new bookShopFragment ();
         bookShopFragment.setArguments (bundle);
@@ -266,7 +276,29 @@ public class mainActivity extends AppCompatActivity
                 );
 
 
-    }
+        db = FirebaseFirestore.getInstance();
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser != null) {
+
+            DocumentReference docRef =
+                    db.collection("Users").document(firebaseUser.getUid());
+            docRef.get().addOnSuccessListener(new OnSuccessListener<
+                                                      DocumentSnapshot>() {
+                                                  @SuppressLint("SetTextI18n")
+                                                  @Override
+                                                  public void
+                                                  onSuccess(DocumentSnapshot
+                                                                    documentSnapshot) {
+                                                      user = documentSnapshot.toObject(User.class);
+        }
+
+
+
+});
+
+
+
+        }}
 
     public void logout (View view)
     {
@@ -280,7 +312,21 @@ public class mainActivity extends AppCompatActivity
     public void cartFragment ()
     {
         header.setText ("Cart");
-        replaceFragment (new cartFragment ());
+        Map<String,Integer> cart= user.getCart();
+
+        ArrayList < String > cartItemsArrayList = new ArrayList <> (cart.keySet());
+        ArrayList < Integer > cartItemsQuantityArrayList = new ArrayList <> (cart.values());
+
+
+
+
+        Bundle bundle = new Bundle ();
+        bundle.putStringArrayList ("cartItemsArrayList", cartItemsArrayList);
+        bundle.putIntegerArrayList("cartItemsQuantityArrayList",cartItemsQuantityArrayList);
+
+        homeFragment homeFragment = new homeFragment ();
+        homeFragment.setArguments (bundle);
+        replaceFragment (homeFragment);
 
 
     }
