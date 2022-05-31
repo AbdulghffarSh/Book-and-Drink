@@ -32,14 +32,11 @@ public class bookShopFragment extends Fragment
     ArrayList < String > booksDescriptionArrayList;
     ArrayList < String > booksPicURLArrayList;
     ArrayList < String > booksPriceArrayList;
-    ArrayList < item > cartArrayList;
 
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container,
                               Bundle savedInstanceState)
     {
-
-        cartArrayList = new ArrayList <> ();
 
 
         booksIDArrayList = new ArrayList <> ();

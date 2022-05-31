@@ -33,7 +33,6 @@ public class homeFragment extends Fragment
     ArrayList < String > drinksPriceArrayList;
     ArrayList < String > drinksDescriptionArrayList;
     ArrayList < String > drinksPicURLArrayList;
-    ArrayList < item > cartArrayList;
 
     public static Drawable LoadImageFromWebOperations (String url)
     {
@@ -54,7 +53,6 @@ public class homeFragment extends Fragment
                               Bundle savedInstanceState)
     {
 
-        cartArrayList = new ArrayList <> ();
 
 
         drinksIDArrayList = new ArrayList <> ();
@@ -97,12 +95,10 @@ public class homeFragment extends Fragment
     {
 
         drinksIDArrayList = bundle.getStringArrayList ("drinksIDArrayList");
-        drinksPicURLArrayList =
-                bundle.getStringArrayList ("drinksPicURLArrayList");
+        drinksPicURLArrayList = bundle.getStringArrayList ("drinksPicURLArrayList");
         drinksNameArrayList = bundle.getStringArrayList ("drinksNameArrayList");
         drinksPriceArrayList = bundle.getStringArrayList ("drinksPriceArrayList");
-        drinksDescriptionArrayList =
-                bundle.getStringArrayList ("drinksDescriptionArrayList");
+        drinksDescriptionArrayList = bundle.getStringArrayList ("drinksDescriptionArrayList");
 
 
         for (int i = 0; i < (drinksIDArrayList.size () - 1); i++)

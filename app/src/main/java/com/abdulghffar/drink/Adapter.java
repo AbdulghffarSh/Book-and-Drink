@@ -2,6 +2,7 @@ package com.abdulghffar.drink;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,8 +12,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,11 +31,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import es.dmoral.toasty.Toasty;
+
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     Context context;
     ArrayList<item> itemArrayList;
-    ArrayList<item> cart;
+    Map < item, Integer > cart;
     FirebaseFirestore db;
 
 
@@ -99,49 +104,57 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                             db.collection("Users").document(firebaseUser.getUid());
                     docRef.get().addOnSuccessListener(new OnSuccessListener<
                                                               DocumentSnapshot>() {
-                                                          @SuppressLint("SetTextI18n")
-                                                          @Override
-                                                          public void
-                                                          onSuccess(DocumentSnapshot
-                                                                            documentSnapshot) {
-                                                              User user =
-                                                                      documentSnapshot.
-                                                                              toObject(User.class);
-
-                                                              // if the user has cart
-
-                                                              if(user.getCart() == null){
-                                                                  Map<String,Integer> newCart = new HashMap<String,Integer>();
-                                                                  user.setCart(newCart);
-                                                                  System.out.println("Cart is Null\nCreated one");
+                        @SuppressLint("SetTextI18n")
+                        @Override
+                        public void
+                        onSuccess(DocumentSnapshot
+                                          documentSnapshot) {
 
 
-                                                              }
+                            User user =
+                                    documentSnapshot.
+                                            toObject(User.class);
 
-                                                              if (user.getCart() != null) {
-                                                                  System.out.println("User has Map");
-                                                                  Map<String , Integer> cart = user.getCart();
-                                                                  if(cart.containsKey(item.getItemID())){
-                                                                    cart.put(item.getItemID(), cart.get(item.getItemID()) + 1);
-                                                                }
-                                                                  if(!cart.containsKey(item.getItemID())){
-                                                                      cart.put(item.getItemID(), 1);
-                                                                      user.setCart(cart);
-                                                                  }
+                            // if the user has cart
 
-                                                                  db.
-                                                                          collection ("Users").document
-                                                                          (firebaseUser.getUid
-                                                                                  ()).update ("cart",
-                                                                          cart);
-                                                              }
+                            System.out.println(user.getCart());
 
-                                                          }
-                                                      }
-                    );
+                            if (user.getCart() == null) {
+                                Map<String, Integer> newCart = new HashMap<>();
+                                user.setCart(newCart);
+                                System.out.println("Cart is Null\nCreated one");
 
 
-                } else {
+                            }
+
+                            if (user.getCart() != null) {
+                                System.out.println("User has Map");
+                                Map<String, Integer> cart = user.getCart();
+                                if (cart.containsKey(selectedItem.getItemID())) {
+                                    cart.put(selectedItem.getItemID(), cart.get(item.getItemID()) + 1);
+                                }
+                                if (!cart.containsKey(item.getItemID())) {
+                                    cart.put(selectedItem.getItemID(), 1);
+                                    user.setCart(cart);
+                                    System.out.println(user.getCart());
+
+                                }
+
+                                db.
+                                        collection("Users").document
+                                        (firebaseUser.getUid
+                                                ()).update("cart",
+                                        cart);
+
+
+                                Toasty.custom(context, "Item added to cart", ResourcesCompat.getDrawable(v.getResources(), R.drawable.cart, null),
+                                        Color.WHITE,Color.parseColor("#0A2658"), Toasty.LENGTH_SHORT, true, true).show();
+                            }
+                        }
+                    });
+
+
+                    } else {
 
                 }
 

@@ -94,7 +94,7 @@ public class User
         return cart;
     }
 
-    public void setCart (Map < String, Integer > cart)
+    public void setCart (Map<String, Integer> cart)
     {
         this.cart = cart;
     }

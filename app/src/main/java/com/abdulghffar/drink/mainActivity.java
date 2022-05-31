@@ -26,253 +26,237 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 import me.ibrahimsn.lib.SmoothBottomBar;
 
-public class mainActivity extends AppCompatActivity
-{
+public class mainActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     TextView header;
     SmoothBottomBar bottomBar;
     FirebaseFirestore db;
-    ArrayList < item > drinksItemArrayList;
-    ArrayList < item > booksItemArrayList;
+    ArrayList<item> drinksItemArrayList;
+    ArrayList<item> booksItemArrayList;
     User user;
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    @Override protected void onCreate (Bundle savedInstanceState)
-    {
-        super.onCreate (savedInstanceState);
-
-        setContentView (R.layout.activity_main);
-        setup ();
-        bottomBar.setOnItemSelected ((Function1 < ? super Integer, Unit >) o->
+        setContentView(R.layout.activity_main);
+        setup();
+        bottomBar.setOnItemSelected((Function1<? super Integer, Unit>) o ->
                 {
-                    switch (o)
-                    {
-                        case 0 :
-                            homeFragment ();
+                    switch (o) {
+                        case 0:
+                            homeFragment();
                             break;
-                        case 1:bookShopFragment ();
+                        case 1:
+                            bookShopFragment();
                             break;
-                        case 2:cartFragment ();
+                        case 2:
+                            cartFragment();
                             break;
-                        case 3:profileFragment ();
-                            break; default:homeFragment ();}
-                    return null;}
+                        case 3:
+                            profileFragment();
+                            break;
+                        default:
+                            homeFragment();
+                    }
+                    return null;
+                }
         );
 
     }
 
-    private void setup ()
-    {
-        firebaseAuth = FirebaseAuth.getInstance ();
-        firebaseUser = firebaseAuth.getCurrentUser ();
-        EventChangeListener ();
-        header = (TextView) findViewById (R.id.header_title);
-        bottomBar = (SmoothBottomBar) findViewById (R.id.bottomBar);
+    private void setup() {
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        EventChangeListener();
+        header = (TextView) findViewById(R.id.header_title);
+        bottomBar = (SmoothBottomBar) findViewById(R.id.bottomBar);
 
 
     }
 
-    private void replaceFragment (Fragment fragment)
-    {
-        FragmentManager fragmentManager = getSupportFragmentManager ();
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction =
-                fragmentManager.beginTransaction ();
-        fragmentTransaction.replace (R.id.frameLayout, fragment);
-        fragmentTransaction.commit ();
+                fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout, fragment);
+        fragmentTransaction.commit();
 
 
     }
 
-    public void homeFragment ()
-    {
+    public void homeFragment() {
 
-        ArrayList < String > drinksIDArrayList = new ArrayList <> ();
-        ArrayList < String > drinksPicURLArrayList = new ArrayList <> ();
-        ArrayList < String > drinksNameArrayList = new ArrayList <> ();
-        ArrayList < String > drinksPriceArrayList = new ArrayList <> ();
-        ArrayList < String > drinksDescriptionArrayList = new ArrayList <> ();
-
+        ArrayList<String> drinksIDArrayList = new ArrayList<>();
+        ArrayList<String> drinksPicURLArrayList = new ArrayList<>();
+        ArrayList<String> drinksNameArrayList = new ArrayList<>();
+        ArrayList<String> drinksPriceArrayList = new ArrayList<>();
+        ArrayList<String> drinksDescriptionArrayList = new ArrayList<>();
 
 
-
-        for (item item:drinksItemArrayList)
-        {
-            drinksIDArrayList.add (item.getItemID ());
-            drinksPicURLArrayList.add (item.getItemPicURL ());
-            drinksNameArrayList.add (item.getItemName ());
-            drinksPriceArrayList.add (item.getItemPrice ());
-            drinksDescriptionArrayList.add (item.getItemDescription ());
+        for (item item : drinksItemArrayList) {
+            drinksIDArrayList.add(item.getItemID());
+            drinksPicURLArrayList.add(item.getItemPicURL());
+            drinksNameArrayList.add(item.getItemName());
+            drinksPriceArrayList.add(item.getItemPrice());
+            drinksDescriptionArrayList.add(item.getItemDescription());
 
         }
 
 
-        Bundle bundle = new Bundle ();
-        bundle.putStringArrayList ("drinksIDArrayList", drinksIDArrayList);
-        bundle.putStringArrayList ("drinksPicURLArrayList",
-                drinksPicURLArrayList);
-        bundle.putStringArrayList ("drinksNameArrayList", drinksNameArrayList);
-        bundle.putStringArrayList ("drinksPriceArrayList", drinksPriceArrayList);
-        bundle.putStringArrayList ("drinksDescriptionArrayList",
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList("drinksIDArrayList", drinksIDArrayList);
+        bundle.putStringArrayList("drinksPicURLArrayList", drinksPicURLArrayList);
+        bundle.putStringArrayList("drinksNameArrayList", drinksNameArrayList);
+        bundle.putStringArrayList("drinksPriceArrayList", drinksPriceArrayList);
+        bundle.putStringArrayList("drinksDescriptionArrayList",
                 drinksDescriptionArrayList);
 
-        homeFragment homeFragment = new homeFragment ();
-        homeFragment.setArguments (bundle);
+        homeFragment homeFragment = new homeFragment();
+        homeFragment.setArguments(bundle);
 
 
-        header.setText ("Home");
-        replaceFragment (homeFragment);
+        header.setText("Home");
+        replaceFragment(homeFragment);
 
 
     }
 
-    public void bookShopFragment ()
-    {
+    public void bookShopFragment() {
 
-        ArrayList < String > booksIDArrayList = new ArrayList <> ();
-        ArrayList < String > booksPicURLArrayList = new ArrayList <> ();
-        ArrayList < String > booksNameArrayList = new ArrayList <> ();
-        ArrayList < String > booksPriceArrayList = new ArrayList <> ();
-        ArrayList < String > booksDescriptionArrayList = new ArrayList <> ();
+        ArrayList<String> booksIDArrayList = new ArrayList<>();
+        ArrayList<String> booksPicURLArrayList = new ArrayList<>();
+        ArrayList<String> booksNameArrayList = new ArrayList<>();
+        ArrayList<String> booksPriceArrayList = new ArrayList<>();
+        ArrayList<String> booksDescriptionArrayList = new ArrayList<>();
 
 
-        for (item item:booksItemArrayList)
-        {
-            booksIDArrayList.add (item.getItemID ());
-            booksPicURLArrayList.add (item.getItemPicURL ());
-            booksNameArrayList.add (item.getItemName ());
-            booksPriceArrayList.add (item.getItemPrice ());
-            booksDescriptionArrayList.add (item.getItemDescription ());
+        for (item item : booksItemArrayList) {
+            booksIDArrayList.add(item.getItemID());
+            booksPicURLArrayList.add(item.getItemPicURL());
+            booksNameArrayList.add(item.getItemName());
+            booksPriceArrayList.add(item.getItemPrice());
+            booksDescriptionArrayList.add(item.getItemDescription());
 
 
         }
 
-        Bundle bundle = new Bundle ();
-        bundle.putStringArrayList ("booksIDArrayList", booksIDArrayList);
-        bundle.putStringArrayList ("booksPicURLArrayList", booksPicURLArrayList);
-        bundle.putStringArrayList ("booksNameArrayList", booksNameArrayList);
-        bundle.putStringArrayList ("booksPriceArrayList", booksPriceArrayList);
-        bundle.putStringArrayList ("booksDescriptionArrayList", booksDescriptionArrayList);
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList("booksIDArrayList", booksIDArrayList);
+        bundle.putStringArrayList("booksPicURLArrayList", booksPicURLArrayList);
+        bundle.putStringArrayList("booksNameArrayList", booksNameArrayList);
+        bundle.putStringArrayList("booksPriceArrayList", booksPriceArrayList);
+        bundle.putStringArrayList("booksDescriptionArrayList", booksDescriptionArrayList);
 
 
+        bookShopFragment bookShopFragment = new bookShopFragment();
+        bookShopFragment.setArguments(bundle);
 
-        bookShopFragment bookShopFragment = new bookShopFragment ();
-        bookShopFragment.setArguments (bundle);
 
-
-        header.setText ("BookShop");
-        replaceFragment (bookShopFragment);
+        header.setText("BookShop");
+        replaceFragment(bookShopFragment);
 
 
     }
 
 
-    public void profileFragment ()
-    {
-        header.setText ("Profile");
-        replaceFragment (new profileFragment ());
+    public void profileFragment() {
+        header.setText("Profile");
+        replaceFragment(new profileFragment());
 
     }
 
 
-    private void EventChangeListener ()
-    {
-        db = FirebaseFirestore.getInstance ();
-        drinksItemArrayList = new ArrayList <> ();
-        booksItemArrayList = new ArrayList <> ();
+    private void EventChangeListener() {
+        db = FirebaseFirestore.getInstance();
+        drinksItemArrayList = new ArrayList<>();
+        booksItemArrayList = new ArrayList<>();
 
-        db.collection ("Drinks").orderBy ("itemName",
+        db.collection("Drinks").orderBy("itemName",
                 Query.Direction.ASCENDING).
-                addSnapshotListener (new EventListener < QuerySnapshot > ()
-                                     {
-                                         @Override
-                                         public void onEvent (@Nullable QuerySnapshot value,
-                                                              @Nullable
-                                                                      FirebaseFirestoreException
-                                                                      error)
-                                         {
+                addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onEvent(@Nullable QuerySnapshot value,
+                                                            @Nullable
+                                                                    FirebaseFirestoreException
+                                                                    error) {
 
-                                             if (error != null)
-                                             {
+                                            if (error != null) {
 
-                                                 Log.e ("Firesore error", error.getMessage ());
-                                                 return;}
+                                                Log.e("Firesore error", error.getMessage());
+                                                return;
+                                            }
 
-                                             for (DocumentChange dc:value.
-                                                     getDocumentChanges
-                                                             ())
-                                             {
+                                            for (DocumentChange dc : value.
+                                                    getDocumentChanges
+                                                            ()) {
 
-                                                 if (dc.getType () == DocumentChange.Type.ADDED)
-                                                 {
+                                                if (dc.getType() == DocumentChange.Type.ADDED) {
 
-                                                     drinksItemArrayList.add (dc.getDocument ().
-                                                             toObject (item.class));
-                                                     drinksItemArrayList.get (drinksItemArrayList.
-                                                             size () -
-                                                             1).setItemID (dc.
-                                                             getDocument
-                                                                     ().getId ().
-                                                             toString
-                                                                     ());}
+                                                    drinksItemArrayList.add(dc.getDocument().
+                                                            toObject(item.class));
+                                                    drinksItemArrayList.get(drinksItemArrayList.
+                                                            size() -
+                                                            1).setItemID(dc.
+                                                            getDocument
+                                                                    ().getId().
+                                                            toString
+                                                                    ());
+                                                }
 
-                                             }
+                                            }
 
-                                         }
+                                        }
 
-                                     }
+                                    }
                 );
 
 
-        db.collection ("Books").orderBy ("itemName",
+        db.collection("Books").orderBy("itemName",
                 Query.Direction.ASCENDING).
-                addSnapshotListener (new EventListener < QuerySnapshot > ()
-                                     {
-                                         @Override
-                                         public void onEvent (@Nullable QuerySnapshot value,
-                                                              @Nullable
-                                                                      FirebaseFirestoreException
-                                                                      error)
-                                         {
+                addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onEvent(@Nullable QuerySnapshot value,
+                                                            @Nullable
+                                                                    FirebaseFirestoreException
+                                                                    error) {
 
-                                             if (error != null)
-                                             {
+                                            if (error != null) {
 
-                                                 Log.e ("Firesore error", error.getMessage ());
-                                                 return;}
+                                                Log.e("Firesore error", error.getMessage());
+                                                return;
+                                            }
 
-                                             for (DocumentChange dc:value.
-                                                     getDocumentChanges
-                                                             ())
-                                             {
+                                            for (DocumentChange dc : value.
+                                                    getDocumentChanges
+                                                            ()) {
 
-                                                 if (dc.getType () == DocumentChange.Type.ADDED)
-                                                 {
+                                                if (dc.getType() == DocumentChange.Type.ADDED) {
 
-                                                     booksItemArrayList.add (dc.getDocument ().
-                                                             toObject (item.class));
-                                                     booksItemArrayList.get (booksItemArrayList.
-                                                             size () -
-                                                             1).setItemID (dc.
-                                                             getDocument
-                                                                     ().getId ().
-                                                             toString
-                                                                     ());}
+                                                    booksItemArrayList.add(dc.getDocument().
+                                                            toObject(item.class));
+                                                    booksItemArrayList.get(booksItemArrayList.
+                                                            size() -
+                                                            1).setItemID(dc.
+                                                            getDocument
+                                                                    ().getId().
+                                                            toString
+                                                                    ());
+                                                }
 
-                                             }
+                                            }
 
-                                         }
+                                        }
 
-                                     }
+                                    }
                 );
 
 
@@ -283,51 +267,109 @@ public class mainActivity extends AppCompatActivity
             DocumentReference docRef =
                     db.collection("Users").document(firebaseUser.getUid());
             docRef.get().addOnSuccessListener(new OnSuccessListener<
-                                                      DocumentSnapshot>() {
-                                                  @SuppressLint("SetTextI18n")
-                                                  @Override
-                                                  public void
-                                                  onSuccess(DocumentSnapshot
-                                                                    documentSnapshot) {
-                                                      user = documentSnapshot.toObject(User.class);
+                    DocumentSnapshot>() {
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void
+                onSuccess(DocumentSnapshot
+                                  documentSnapshot) {
+                    user = documentSnapshot.toObject(User.class);
+                }
+
+
+            });
+
+
         }
+    }
 
-
-
-});
-
-
-
-        }}
-
-    public void logout (View view)
-    {
-        Bundle bundle = new Bundle ();
-        bundle.putString ("logout", "logout");
-        startActivity (new Intent (this, signIn.class).putExtras (bundle));
+    public void logout(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putString("logout", "logout");
+        startActivity(new Intent(this, signIn.class).putExtras(bundle));
 
 
     }
 
-    public void cartFragment ()
-    {
-        header.setText ("Cart");
-        Map<String,Integer> cart= user.getCart();
-
-        ArrayList < String > cartItemsArrayList = new ArrayList <> (cart.keySet());
-        ArrayList < Integer > cartItemsQuantityArrayList = new ArrayList <> (cart.values());
+    public void cartFragment() {
 
 
 
+        header.setText("Cart");
 
-        Bundle bundle = new Bundle ();
-        bundle.putStringArrayList ("cartItemsArrayList", cartItemsArrayList);
-        bundle.putIntegerArrayList("cartItemsQuantityArrayList",cartItemsQuantityArrayList);
+        ArrayList<String> cartItemIds = new ArrayList<>(user.getCart().keySet());
+        ArrayList<Integer> cartItemCount = new ArrayList<>(user.getCart().values());
 
-        homeFragment homeFragment = new homeFragment ();
-        homeFragment.setArguments (bundle);
-        replaceFragment (homeFragment);
 
+
+        ArrayList<String> booksIDArrayList = new ArrayList<>();
+        ArrayList<String> booksPicURLArrayList = new ArrayList<>();
+        ArrayList<String> booksNameArrayList = new ArrayList<>();
+        ArrayList<String> booksPriceArrayList = new ArrayList<>();
+        ArrayList<String> booksDescriptionArrayList = new ArrayList<>();
+
+
+
+
+//        for (item item : drinksItemArrayList) {
+//            drinksIDArrayList.add(item.getItemID());
+//            drinksPicURLArrayList.add(item.getItemPicURL());
+//            drinksNameArrayList.add(item.getItemName());
+//            drinksPriceArrayList.add(item.getItemPrice());
+//            drinksDescriptionArrayList.add(item.getItemDescription());
+//        }
+//
+//
+//        for (item item : booksItemArrayList) {
+//            booksIDArrayList.add(item.getItemID());
+//            booksPicURLArrayList.add(item.getItemPicURL());
+//            booksNameArrayList.add(item.getItemName());
+//            booksPriceArrayList.add(item.getItemPrice());
+//            booksDescriptionArrayList.add(item.getItemDescription());
+//        }
+
+        ArrayList<item> itemArrayList1 = new ArrayList<>();
+        ArrayList<item> itemArrayList = new ArrayList<>();
+        itemArrayList1.addAll(drinksItemArrayList);
+        itemArrayList1.addAll(booksItemArrayList);
+
+        System.out.println("cartItemIds"+cartItemIds);
+        System.out.println("itemArrayList1"+itemArrayList1.size());
+
+
+        for(int i =0 ;i<(itemArrayList1.size() - 1);i++){
+            if(cartItemIds.contains(itemArrayList1.get(i).getItemID())){
+                itemArrayList.add(itemArrayList1.get(i));
+
+            }
+
+        }
+
+        System.out.println("itemArrayList"+itemArrayList.size());
+
+
+
+        Bundle bundle = new Bundle();
+
+        bundle.putStringArrayList("drinksIDArrayList", drinksIDArrayList);
+        bundle.putStringArrayList("drinksPicURLArrayList", drinksPicURLArrayList);
+        bundle.putStringArrayList("drinksNameArrayList", drinksNameArrayList);
+        bundle.putStringArrayList("drinksPriceArrayList", drinksPriceArrayList);
+        bundle.putStringArrayList("drinksDescriptionArrayList", drinksDescriptionArrayList);
+
+
+        bundle.putStringArrayList("booksIDArrayList", booksIDArrayList);
+        bundle.putStringArrayList("booksPicURLArrayList", booksPicURLArrayList);
+        bundle.putStringArrayList("booksNameArrayList", booksNameArrayList);
+        bundle.putStringArrayList("booksPriceArrayList", booksPriceArrayList);
+        bundle.putStringArrayList("booksDescriptionArrayList", booksDescriptionArrayList);
+
+        bundle.putStringArrayList("cartItemIds", cartItemIds);
+        bundle.putIntegerArrayList("cartItemCount", cartItemCount);
+
+        cartFragment cartFragment = new cartFragment();
+        cartFragment.setArguments(bundle);
+        replaceFragment(cartFragment);
 
     }
 }
