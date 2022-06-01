@@ -4,39 +4,27 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.ArrayList;
-import java.util.Map;
 
 public class cartFragment extends Fragment {
     View view;
     RecyclerView recyclerView;
     cartAdapter adapter;
-    ArrayList<item> itemArrayList;
-    FirebaseFirestore db;
-    User user;
-    Map<String, Integer> cart;
 
-    ArrayList<String> drinksIDArrayList;
-    ArrayList<String> drinksNameArrayList;
-    ArrayList<String> drinksPriceArrayList;
-    ArrayList<String> drinksDescriptionArrayList;
-    ArrayList<String> drinksPicURLArrayList;
-
-    ArrayList<String> booksIDArrayList;
-    ArrayList<String> booksNameArrayList;
-    ArrayList<String> booksDescriptionArrayList;
-    ArrayList<String> booksPicURLArrayList;
-    ArrayList<String> booksPriceArrayList;
-
-    ArrayList<String> cartItemIds;
+    ArrayList<String> itemsIDArrayList;
+    ArrayList<String> itemsNameArrayList;
+    ArrayList<String> itemsPriceArrayList;
+    ArrayList<String> itemsDescriptionArrayList;
+    ArrayList<String> itemsPicURLArrayList;
     ArrayList<Integer> cartItemCount;
+
+    TextView total;
 
 
     @Override
@@ -52,63 +40,35 @@ public class cartFragment extends Fragment {
 
         Bundle bundle = getArguments();
         ArrayList<item> itemArrayList = new ArrayList<>();
-        itemArrayList.size();
 
-        drinksIDArrayList = bundle.getStringArrayList("drinksIDArrayList");
-        drinksPicURLArrayList = bundle.getStringArrayList("drinksPicURLArrayList");
-        drinksNameArrayList = bundle.getStringArrayList("drinksNameArrayList");
-        drinksPriceArrayList = bundle.getStringArrayList("drinksPriceArrayList");
-        drinksDescriptionArrayList = bundle.getStringArrayList("drinksDescriptionArrayList");
-
-        booksIDArrayList = bundle.getStringArrayList("booksIDArrayList");
-        booksPicURLArrayList = bundle.getStringArrayList("booksPicURLArrayList");
-        booksNameArrayList = bundle.getStringArrayList("booksNameArrayList");
-        booksPriceArrayList = bundle.getStringArrayList("booksPriceArrayList");
-        booksDescriptionArrayList = bundle.getStringArrayList("booksDescriptionArrayList");
-
-        cartItemIds = bundle.getStringArrayList("cartItemIds");
+        itemsIDArrayList = bundle.getStringArrayList("itemsIDArrayList");
+        itemsPicURLArrayList = bundle.getStringArrayList("itemsPicURLArrayList");
+        itemsNameArrayList = bundle.getStringArrayList("itemsNameArrayList");
+        itemsPriceArrayList = bundle.getStringArrayList("itemsPriceArrayList");
+        itemsDescriptionArrayList = bundle.getStringArrayList("itemsDescriptionArrayList");
         cartItemCount = bundle.getIntegerArrayList("cartItemCount");
 
 
-
-
-        for (int i = 0; i < (drinksIDArrayList.size() - 1); i++) {
-            itemArrayList.add(new item(drinksIDArrayList.get(i),
-                    drinksNameArrayList.get(i),
-                    drinksPriceArrayList.get(i),
-                    drinksDescriptionArrayList.get(i),
-                    drinksPicURLArrayList.get(i)));
+        for (int i = 0; i < itemsIDArrayList.size(); i++) {
+            itemArrayList.add(new item(itemsIDArrayList.get(i), itemsNameArrayList.get(i), itemsPriceArrayList.get(i), itemsDescriptionArrayList.get(i), itemsPicURLArrayList.get(i)));
         }
 
-
-        for (int i = 0; i < (booksIDArrayList.size() - 1); i++) {
-            itemArrayList.add(new item(booksIDArrayList.get(i),
-                    booksNameArrayList.get(i),
-                    booksPriceArrayList.get(i),
-                    booksDescriptionArrayList.get(i),
-                    booksPicURLArrayList.get(i)));
+        int totalPrice = 0;
+        for (int i = 0; i < itemArrayList.size(); i++) {
+            totalPrice = totalPrice + (Integer.parseInt(itemArrayList.get(i).getItemPrice()) * cartItemCount.get(i));
         }
-
-        for(int i =0 ;i<(itemArrayList.size() - 1);i++){
-            if(!cartItemIds.contains(itemArrayList.get(i).getItemID())){
-                itemArrayList.remove(itemArrayList.get(i));
-            }
-
-        }
-        System.out.println(itemArrayList);
+        System.out.println(totalPrice);
+        total = (TextView) view.findViewById(R.id.total);
+        total.setText(totalPrice + " JD");
 
 
-
-        adapter = new cartAdapter(view.getContext(), itemArrayList);
+        adapter = new cartAdapter(view.getContext(), itemArrayList, cartItemCount);
         recyclerView.setAdapter(adapter);
 
 
         return view;
 
     }
-
-
-
 
 
 }

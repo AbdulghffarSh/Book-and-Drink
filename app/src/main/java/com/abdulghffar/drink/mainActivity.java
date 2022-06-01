@@ -302,31 +302,16 @@ public class mainActivity extends AppCompatActivity {
 
 
 
-        ArrayList<String> booksIDArrayList = new ArrayList<>();
-        ArrayList<String> booksPicURLArrayList = new ArrayList<>();
-        ArrayList<String> booksNameArrayList = new ArrayList<>();
-        ArrayList<String> booksPriceArrayList = new ArrayList<>();
-        ArrayList<String> booksDescriptionArrayList = new ArrayList<>();
+        ArrayList<String> itemsIDArrayList = new ArrayList<>();
+        ArrayList<String> itemsPicURLArrayList = new ArrayList<>();
+        ArrayList<String> itemsNameArrayList = new ArrayList<>();
+        ArrayList<String> itemsPriceArrayList = new ArrayList<>();
+        ArrayList<String> itemsDescriptionArrayList = new ArrayList<>();
 
 
 
 
-//        for (item item : drinksItemArrayList) {
-//            drinksIDArrayList.add(item.getItemID());
-//            drinksPicURLArrayList.add(item.getItemPicURL());
-//            drinksNameArrayList.add(item.getItemName());
-//            drinksPriceArrayList.add(item.getItemPrice());
-//            drinksDescriptionArrayList.add(item.getItemDescription());
-//        }
-//
-//
-//        for (item item : booksItemArrayList) {
-//            booksIDArrayList.add(item.getItemID());
-//            booksPicURLArrayList.add(item.getItemPicURL());
-//            booksNameArrayList.add(item.getItemName());
-//            booksPriceArrayList.add(item.getItemPrice());
-//            booksDescriptionArrayList.add(item.getItemDescription());
-//        }
+
 
         ArrayList<item> itemArrayList1 = new ArrayList<>();
         ArrayList<item> itemArrayList = new ArrayList<>();
@@ -337,7 +322,7 @@ public class mainActivity extends AppCompatActivity {
         System.out.println("itemArrayList1"+itemArrayList1.size());
 
 
-        for(int i =0 ;i<(itemArrayList1.size() - 1);i++){
+        for(int i =0 ;i<(itemArrayList1.size());i++){
             if(cartItemIds.contains(itemArrayList1.get(i).getItemID())){
                 itemArrayList.add(itemArrayList1.get(i));
 
@@ -347,25 +332,30 @@ public class mainActivity extends AppCompatActivity {
 
         System.out.println("itemArrayList"+itemArrayList.size());
 
+        for (item item : itemArrayList) {
+            itemsIDArrayList.add(item.getItemID());
+            itemsPicURLArrayList.add(item.getItemPicURL());
+            itemsNameArrayList.add(item.getItemName());
+            itemsPriceArrayList.add(item.getItemPrice());
+            itemsDescriptionArrayList.add(item.getItemDescription());
+        }
 
+
+System.out.println("Cart "+ cartItemCount);
 
         Bundle bundle = new Bundle();
 
-        bundle.putStringArrayList("drinksIDArrayList", drinksIDArrayList);
-        bundle.putStringArrayList("drinksPicURLArrayList", drinksPicURLArrayList);
-        bundle.putStringArrayList("drinksNameArrayList", drinksNameArrayList);
-        bundle.putStringArrayList("drinksPriceArrayList", drinksPriceArrayList);
-        bundle.putStringArrayList("drinksDescriptionArrayList", drinksDescriptionArrayList);
 
 
-        bundle.putStringArrayList("booksIDArrayList", booksIDArrayList);
-        bundle.putStringArrayList("booksPicURLArrayList", booksPicURLArrayList);
-        bundle.putStringArrayList("booksNameArrayList", booksNameArrayList);
-        bundle.putStringArrayList("booksPriceArrayList", booksPriceArrayList);
-        bundle.putStringArrayList("booksDescriptionArrayList", booksDescriptionArrayList);
 
-        bundle.putStringArrayList("cartItemIds", cartItemIds);
-        bundle.putIntegerArrayList("cartItemCount", cartItemCount);
+        bundle.putStringArrayList("itemsDescriptionArrayList", itemsDescriptionArrayList);
+        bundle.putStringArrayList("itemsIDArrayList", itemsIDArrayList);
+        bundle.putStringArrayList("itemsPicURLArrayList", itemsPicURLArrayList);
+        bundle.putStringArrayList("itemsNameArrayList", itemsNameArrayList);
+        bundle.putStringArrayList("itemsPriceArrayList", itemsPriceArrayList);
+
+        bundle.putIntegerArrayList("cartItemCount",cartItemCount);
+
 
         cartFragment cartFragment = new cartFragment();
         cartFragment.setArguments(bundle);

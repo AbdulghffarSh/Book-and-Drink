@@ -10,6 +10,8 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:scaleType="centerCrop"
         android:src="@drawable/no_image" />
 
@@ -35,22 +37,20 @@
         android:orientation="horizontal">
 
 
-
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/minus"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:background="@null"
             android:fontFamily="@font/itim"
             android:gravity="center"
-            android:textSize="30dp"
-            android:background="@null"
             android:text="-"
+            android:textSize="30dp"
 
             />
 
         <TextView
-            android:id="@+id/quantity"
+            android:id="@+id/quantityy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_edittext"
@@ -62,17 +62,15 @@
             android:textSize="30dp" />
 
 
-
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/plus"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:background="@null"
             android:fontFamily="@font/itim"
             android:gravity="center"
             android:text="+"
             android:textSize="30dp"
-            android:background="@null"
 
 
             />
