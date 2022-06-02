@@ -3,8 +3,6 @@ package com.abdulghffar.drink;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +10,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
@@ -27,7 +24,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,7 +33,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     Context context;
     ArrayList<item> itemArrayList;
-    Map < item, Integer > cart;
+    Map<item, Integer> cart;
     FirebaseFirestore db;
 
 
@@ -103,7 +99,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                     DocumentReference docRef =
                             db.collection("Users").document(firebaseUser.getUid());
                     docRef.get().addOnSuccessListener(new OnSuccessListener<
-                                                              DocumentSnapshot>() {
+                            DocumentSnapshot>() {
                         @SuppressLint("SetTextI18n")
                         @Override
                         public void
@@ -148,13 +144,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
 
                                 Toasty.custom(context, "Item added to cart", ResourcesCompat.getDrawable(v.getResources(), R.drawable.cart, null),
-                                        Color.WHITE,Color.parseColor("#0A2658"), Toasty.LENGTH_SHORT, true, true).show();
+                                        Color.WHITE, Color.parseColor("#0A2658"), Toasty.LENGTH_SHORT, true, true).show();
                             }
                         }
                     });
 
 
-                    } else {
+                } else {
 
                 }
 

@@ -294,12 +294,10 @@ public class mainActivity extends AppCompatActivity {
     public void cartFragment() {
 
 
-
         header.setText("Cart");
 
         ArrayList<String> cartItemIds = new ArrayList<>(user.getCart().keySet());
         ArrayList<Integer> cartItemCount = new ArrayList<>(user.getCart().values());
-
 
 
         ArrayList<String> itemsIDArrayList = new ArrayList<>();
@@ -309,28 +307,24 @@ public class mainActivity extends AppCompatActivity {
         ArrayList<String> itemsDescriptionArrayList = new ArrayList<>();
 
 
-
-
-
-
         ArrayList<item> itemArrayList1 = new ArrayList<>();
         ArrayList<item> itemArrayList = new ArrayList<>();
         itemArrayList1.addAll(drinksItemArrayList);
         itemArrayList1.addAll(booksItemArrayList);
 
-        System.out.println("cartItemIds"+cartItemIds);
-        System.out.println("itemArrayList1"+itemArrayList1.size());
+        System.out.println("cartItemIds" + cartItemIds);
+        System.out.println("itemArrayList1" + itemArrayList1.size());
 
 
-        for(int i =0 ;i<(itemArrayList1.size());i++){
-            if(cartItemIds.contains(itemArrayList1.get(i).getItemID())){
+        for (int i = 0; i < (itemArrayList1.size()); i++) {
+            if (cartItemIds.contains(itemArrayList1.get(i).getItemID())) {
                 itemArrayList.add(itemArrayList1.get(i));
 
             }
 
         }
 
-        System.out.println("itemArrayList"+itemArrayList.size());
+        System.out.println("itemArrayList" + itemArrayList.size());
 
         for (item item : itemArrayList) {
             itemsIDArrayList.add(item.getItemID());
@@ -341,11 +335,9 @@ public class mainActivity extends AppCompatActivity {
         }
 
 
-System.out.println("Cart "+ cartItemCount);
+        System.out.println("Cart " + cartItemCount);
 
         Bundle bundle = new Bundle();
-
-
 
 
         bundle.putStringArrayList("itemsDescriptionArrayList", itemsDescriptionArrayList);
@@ -354,7 +346,7 @@ System.out.println("Cart "+ cartItemCount);
         bundle.putStringArrayList("itemsNameArrayList", itemsNameArrayList);
         bundle.putStringArrayList("itemsPriceArrayList", itemsPriceArrayList);
 
-        bundle.putIntegerArrayList("cartItemCount",cartItemCount);
+        bundle.putIntegerArrayList("cartItemCount", cartItemCount);
 
 
         cartFragment cartFragment = new cartFragment();
@@ -362,4 +354,5 @@ System.out.println("Cart "+ cartItemCount);
         replaceFragment(cartFragment);
 
     }
+
 }
