@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -36,6 +37,7 @@ public class mainActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     TextView header;
+    ImageButton refresh;
     SmoothBottomBar bottomBar;
     FirebaseFirestore db;
     ArrayList<item> drinksItemArrayList;
@@ -49,6 +51,13 @@ public class mainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         setup();
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(getIntent());
+            }
+        });
         bottomBar.setOnItemSelected((Function1<? super Integer, Unit>) o ->
                 {
                     switch (o) {
@@ -79,7 +88,7 @@ public class mainActivity extends AppCompatActivity {
         EventChangeListener();
         header = (TextView) findViewById(R.id.header_title);
         bottomBar = (SmoothBottomBar) findViewById(R.id.bottomBar);
-
+        refresh = (ImageButton) findViewById(R.id.refresh);
 
     }
 

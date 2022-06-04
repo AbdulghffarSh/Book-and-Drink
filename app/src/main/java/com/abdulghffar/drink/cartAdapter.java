@@ -118,7 +118,15 @@ public class cartAdapter extends RecyclerView.Adapter<
 
                             // if the user has cart
 
-                            ArrayList quantity = new ArrayList(user.getCart().values());
+
+                            assert user != null;
+                            System.out.println((selectedItem.getItemName()));
+                            user.getCart().put(selectedItem.getItemID(), user.getCart().get(selectedItem.getItemID()) + 1);
+
+                            db.collection("Users").document(user.getuID())
+                                    .update(
+                                            "cart", user.getCart()
+                                    );
 
                         }
                     });
@@ -130,6 +138,70 @@ public class cartAdapter extends RecyclerView.Adapter<
 
 
                 ;
+            }
+        });
+
+
+        holder.minusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+
+                    item selectedItem =
+                            itemArrayList.get(holder.
+                                    getAdapterPosition
+                                            ());
+
+                    quantity.set(position, quantity.get(position));
+
+                    db = FirebaseFirestore.getInstance();
+
+
+                    db = FirebaseFirestore.getInstance();
+                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                    if (firebaseUser != null) {
+
+                        DocumentReference docRef =
+                                db.collection("Users").document(firebaseUser.getUid());
+                        docRef.get().addOnSuccessListener(new OnSuccessListener<
+                                DocumentSnapshot>() {
+                            @SuppressLint("SetTextI18n")
+                            @Override
+                            public void
+                            onSuccess(DocumentSnapshot
+                                              documentSnapshot) {
+
+
+                                User user =
+                                        documentSnapshot.
+                                                toObject(User.class);
+
+                                // if the user has cart
+
+
+                                assert user != null;
+                                System.out.println((selectedItem.getItemName()));
+                                user.getCart().put(selectedItem.getItemID(), user.getCart().get(selectedItem.getItemID()) -1);
+                                if(user.getCart().get(selectedItem.getItemID())<1){
+                                    user.getCart().remove(selectedItem.getItemID());
+                                }
+
+                                db.collection("Users").document(user.getuID())
+                                        .update(
+                                                "cart", user.getCart()
+                                        );
+
+                            }
+                        });
+
+
+                    } else {
+
+                    }
+
+
+                    ;
+                }
             }
         });
 
