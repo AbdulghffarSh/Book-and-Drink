@@ -36,7 +36,6 @@
         android:orientation="vertical">
 
         <RelativeLayout
-            android:id="@+id/checkout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -69,6 +68,7 @@
             android:layout_height="20dp" />
 
         <TextView
+            android:id="@+id/checkout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -78,7 +78,8 @@
             android:padding="10dp"
             android:text="Checkout"
             android:textColor="@color/white"
-            android:textSize="30dp" />
+            android:textSize="30dp"
+          />
     </LinearLayout>
 
 

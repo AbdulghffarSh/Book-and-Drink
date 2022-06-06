@@ -1,5 +1,6 @@
 package com.abdulghffar.drink;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class User {
@@ -81,4 +82,5 @@ public class User {
     public void setCart(Map<String, Integer> cart) {
         this.cart = cart;
     }
+
 }

@@ -2,15 +2,16 @@ package com.abdulghffar.drink;
 
 
 public class item {
-    private String itemID, itemName, itemPrice, itemDescription, itemPicURL;
+    private String itemID, itemName, itemPrice, itemDescription, itemPicURL, itemTag;
 
     public item(String itemID, String itemName, String itemPrice,
-                String itemDescription, String itemPicURL) {
+                String itemDescription, String itemPicURL, String tag) {
         this.itemID = itemID;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.itemDescription = itemDescription;
         this.itemPicURL = itemPicURL;
+        this.itemTag = tag;
     }
 
     public void setItemName(String itemName) {
@@ -62,5 +63,13 @@ public class item {
 
     public void setItemPicURL(String itemPicURL) {
         this.itemPicURL = itemPicURL;
+    }
+
+    public String getItemTag() {
+        return itemTag;
+    }
+
+    public void setItemTag(String itemTag) {
+        this.itemTag = itemTag;
     }
 }

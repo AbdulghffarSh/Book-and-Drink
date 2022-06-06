@@ -36,14 +36,15 @@
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/allFilter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_button"
-                android:backgroundTint="#E1E5EB"
+                android:backgroundTint="@color/button_color_selector"
                 android:fontFamily="@font/itim"
                 android:text="All"
                 android:textAllCaps="false"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/button_text_color_selector"
                 android:textSize="15sp"
                 android:textStyle="bold"
 
@@ -54,14 +55,15 @@
                 android:layout_height="wrap_content" />
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/cappuccinoFilter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_button"
-                android:backgroundTint="#E1E5EB"
+                android:backgroundTint="@color/button_color_selector"
                 android:fontFamily="@font/itim"
-                android:text="Capuccino"
+                android:text="Cappuccino"
                 android:textAllCaps="false"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/button_text_color_selector"
                 android:textSize="15sp"
                 android:textStyle="bold"
 
@@ -72,14 +74,15 @@
                 android:layout_height="wrap_content" />
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/americanoFilter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_button"
-                android:backgroundTint="#E1E5EB"
+                android:backgroundTint="@color/button_color_selector"
                 android:fontFamily="@font/itim"
                 android:text="Americano"
                 android:textAllCaps="false"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/button_text_color_selector"
                 android:textSize="15sp"
                 android:textStyle="bold"
 
@@ -90,14 +93,15 @@
                 android:layout_height="wrap_content" />
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/espressoFilter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_button"
-                android:backgroundTint="#E1E5EB"
+                android:backgroundTint="@color/button_color_selector"
                 android:fontFamily="@font/itim"
                 android:text="Espresso"
                 android:textAllCaps="false"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/button_text_color_selector"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 

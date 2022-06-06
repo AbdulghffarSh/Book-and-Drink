@@ -6,6 +6,7 @@ import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.fragment.app.Fragment;
@@ -31,6 +32,9 @@ public class bookShopFragment extends Fragment {
     ArrayList<String> booksDescriptionArrayList;
     ArrayList<String> booksPicURLArrayList;
     ArrayList<String> booksPriceArrayList;
+    ArrayList<String> booksTagArrayList;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +47,7 @@ public class bookShopFragment extends Fragment {
         booksPriceArrayList = new ArrayList<>();
         itemArrayList = new ArrayList<>();
         booksDescriptionArrayList = new ArrayList<>();
+        booksTagArrayList = new ArrayList<>();
 
 
         Bundle bundle = getArguments();
@@ -75,8 +80,8 @@ public class bookShopFragment extends Fragment {
         booksPicURLArrayList = bundle.getStringArrayList("booksPicURLArrayList");
         booksNameArrayList = bundle.getStringArrayList("booksNameArrayList");
         booksPriceArrayList = bundle.getStringArrayList("booksPriceArrayList");
-        booksDescriptionArrayList =
-                bundle.getStringArrayList("booksDescriptionArrayList");
+        booksDescriptionArrayList = bundle.getStringArrayList("booksDescriptionArrayList");
+        booksTagArrayList = bundle.getStringArrayList("booksTagArrayList");
 
 
         for (int i = 0; i < (booksIDArrayList.size() - 1); i++) {
@@ -84,7 +89,8 @@ public class bookShopFragment extends Fragment {
                     booksNameArrayList.get(i),
                     booksPriceArrayList.get(i),
                     booksDescriptionArrayList.get(i),
-                    booksPicURLArrayList.get(i)));
+                    booksPicURLArrayList.get(i),
+                    booksTagArrayList.get(i)));
         }
 
 

@@ -1,6 +1,7 @@
 package com.abdulghffar.drink;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +48,7 @@ public class cartFragment extends Fragment {
     List<Integer> quantity;
 
     TextView total;
+    TextView checkout;
 
 
     @Override
@@ -57,6 +60,55 @@ public class cartFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        checkout = (TextView) view.findViewById(R.id.checkout);
+        total = (TextView) view.findViewById(R.id.total);
+
+
+        checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new java.util.Date());
+
+
+                db = FirebaseFirestore.getInstance();
+                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                if (firebaseUser != null) {
+
+                    DocumentReference docRef =
+                            db.collection("Users").document(firebaseUser.getUid());
+                    docRef.get().addOnSuccessListener(new OnSuccessListener<
+                                                              DocumentSnapshot>() {
+                                                          @SuppressLint("SetTextI18n")
+                                                          @Override
+                                                          public void
+                                                          onSuccess(DocumentSnapshot
+                                                                            documentSnapshot) {
+                                                              user = documentSnapshot.toObject(User.class);
+
+                                                              order order = new order(timeStamp, user.getAddress(), user.getPhoneNumber(), false, total.getText().toString(), user.getuID(), user.getCart());
+
+
+                                                              assert user != null;
+
+                                                              db.collection("Orders").document(timeStamp).set(order);
+                                                              Bundle bundle = new Bundle();
+                                                              bundle.putString("order", timeStamp);
+                                                              startActivity(new Intent(getActivity(), orderActivity.class).putExtras(bundle));
+
+
+                                                          }
+                                                      }
+                    );
+
+
+                } else {
+                    // No user is signed in
+                }
+
+
+
+            }
+        });
 
 
         //getCartData
@@ -170,8 +222,6 @@ public class cartFragment extends Fragment {
                                                                                                 }
 
                                                                                             }
-                                                                                            System.out.println("Test size2  " + newItemArrayList.size());
-                                                                                            System.out.println("Test " + newItemArrayList.get(0).getItemID());
 
 
                                                                                             db = FirebaseFirestore.getInstance();
@@ -196,15 +246,6 @@ public class cartFragment extends Fragment {
                                                                                                         // if the user has cart
                                                                                                         int sum = 0;
                                                                                                         ArrayList<Integer> quantity = new ArrayList(user.getCart().values());
-                                                                                                        System.out.println("itemsSize " + itemArrayList.size());
-                                                                                                        System.out.println("quantity " + quantity);
-                                                                                                        total = view.findViewById(R.id.total);
-
-                                                                                                        for (int i = 0; i < newItemArrayList.size(); i++) {
-                                                                                                            sum = sum + (Integer.parseInt(newItemArrayList.get(i).getItemPrice()) * quantity.get(i));
-                                                                                                        }
-                                                                                                        System.out.println("Sum " + sum);
-                                                                                                        total.setText(Integer.toString(sum) + " JD");
 
 
                                                                                                     }
@@ -215,11 +256,13 @@ public class cartFragment extends Fragment {
 
                                                                                             }
 
-                                                                                            adapter = new cartAdapter(view.getContext(), newItemArrayList, user.getCart());
+
+                                                                                            adapter = new cartAdapter(view.getContext(), newItemArrayList, user.getCart(), getContext());
                                                                                             recyclerView.setAdapter(adapter);
 
 
                                                                                         }
+
 
                                                                                     }
                                                                 );
@@ -241,4 +284,6 @@ public class cartFragment extends Fragment {
         return view;
 
     }
+
+
 }

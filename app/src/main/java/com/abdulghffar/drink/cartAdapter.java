@@ -1,6 +1,7 @@
 package com.abdulghffar.drink;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,12 +34,15 @@ public class cartAdapter extends RecyclerView.Adapter<
     Map<String, Integer> cart;
     FirebaseFirestore db;
     List<Integer> quantity;
+    TextView total;
+    Context fragmentContext;
 
 
-    public cartAdapter(Context context, ArrayList<item> itemArrayList, Map<String, Integer> cart) {
+    public cartAdapter(Context context, ArrayList<item> itemArrayList, Map<String, Integer> cart, Context fragmentContext) {
         this.context = context;
         this.itemArrayList = itemArrayList;
         this.cart = cart;
+        this.fragmentContext = fragmentContext;
 
     }
 
@@ -53,6 +57,7 @@ public class cartAdapter extends RecyclerView.Adapter<
         View v = LayoutInflater.from(context).inflate(R.layout.cart_item, parent,
                 false);
 
+        calculateTotal();
 
         return new ViewHolder(v);
     }
@@ -122,6 +127,9 @@ public class cartAdapter extends RecyclerView.Adapter<
                             assert user != null;
                             System.out.println((selectedItem.getItemName()));
                             user.getCart().put(selectedItem.getItemID(), user.getCart().get(selectedItem.getItemID()) + 1);
+                            quantity.set(holder.getAdapterPosition(), quantity.get(holder.getAdapterPosition()) + 1);
+                            notifyDataSetChanged();
+                            calculateTotal();
 
                             db.collection("Users").document(user.getuID())
                                     .update(
@@ -165,7 +173,7 @@ public class cartAdapter extends RecyclerView.Adapter<
                                 db.collection("Users").document(firebaseUser.getUid());
                         docRef.get().addOnSuccessListener(new OnSuccessListener<
                                 DocumentSnapshot>() {
-                            @SuppressLint("SetTextI18n")
+                            @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
                             @Override
                             public void
                             onSuccess(DocumentSnapshot
@@ -181,11 +189,15 @@ public class cartAdapter extends RecyclerView.Adapter<
 
                                 assert user != null;
                                 System.out.println((selectedItem.getItemName()));
-                                user.getCart().put(selectedItem.getItemID(), user.getCart().get(selectedItem.getItemID()) -1);
-                                if(user.getCart().get(selectedItem.getItemID())<1){
-                                    user.getCart().remove(selectedItem.getItemID());
-                                }
+                                user.getCart().put(selectedItem.getItemID(), user.getCart().get(selectedItem.getItemID()) - 1);
+                                quantity.set(holder.getAdapterPosition(), quantity.get(holder.getAdapterPosition()) - 1);
 
+                                if (user.getCart().get(selectedItem.getItemID()) < 1) {
+                                    user.getCart().remove(selectedItem.getItemID());
+                                    itemArrayList.remove(selectedItem);
+                                }
+                                notifyDataSetChanged();
+                                calculateTotal();
                                 db.collection("Users").document(user.getuID())
                                         .update(
                                                 "cart", user.getCart()
@@ -226,7 +238,6 @@ public class cartAdapter extends RecyclerView.Adapter<
             itemPrice = itemView.findViewById(R.id.itemPrice);
             itemImage = itemView.findViewById(R.id.img);
             itemQuantity = itemView.findViewById(R.id.quantityy);
-            total = itemView.findViewById(R.id.total);
 
             plusButton = itemView.findViewById(R.id.plus);
             minusButton = itemView.findViewById(R.id.minus);
@@ -235,5 +246,17 @@ public class cartAdapter extends RecyclerView.Adapter<
         }
     }
 
+
+    private void calculateTotal() {
+        total = (TextView) ((Activity) fragmentContext).findViewById(R.id.total);
+
+
+        int sum = 0;
+        for (int i = 0; i < itemArrayList.size(); i++) {
+            sum = sum + (Integer.parseInt(itemArrayList.get(i).getItemPrice()) * quantity.get(i));
+        }
+        System.out.println("Sum " + sum);
+        total.setText(sum + " JD");
+    }
 
 }

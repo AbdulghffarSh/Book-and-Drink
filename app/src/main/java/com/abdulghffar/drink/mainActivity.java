@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -45,12 +46,17 @@ public class mainActivity extends AppCompatActivity {
     User user;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
         setup();
+
+
+
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +66,7 @@ public class mainActivity extends AppCompatActivity {
         });
         bottomBar.setOnItemSelected((Function1<? super Integer, Unit>) o ->
                 {
+
                     switch (o) {
                         case 0:
                             homeFragment();
@@ -90,6 +97,9 @@ public class mainActivity extends AppCompatActivity {
         bottomBar = (SmoothBottomBar) findViewById(R.id.bottomBar);
         refresh = (ImageButton) findViewById(R.id.refresh);
 
+
+
+
     }
 
     private void replaceFragment(Fragment fragment) {
@@ -104,11 +114,13 @@ public class mainActivity extends AppCompatActivity {
 
     public void homeFragment() {
 
+
         ArrayList<String> drinksIDArrayList = new ArrayList<>();
         ArrayList<String> drinksPicURLArrayList = new ArrayList<>();
         ArrayList<String> drinksNameArrayList = new ArrayList<>();
         ArrayList<String> drinksPriceArrayList = new ArrayList<>();
         ArrayList<String> drinksDescriptionArrayList = new ArrayList<>();
+        ArrayList<String> drinksTagArrayList = new ArrayList<>();
 
 
         for (item item : drinksItemArrayList) {
@@ -117,6 +129,7 @@ public class mainActivity extends AppCompatActivity {
             drinksNameArrayList.add(item.getItemName());
             drinksPriceArrayList.add(item.getItemPrice());
             drinksDescriptionArrayList.add(item.getItemDescription());
+            drinksTagArrayList.add(item.getItemTag());
 
         }
 
@@ -126,8 +139,10 @@ public class mainActivity extends AppCompatActivity {
         bundle.putStringArrayList("drinksPicURLArrayList", drinksPicURLArrayList);
         bundle.putStringArrayList("drinksNameArrayList", drinksNameArrayList);
         bundle.putStringArrayList("drinksPriceArrayList", drinksPriceArrayList);
-        bundle.putStringArrayList("drinksDescriptionArrayList",
-                drinksDescriptionArrayList);
+        bundle.putStringArrayList("drinksDescriptionArrayList", drinksDescriptionArrayList);
+        bundle.putStringArrayList("booksTagArrayList", drinksTagArrayList);
+
+
 
         homeFragment homeFragment = new homeFragment();
         homeFragment.setArguments(bundle);
@@ -141,11 +156,13 @@ public class mainActivity extends AppCompatActivity {
 
     public void bookShopFragment() {
 
+
         ArrayList<String> booksIDArrayList = new ArrayList<>();
         ArrayList<String> booksPicURLArrayList = new ArrayList<>();
         ArrayList<String> booksNameArrayList = new ArrayList<>();
         ArrayList<String> booksPriceArrayList = new ArrayList<>();
         ArrayList<String> booksDescriptionArrayList = new ArrayList<>();
+        ArrayList<String> booksTagArrayList = new ArrayList<>();
 
 
         for (item item : booksItemArrayList) {
@@ -154,6 +171,7 @@ public class mainActivity extends AppCompatActivity {
             booksNameArrayList.add(item.getItemName());
             booksPriceArrayList.add(item.getItemPrice());
             booksDescriptionArrayList.add(item.getItemDescription());
+            booksTagArrayList.add(item.getItemTag());
 
 
         }
@@ -164,6 +182,7 @@ public class mainActivity extends AppCompatActivity {
         bundle.putStringArrayList("booksNameArrayList", booksNameArrayList);
         bundle.putStringArrayList("booksPriceArrayList", booksPriceArrayList);
         bundle.putStringArrayList("booksDescriptionArrayList", booksDescriptionArrayList);
+        bundle.putStringArrayList("booksTagArrayList",booksTagArrayList);
 
 
         bookShopFragment bookShopFragment = new bookShopFragment();
@@ -314,6 +333,7 @@ public class mainActivity extends AppCompatActivity {
         ArrayList<String> itemsNameArrayList = new ArrayList<>();
         ArrayList<String> itemsPriceArrayList = new ArrayList<>();
         ArrayList<String> itemsDescriptionArrayList = new ArrayList<>();
+        ArrayList<String> itemsTagArrayList = new ArrayList<>();
 
 
         ArrayList<item> itemArrayList1 = new ArrayList<>();
@@ -341,6 +361,7 @@ public class mainActivity extends AppCompatActivity {
             itemsNameArrayList.add(item.getItemName());
             itemsPriceArrayList.add(item.getItemPrice());
             itemsDescriptionArrayList.add(item.getItemDescription());
+            itemsTagArrayList.add(item.getItemTag());
         }
 
 
@@ -354,7 +375,7 @@ public class mainActivity extends AppCompatActivity {
         bundle.putStringArrayList("itemsPicURLArrayList", itemsPicURLArrayList);
         bundle.putStringArrayList("itemsNameArrayList", itemsNameArrayList);
         bundle.putStringArrayList("itemsPriceArrayList", itemsPriceArrayList);
-
+        bundle.putStringArrayList("itemsTagArrayList",itemsTagArrayList);
         bundle.putIntegerArrayList("cartItemCount", cartItemCount);
 
 
