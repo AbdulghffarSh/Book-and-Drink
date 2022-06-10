@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ViewFlipper;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -33,7 +34,8 @@ public class homeFragment extends Fragment {
     Adapter adapter;
 
     ImageButton imageButton;
-    Button cappuccinoFilter, allFilter, americanoFilter, espressoFilter;
+    Button cappuccinoFilter, allFilter, americanoFilter, espressoFilter,next,prev;
+    ViewFlipper viewFlipper;
 
     ArrayList<String> drinksIDArrayList;
     ArrayList<String> drinksNameArrayList;
@@ -87,6 +89,28 @@ public class homeFragment extends Fragment {
         allFilter = (Button) view.findViewById(R.id.allFilter);
         americanoFilter = (Button) view.findViewById(R.id.americanoFilter);
         espressoFilter = (Button) view.findViewById(R.id.espressoFilter);
+        next = (Button) view.findViewById(R.id.next);
+        prev = (Button) view.findViewById(R.id.prev);
+        viewFlipper = view.findViewById(R.id.viewFlipper);
+
+
+        //flipperButtons
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewFlipper.showNext();
+
+            }
+        });
+
+        prev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewFlipper.showPrevious();
+
+            }
+        });
+
 
 
         cappuccinoFilter.setOnClickListener(new View.OnClickListener() {

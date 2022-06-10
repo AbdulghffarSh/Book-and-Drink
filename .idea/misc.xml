@@ -56,13 +56,18 @@
         <entry key="..\:/Users/Abdulghffar/AndroidStudioProjects/Drink/app/src/main/res/layout/activity_splash.xml" value="0.21965579710144928" />
         <entry key="..\:/Users/Abdulghffar/AndroidStudioProjects/Drink/app/src/main/res/layout/slider_item.xml" value="0.3625" />
         <entry key="app/src/main/res/drawable/home.xml" value="0.2085" />
+        <entry key="app/src/main/res/drawable/ic_next.xml" value="0.1645" />
         <entry key="app/src/main/res/drawable/logo.xml" value="0.2085" />
         <entry key="app/src/main/res/layout/activity_fragment.xml" value="0.3029891304347826" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.3029891304347826" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.3029891304347826" />
+        <entry key="app/src/main/res/layout/activity_order.xml" value="0.3029891304347826" />
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.3029891304347826" />
+        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.3029891304347826" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.625" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2875627547482285" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3100936524453694" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.3029891304347826" />
+        <entry key="app/src/main/res/layout/item.xml" value="0.3029891304347826" />
       </map>
     </option>
   </component>

@@ -45,6 +45,7 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/addressTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/img"
@@ -59,13 +60,14 @@
         android:id="@+id/orderAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/img"
+        android:layout_below="@+id/addressTextView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/itim"
         android:textSize="20sp" />
 
     <TextView
+        android:id="@+id/phoneNumberTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/orderAddress"
@@ -75,16 +77,16 @@
         android:text="Phone Number:"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
+
     <TextView
         android:id="@+id/phoneNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/orderAddress"
+        android:layout_below="@+id/phoneNumberTextView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/itim"
-        android:textSize="20sp"
-        />
+        android:textSize="20sp" />
 
 
 

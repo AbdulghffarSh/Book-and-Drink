@@ -26,7 +26,6 @@ import es.dmoral.toasty.Toasty;
 
 public class signIn extends AppCompatActivity
 {
-    ProgressBar progressBar;
     private FirebaseAuth mAuth;
     private EditText email;
     private EditText password;
@@ -77,12 +76,10 @@ public class signIn extends AppCompatActivity
                                                                   onComplete
                                                                           (@NonNull Task < AuthResult > task)
                                                                   {
-                                                                      progressBar.setVisibility
-                                                                              (View.VISIBLE);
+
                                                                       if (task.isSuccessful ())
                                                                       {
-                                                                          progressBar.setVisibility
-                                                                                  (View.GONE);
+
                                                                           Toasty.success (signIn.this,
                                                                                   "You have been successfully logged in",
                                                                                   Toast.LENGTH_SHORT,
@@ -112,7 +109,6 @@ public class signIn extends AppCompatActivity
     private void setup ()
     {
 
-        progressBar = (ProgressBar) findViewById (R.id.progressBar);
         email = (EditText) findViewById (R.id.email);
         password = (EditText) findViewById (R.id.password);
         signInButton = (Button) findViewById (R.id.signinButton);
