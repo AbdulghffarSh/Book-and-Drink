@@ -107,6 +107,11 @@
 
         </LinearLayout>
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -114,7 +119,8 @@
             android:fontFamily="@font/itim"
             android:textColor="@color/colorPrimary"
             android:gravity="center"
-            android:textStyle="italic|bold"/>
+            android:textStyle="italic|bold"
+            android:textSize="18dp"/>
 
 
         <RelativeLayout
