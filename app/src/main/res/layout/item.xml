@@ -35,7 +35,10 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/itim"
                 android:text="ItemName"
-                android:textAppearance="?attr/textAppearanceHeadline6" />
+                android:textSize="15sp"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textStyle="bold"
+                />
 
 
         </LinearLayout>

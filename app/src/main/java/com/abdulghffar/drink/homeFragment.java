@@ -1,10 +1,13 @@
 package com.abdulghffar.drink;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class homeFragment extends Fragment {
 
@@ -34,7 +38,7 @@ public class homeFragment extends Fragment {
     Adapter adapter;
 
     ImageButton imageButton;
-    Button cappuccinoFilter, allFilter, americanoFilter, espressoFilter,next,prev;
+    Button cappuccinoFilter, allFilter, americanoFilter, espressoFilter, next, prev;
     ViewFlipper viewFlipper;
 
     ArrayList<String> drinksIDArrayList;
@@ -43,6 +47,12 @@ public class homeFragment extends Fragment {
     ArrayList<String> drinksDescriptionArrayList;
     ArrayList<String> drinksPicURLArrayList;
     ArrayList<String> drinksTagArrayList;
+
+
+    Handler handler = new Handler();
+    Runnable runnable;
+    int delay = 5000;
+
 
     public static Drawable LoadImageFromWebOperations(String url) {
         try {
@@ -98,19 +108,20 @@ public class homeFragment extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                viewFlipper.setInAnimation(getContext(), android.R.anim.slide_in_left);
+                viewFlipper.setOutAnimation(getContext(), android.R.anim.slide_out_right);
                 viewFlipper.showNext();
-
             }
         });
 
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                viewFlipper.setInAnimation(getContext(), R.anim.slide_in_right);
+                viewFlipper.setOutAnimation(getContext(), R.anim.slide_out_left);
                 viewFlipper.showPrevious();
-
             }
         });
-
 
 
         cappuccinoFilter.setOnClickListener(new View.OnClickListener() {
@@ -215,10 +226,10 @@ public class homeFragment extends Fragment {
 
     private void changeColor(Button chosenButton) {
 
-        allFilter.setBackgroundTintList( ColorStateList.valueOf(Color.parseColor("#FFE1E5EB")) );
-        americanoFilter.setBackgroundTintList( ColorStateList.valueOf(Color.parseColor("#FFE1E5EB")) );
-        espressoFilter.setBackgroundTintList( ColorStateList.valueOf(Color.parseColor("#FFE1E5EB")) );
-        cappuccinoFilter.setBackgroundTintList( ColorStateList.valueOf(Color.parseColor("#FFE1E5EB")) );
+        allFilter.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFE1E5EB")));
+        americanoFilter.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFE1E5EB")));
+        espressoFilter.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFE1E5EB")));
+        cappuccinoFilter.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFE1E5EB")));
 
 
         allFilter.setTextColor(Color.parseColor("#FF0A2658"));
@@ -226,10 +237,23 @@ public class homeFragment extends Fragment {
         espressoFilter.setTextColor(Color.parseColor("#FF0A2658"));
         cappuccinoFilter.setTextColor(Color.parseColor("#FF0A2658"));
 
-        chosenButton.setBackgroundTintList( ColorStateList.valueOf(Color.parseColor("#FF0A2658")) );
+        chosenButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF0A2658")));
         chosenButton.setTextColor(Color.parseColor("#FFE1E5EB"));
 
 
+    }
+
+    @Override
+    public void onResume() {
+        handler.postDelayed(runnable = new Runnable() {
+            public void run() {
+                handler.postDelayed(runnable, delay);
+                viewFlipper.setInAnimation(getContext(), android.R.anim.slide_in_left);
+                viewFlipper.setOutAnimation(getContext(), android.R.anim.slide_out_right);
+                viewFlipper.showNext();
+            }
+        }, delay);
+        super.onResume();
     }
 
 
