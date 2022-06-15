@@ -38,7 +38,7 @@ public class homeFragment extends Fragment {
     Adapter adapter;
 
     ImageButton imageButton;
-    Button cappuccinoFilter, allFilter, americanoFilter, espressoFilter, next, prev;
+    Button hotDrinks, allFilter, coldDrinks, next, prev;
     ViewFlipper viewFlipper;
 
     ArrayList<String> drinksIDArrayList;
@@ -95,10 +95,9 @@ public class homeFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
 
         //setup buttons
-        cappuccinoFilter = (Button) view.findViewById(R.id.cappuccinoFilter);
+        hotDrinks = (Button) view.findViewById(R.id.hotDrinks);
         allFilter = (Button) view.findViewById(R.id.allFilter);
-        americanoFilter = (Button) view.findViewById(R.id.americanoFilter);
-        espressoFilter = (Button) view.findViewById(R.id.espressoFilter);
+        coldDrinks = (Button) view.findViewById(R.id.coldDrinks);
         next = (Button) view.findViewById(R.id.next);
         prev = (Button) view.findViewById(R.id.prev);
         viewFlipper = view.findViewById(R.id.viewFlipper);
@@ -124,35 +123,18 @@ public class homeFragment extends Fragment {
         });
 
 
-        cappuccinoFilter.setOnClickListener(new View.OnClickListener() {
+
+
+        coldDrinks.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(View v) {
-                changeColor(cappuccinoFilter);
+                changeColor(coldDrinks);
 
                 addData(bundle);
 
                 filteredDrinksItemArrayList = allDrinksItemArrayList;
-                filteredDrinksItemArrayList.removeIf(item -> !item.getItemTag().equals("cappuccino"));
-                adapter.notifyDataSetChanged();
-
-                System.out.println("allDrinksItemArrayList:   " + allDrinksItemArrayList.size());
-                System.out.println("filteredDrinksItemArrayList:   " + filteredDrinksItemArrayList.size());
-
-
-            }
-        });
-
-        americanoFilter.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onClick(View v) {
-                changeColor(americanoFilter);
-
-                addData(bundle);
-
-                filteredDrinksItemArrayList = allDrinksItemArrayList;
-                filteredDrinksItemArrayList.removeIf(item -> !item.getItemTag().equals("americano"));
+                filteredDrinksItemArrayList.removeIf(item -> !item.getItemTag().equals("cold"));
                 adapter.notifyDataSetChanged();
 
                 System.out.println("allDrinksItemArrayList:   " + allDrinksItemArrayList.size());
@@ -160,16 +142,16 @@ public class homeFragment extends Fragment {
             }
         });
 
-        espressoFilter.setOnClickListener(new View.OnClickListener() {
+        hotDrinks.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(View v) {
-                changeColor(espressoFilter);
+                changeColor(hotDrinks);
 
                 addData(bundle);
 
                 filteredDrinksItemArrayList = allDrinksItemArrayList;
-                filteredDrinksItemArrayList.removeIf(item -> !item.getItemTag().equals("espresso"));
+                filteredDrinksItemArrayList.removeIf(item -> !item.getItemTag().equals("hot"));
                 adapter.notifyDataSetChanged();
 
                 System.out.println("allDrinksItemArrayList:   " + allDrinksItemArrayList.size());
@@ -227,15 +209,13 @@ public class homeFragment extends Fragment {
     private void changeColor(Button chosenButton) {
 
         allFilter.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFE1E5EB")));
-        americanoFilter.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFE1E5EB")));
-        espressoFilter.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFE1E5EB")));
-        cappuccinoFilter.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFE1E5EB")));
+        coldDrinks.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFE1E5EB")));
+        hotDrinks.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFE1E5EB")));
 
 
         allFilter.setTextColor(Color.parseColor("#FF0A2658"));
-        americanoFilter.setTextColor(Color.parseColor("#FF0A2658"));
-        espressoFilter.setTextColor(Color.parseColor("#FF0A2658"));
-        cappuccinoFilter.setTextColor(Color.parseColor("#FF0A2658"));
+        coldDrinks.setTextColor(Color.parseColor("#FF0A2658"));
+        hotDrinks.setTextColor(Color.parseColor("#FF0A2658"));
 
         chosenButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF0A2658")));
         chosenButton.setTextColor(Color.parseColor("#FFE1E5EB"));
@@ -247,10 +227,30 @@ public class homeFragment extends Fragment {
     public void onResume() {
         handler.postDelayed(runnable = new Runnable() {
             public void run() {
-                handler.postDelayed(runnable, delay);
-                viewFlipper.setInAnimation(getContext(), android.R.anim.slide_in_left);
-                viewFlipper.setOutAnimation(getContext(), android.R.anim.slide_out_right);
-                viewFlipper.showNext();
+                try {
+                    handler.postDelayed(runnable, delay);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    viewFlipper.setInAnimation(getContext(), android.R.anim.slide_in_left);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    viewFlipper.setOutAnimation(getContext(), android.R.anim.slide_out_right);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    viewFlipper.showNext();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
         }, delay);
         super.onResume();
