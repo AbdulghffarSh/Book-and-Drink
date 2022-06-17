@@ -12,22 +12,119 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <EditText
-            android:layout_margin="20dp"
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="22dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/itim"
+            android:gravity="center"
+            android:text="We would like to see you in our Café"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18dp"
+            android:textStyle="italic|bold" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+
+
+            >
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/next"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/ic_next"
+
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/prev"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="25dp"
+                android:background="@drawable/ic_next"
+                android:rotation="180"
+                />
+
+            <ViewFlipper
+                android:id="@+id/viewFlipper"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:padding="20dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/image_filipper_one"
+
+
+                    />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/image_filipper_two" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/image_filipper_three" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/image_filipper_four" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/image_filipper_five" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/image_filipper_six" />
+
+
+            </ViewFlipper>
+
+
+        </RelativeLayout>
+
+
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:layout_margin="20dp"
             android:background="@drawable/rounded_edittext"
-            android:drawableLeft="@drawable/search"
+            android:drawableStart="@drawable/search"
             android:drawablePadding="20dp"
             android:fontFamily="@font/itim"
-            android:hint="search"
             android:paddingHorizontal="20dp"
             android:textColor="@color/colorPrimary"
             android:textColorHint="@color/colorPrimary" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="30dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -97,119 +194,14 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="We would like to see you in our Café"
-            android:fontFamily="@font/itim"
-            android:textColor="@color/colorPrimary"
-            android:gravity="center"
-            android:textStyle="italic|bold"
-            android:textSize="18dp"/>
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_margin="10dp"
-
-
-            >
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/next"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/ic_next"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="5dp"
-
-                />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/prev"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/ic_next"
-                android:layout_alignParentStart="true"
-                android:rotation="180"
-                android:layout_marginStart="5dp"
-                />
-
-            <ViewFlipper
-                android:id="@+id/viewFlipper"
-                android:layout_width="wrap_content"
-                android:layout_height="200dp"
-                >
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@mipmap/image_filipper_one"
-                    android:scaleType="centerCrop"
-
-
-                    />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@mipmap/image_filipper_two"
-                    android:scaleType="centerCrop"
-                    />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@mipmap/image_filipper_three"
-                    android:scaleType="centerCrop"
-                    />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@mipmap/image_filipper_four"
-                    android:scaleType="centerCrop"
-                    />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@mipmap/image_filipper_five"
-                    android:scaleType="centerCrop"
-                    />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@mipmap/image_filipper_six"
-                    android:scaleType="centerCrop"
-                    />
-
-
-            </ViewFlipper>
-
-
-        </RelativeLayout>
-
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="22dp" />
-
+            android:layout_height="20dp" />
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_margin="20dp"
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_margin="20dp" />
 
 
     </LinearLayout>

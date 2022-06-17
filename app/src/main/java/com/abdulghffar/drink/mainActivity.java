@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -48,12 +49,15 @@ public class mainActivity extends AppCompatActivity {
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
         setup();
+
 
 
 
@@ -89,6 +93,10 @@ public class mainActivity extends AppCompatActivity {
 
     }
 
+    private void filterList(String newText) {
+
+    }
+
     private void setup() {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -96,6 +104,7 @@ public class mainActivity extends AppCompatActivity {
         header = (TextView) findViewById(R.id.header_title);
         bottomBar = (SmoothBottomBar) findViewById(R.id.bottomBar);
         refresh = (ImageButton) findViewById(R.id.refresh);
+
 
 
 

@@ -1,8 +1,6 @@
 package com.abdulghffar.drink;
 
 import android.annotation.SuppressLint;
-import android.app.AlarmManager;
-import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -16,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ViewFlipper;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class homeFragment extends Fragment {
 
@@ -47,6 +45,8 @@ public class homeFragment extends Fragment {
     ArrayList<String> drinksDescriptionArrayList;
     ArrayList<String> drinksPicURLArrayList;
     ArrayList<String> drinksTagArrayList;
+
+    SearchView searchView;
 
 
     Handler handler = new Handler();
@@ -94,13 +94,32 @@ public class homeFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
 
-        //setup buttons
+        //setup
         hotDrinks = (Button) view.findViewById(R.id.hotDrinks);
         allFilter = (Button) view.findViewById(R.id.allFilter);
         coldDrinks = (Button) view.findViewById(R.id.coldDrinks);
         next = (Button) view.findViewById(R.id.next);
         prev = (Button) view.findViewById(R.id.prev);
         viewFlipper = view.findViewById(R.id.viewFlipper);
+        searchView = view.findViewById(R.id.searchView);
+        searchView.clearFocus();
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filteredDrinksItemArrayList = allDrinksItemArrayList;
+                filteredDrinksItemArrayList.removeIf(item -> !item.getItemName().contains(newText));
+                adapter.notifyDataSetChanged();
+                return false;
+            }
+        });
 
 
         //flipperButtons
@@ -121,8 +140,6 @@ public class homeFragment extends Fragment {
                 viewFlipper.showPrevious();
             }
         });
-
-
 
 
         coldDrinks.setOnClickListener(new View.OnClickListener() {
