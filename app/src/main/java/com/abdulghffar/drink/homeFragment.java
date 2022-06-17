@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class homeFragment extends Fragment {
 
@@ -79,9 +80,8 @@ public class homeFragment extends Fragment {
         filteredDrinksItemArrayList = new ArrayList<>();
 
 
-        Bundle bundle = getArguments();
 
-        addData(bundle);
+
         filteredDrinksItemArrayList = allDrinksItemArrayList;
 
         StrictMode.ThreadPolicy policy =
@@ -93,6 +93,10 @@ public class homeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
+        Bundle bundle = getArguments();
+
+        addData(bundle);
+
 
         //setup
         hotDrinks = (Button) view.findViewById(R.id.hotDrinks);
@@ -103,6 +107,12 @@ public class homeFragment extends Fragment {
         viewFlipper = view.findViewById(R.id.viewFlipper);
         searchView = view.findViewById(R.id.searchView);
         searchView.clearFocus();
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchView.setIconified(false);
+            }
+        });
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -114,10 +124,9 @@ public class homeFragment extends Fragment {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public boolean onQueryTextChange(String newText) {
-                filteredDrinksItemArrayList = allDrinksItemArrayList;
-                filteredDrinksItemArrayList.removeIf(item -> !item.getItemName().contains(newText));
-                adapter.notifyDataSetChanged();
-                return false;
+            filterList(newText);
+
+                return true;
             }
         });
 
@@ -154,8 +163,6 @@ public class homeFragment extends Fragment {
                 filteredDrinksItemArrayList.removeIf(item -> !item.getItemTag().equals("cold"));
                 adapter.notifyDataSetChanged();
 
-                System.out.println("allDrinksItemArrayList:   " + allDrinksItemArrayList.size());
-                System.out.println("filteredDrinksItemArrayList:   " + filteredDrinksItemArrayList.size());
             }
         });
 
@@ -171,8 +178,7 @@ public class homeFragment extends Fragment {
                 filteredDrinksItemArrayList.removeIf(item -> !item.getItemTag().equals("hot"));
                 adapter.notifyDataSetChanged();
 
-                System.out.println("allDrinksItemArrayList:   " + allDrinksItemArrayList.size());
-                System.out.println("filteredDrinksItemArrayList:   " + filteredDrinksItemArrayList.size());
+
             }
         });
 
@@ -187,17 +193,32 @@ public class homeFragment extends Fragment {
                 filteredDrinksItemArrayList = allDrinksItemArrayList;
                 adapter.notifyDataSetChanged();
 
-                System.out.println("allDrinksItemArrayList:   " + allDrinksItemArrayList.size());
-                System.out.println("filteredDrinksItemArrayList:   " + filteredDrinksItemArrayList.size());
+
             }
         });
 
 
         adapter = new Adapter(view.getContext(), filteredDrinksItemArrayList);
         recyclerView.setAdapter(adapter);
-
+adapter.notifyDataSetChanged();
 
         return view;
+    }
+
+    private void filterList(String text){
+        changeColor(allFilter);
+
+        ArrayList<item> filteredList=new ArrayList<>();
+        for(item item:allDrinksItemArrayList){
+            if(item.getItemName().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(item);
+            }
+        }
+        if(filteredList.isEmpty()){
+
+        }else{
+            adapter.setFilteredList(filteredList);
+        }
     }
 
     private void addData(Bundle bundle) {
@@ -219,6 +240,7 @@ public class homeFragment extends Fragment {
                     drinksPicURLArrayList.get(i),
                     drinksTagArrayList.get(i)));
         }
+
 
 
     }

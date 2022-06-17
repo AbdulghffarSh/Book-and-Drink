@@ -5,13 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -29,6 +28,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
@@ -45,10 +46,7 @@ public class mainActivity extends AppCompatActivity {
     ArrayList<item> drinksItemArrayList;
     ArrayList<item> booksItemArrayList;
     User user;
-
-
-
-
+    ProgressBar progressBar;
 
 
     @Override
@@ -59,8 +57,6 @@ public class mainActivity extends AppCompatActivity {
         setup();
 
 
-
-
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,8 +64,11 @@ public class mainActivity extends AppCompatActivity {
                 startActivity(getIntent());
             }
         });
+
+
         bottomBar.setOnItemSelected((Function1<? super Integer, Unit>) o ->
                 {
+
 
                     switch (o) {
                         case 0:
@@ -86,16 +85,19 @@ public class mainActivity extends AppCompatActivity {
                             break;
                         default:
                             homeFragment();
+                            break;
+
                     }
                     return null;
                 }
         );
 
+
+        homeFragment();
+
+
     }
 
-    private void filterList(String newText) {
-
-    }
 
     private void setup() {
         firebaseAuth = FirebaseAuth.getInstance();
@@ -104,10 +106,8 @@ public class mainActivity extends AppCompatActivity {
         header = (TextView) findViewById(R.id.header_title);
         bottomBar = (SmoothBottomBar) findViewById(R.id.bottomBar);
         refresh = (ImageButton) findViewById(R.id.refresh);
-
-
-
-
+        progressBar = (ProgressBar)findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
 
     }
 
@@ -122,50 +122,99 @@ public class mainActivity extends AppCompatActivity {
     }
 
     public void homeFragment() {
+progressBar.setVisibility(View.VISIBLE);
+        db = FirebaseFirestore.getInstance();
+        drinksItemArrayList = new ArrayList<>();
+
+        db.collection("Drinks").orderBy("itemName",
+                Query.Direction.ASCENDING).
+                addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onEvent(@Nullable QuerySnapshot value,
+                                                            @Nullable
+                                                                    FirebaseFirestoreException
+                                                                    error) {
+
+                                            if (error != null) {
+
+                                                Log.e("Firesore error", error.getMessage());
+                                                return;
+                                            }
+
+                                            for (DocumentChange dc : value.
+                                                    getDocumentChanges
+                                                            ()) {
+
+                                                if (dc.getType() == DocumentChange.Type.ADDED) {
+
+                                                    drinksItemArrayList.add(dc.getDocument().
+                                                            toObject(item.class));
+                                                    drinksItemArrayList.get(drinksItemArrayList.
+                                                            size() -
+                                                            1).setItemID(dc.
+                                                            getDocument
+                                                                    ().getId().
+                                                            toString
+                                                                    ());
+                                                    ArrayList<String> drinksIDArrayList = new ArrayList<>();
+                                                    ArrayList<String> drinksPicURLArrayList = new ArrayList<>();
+                                                    ArrayList<String> drinksNameArrayList = new ArrayList<>();
+                                                    ArrayList<String> drinksPriceArrayList = new ArrayList<>();
+                                                    ArrayList<String> drinksDescriptionArrayList = new ArrayList<>();
+                                                    ArrayList<String> drinksTagArrayList = new ArrayList<>();
 
 
-        ArrayList<String> drinksIDArrayList = new ArrayList<>();
-        ArrayList<String> drinksPicURLArrayList = new ArrayList<>();
-        ArrayList<String> drinksNameArrayList = new ArrayList<>();
-        ArrayList<String> drinksPriceArrayList = new ArrayList<>();
-        ArrayList<String> drinksDescriptionArrayList = new ArrayList<>();
-        ArrayList<String> drinksTagArrayList = new ArrayList<>();
+                                                    for (item item : drinksItemArrayList) {
+                                                        drinksIDArrayList.add(item.getItemID());
+                                                        drinksPicURLArrayList.add(item.getItemPicURL());
+                                                        drinksNameArrayList.add(item.getItemName());
+                                                        drinksPriceArrayList.add(item.getItemPrice());
+                                                        drinksDescriptionArrayList.add(item.getItemDescription());
+                                                        drinksTagArrayList.add(item.getItemTag());
+
+                                                    }
 
 
-        for (item item : drinksItemArrayList) {
-            drinksIDArrayList.add(item.getItemID());
-            drinksPicURLArrayList.add(item.getItemPicURL());
-            drinksNameArrayList.add(item.getItemName());
-            drinksPriceArrayList.add(item.getItemPrice());
-            drinksDescriptionArrayList.add(item.getItemDescription());
-            drinksTagArrayList.add(item.getItemTag());
-
-        }
+                                                    Bundle bundle = new Bundle();
+                                                    bundle.putStringArrayList("drinksIDArrayList", drinksIDArrayList);
+                                                    bundle.putStringArrayList("drinksPicURLArrayList", drinksPicURLArrayList);
+                                                    bundle.putStringArrayList("drinksNameArrayList", drinksNameArrayList);
+                                                    bundle.putStringArrayList("drinksPriceArrayList", drinksPriceArrayList);
+                                                    bundle.putStringArrayList("drinksDescriptionArrayList", drinksDescriptionArrayList);
+                                                    bundle.putStringArrayList("booksTagArrayList", drinksTagArrayList);
 
 
-        Bundle bundle = new Bundle();
-        bundle.putStringArrayList("drinksIDArrayList", drinksIDArrayList);
-        bundle.putStringArrayList("drinksPicURLArrayList", drinksPicURLArrayList);
-        bundle.putStringArrayList("drinksNameArrayList", drinksNameArrayList);
-        bundle.putStringArrayList("drinksPriceArrayList", drinksPriceArrayList);
-        bundle.putStringArrayList("drinksDescriptionArrayList", drinksDescriptionArrayList);
-        bundle.putStringArrayList("booksTagArrayList", drinksTagArrayList);
+                                                    homeFragment homeFragment = new homeFragment();
+                                                    homeFragment.setArguments(bundle);
+
+                                                    header.setText("Home");
+                                                    replaceFragment(homeFragment);
 
 
+                                                }
 
-        homeFragment homeFragment = new homeFragment();
-        homeFragment.setArguments(bundle);
+                                            }
 
+                                        }
 
-        header.setText("Home");
-        replaceFragment(homeFragment);
+                                    }
+                );
+
+        Timer timer = new Timer ();
+        timer.schedule (new TimerTask()
+        {
+            public void run ()
+            {
+
+                progressBar.setVisibility(View.INVISIBLE);}
+        }, 3000);
 
 
     }
 
     public void bookShopFragment() {
 
-
+progressBar.setVisibility(View.VISIBLE);
         ArrayList<String> booksIDArrayList = new ArrayList<>();
         ArrayList<String> booksPicURLArrayList = new ArrayList<>();
         ArrayList<String> booksNameArrayList = new ArrayList<>();
@@ -191,7 +240,7 @@ public class mainActivity extends AppCompatActivity {
         bundle.putStringArrayList("booksNameArrayList", booksNameArrayList);
         bundle.putStringArrayList("booksPriceArrayList", booksPriceArrayList);
         bundle.putStringArrayList("booksDescriptionArrayList", booksDescriptionArrayList);
-        bundle.putStringArrayList("booksTagArrayList",booksTagArrayList);
+        bundle.putStringArrayList("booksTagArrayList", booksTagArrayList);
 
 
         bookShopFragment bookShopFragment = new bookShopFragment();
@@ -201,18 +250,34 @@ public class mainActivity extends AppCompatActivity {
         header.setText("BookShop");
         replaceFragment(bookShopFragment);
 
+        Timer timer = new Timer ();
+        timer.schedule (new TimerTask()
+        {
+            public void run ()
+            {
 
+                progressBar.setVisibility(View.INVISIBLE);}
+        }, 3000);
     }
 
 
     public void profileFragment() {
+        progressBar.setVisibility(View.VISIBLE);
         header.setText("Profile");
         replaceFragment(new profileFragment());
+        Timer timer = new Timer ();
+        timer.schedule (new TimerTask()
+        {
+            public void run ()
+            {
 
+                progressBar.setVisibility(View.INVISIBLE);}
+        }, 1000);
     }
 
 
     private void EventChangeListener() {
+
         db = FirebaseFirestore.getInstance();
         drinksItemArrayList = new ArrayList<>();
         booksItemArrayList = new ArrayList<>();
@@ -318,6 +383,8 @@ public class mainActivity extends AppCompatActivity {
 
 
         }
+
+
     }
 
     public void logout(View view) {
@@ -329,7 +396,7 @@ public class mainActivity extends AppCompatActivity {
     }
 
     public void cartFragment() {
-
+progressBar.setVisibility(View.VISIBLE);
 
         header.setText("Cart");
 
@@ -350,8 +417,7 @@ public class mainActivity extends AppCompatActivity {
         itemArrayList1.addAll(drinksItemArrayList);
         itemArrayList1.addAll(booksItemArrayList);
 
-        System.out.println("cartItemIds" + cartItemIds);
-        System.out.println("itemArrayList1" + itemArrayList1.size());
+
 
 
         for (int i = 0; i < (itemArrayList1.size()); i++) {
@@ -362,7 +428,7 @@ public class mainActivity extends AppCompatActivity {
 
         }
 
-        System.out.println("itemArrayList" + itemArrayList.size());
+
 
         for (item item : itemArrayList) {
             itemsIDArrayList.add(item.getItemID());
@@ -374,7 +440,6 @@ public class mainActivity extends AppCompatActivity {
         }
 
 
-        System.out.println("Cart " + cartItemCount);
 
         Bundle bundle = new Bundle();
 
@@ -384,14 +449,28 @@ public class mainActivity extends AppCompatActivity {
         bundle.putStringArrayList("itemsPicURLArrayList", itemsPicURLArrayList);
         bundle.putStringArrayList("itemsNameArrayList", itemsNameArrayList);
         bundle.putStringArrayList("itemsPriceArrayList", itemsPriceArrayList);
-        bundle.putStringArrayList("itemsTagArrayList",itemsTagArrayList);
+        bundle.putStringArrayList("itemsTagArrayList", itemsTagArrayList);
         bundle.putIntegerArrayList("cartItemCount", cartItemCount);
 
 
         cartFragment cartFragment = new cartFragment();
         cartFragment.setArguments(bundle);
         replaceFragment(cartFragment);
+        Timer timer = new Timer ();
+        timer.schedule (new TimerTask()
+        {
+            public void run ()
+            {
 
+                progressBar.setVisibility(View.INVISIBLE);}
+        }, 2000);
+
+    }
+
+    private void replace(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frameLayout, fragment);
+        transaction.commit();
     }
 
 }

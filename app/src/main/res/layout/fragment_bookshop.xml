@@ -13,19 +13,20 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <EditText
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@drawable/rounded_edittext"
-            android:drawableLeft="@drawable/search"
             android:drawablePadding="20dp"
             android:fontFamily="@font/itim"
             android:hint="search"
             android:paddingHorizontal="20dp"
             android:textColor="@color/colorPrimary"
-            android:textColorHint="@color/colorPrimary" />
+            android:textColorHint="@color/colorPrimary"
+            />
 
-        <Space
+        <androidx.legacy.widget.Space
             android:layout_width="match_parent"
             android:layout_height="30dp" />
 
@@ -49,7 +50,7 @@
 
 <!--                />-->
 
-<!--            <Space-->
+<!--            <androidx.legacy.widget.Space-->
 <!--                android:layout_width="8dp"-->
 <!--                android:layout_height="wrap_content" />-->
 
@@ -67,7 +68,7 @@
 
 <!--                />-->
 
-<!--            <Space-->
+<!--            <androidx.legacy.widget.Space-->
 <!--                android:layout_width="8dp"-->
 <!--                android:layout_height="wrap_content" />-->
 
@@ -85,7 +86,7 @@
 
 <!--                />-->
 
-<!--            <Space-->
+<!--            <androidx.legacy.widget.Space-->
 <!--                android:layout_width="8dp"-->
 <!--                android:layout_height="wrap_content" />-->
 
@@ -103,11 +104,94 @@
 
 <!--        </LinearLayout>-->
 
-        <Space
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="33dp"/>
+            android:layout_height="33dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <Space
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/allFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_button"
+                android:backgroundTint="@color/button_color_selector"
+                android:fontFamily="@font/itim"
+                android:text="All"
+                android:textAllCaps="false"
+                android:textColor="@color/button_text_color_selector"
+                android:textSize="15sp"
+                android:textStyle="bold"
+
+                />
+
+            <androidx.legacy.widget.Space
+                android:layout_width="4dp"
+                android:layout_height="wrap_content" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/classics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_button"
+                android:backgroundTint="@color/button_color_selector"
+                android:fontFamily="@font/itim"
+                android:text="Classics"
+                android:textAllCaps="false"
+                android:textColor="@color/button_text_color_selector"
+                android:textSize="15sp"
+                android:textStyle="bold"
+
+                />
+
+            <androidx.legacy.widget.Space
+                android:layout_width="4dp"
+                android:layout_height="wrap_content" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/language"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_button"
+                android:backgroundTint="@color/button_color_selector"
+                android:fontFamily="@font/itim"
+                android:text="Language"
+                android:textAllCaps="false"
+                android:textColor="@color/button_text_color_selector"
+                android:textSize="15sp"
+                android:textStyle="bold"
+
+                />
+            <androidx.legacy.widget.Space
+                android:layout_width="4dp"
+                android:layout_height="wrap_content" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/novels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_button"
+                android:backgroundTint="@color/button_color_selector"
+                android:fontFamily="@font/itim"
+                android:text="Novels"
+                android:textAllCaps="false"
+                android:textColor="@color/button_text_color_selector"
+                android:textSize="15sp"
+                android:textStyle="bold"
+
+                />
+
+
+
+            <androidx.legacy.widget.Space
+                android:layout_width="4dp"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+        <androidx.legacy.widget.Space
             android:layout_width="match_parent"
             android:layout_height="22dp" />
 

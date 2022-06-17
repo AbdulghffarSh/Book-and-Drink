@@ -125,7 +125,6 @@ public class cartAdapter extends RecyclerView.Adapter<
 
 
                             assert user != null;
-                            System.out.println((selectedItem.getItemName()));
                             user.getCart().put(selectedItem.getItemID(), user.getCart().get(selectedItem.getItemID()) + 1);
                             quantity.set(holder.getAdapterPosition(), quantity.get(holder.getAdapterPosition()) + 1);
                             notifyDataSetChanged();
@@ -188,7 +187,6 @@ public class cartAdapter extends RecyclerView.Adapter<
 
 
                                 assert user != null;
-                                System.out.println((selectedItem.getItemName()));
                                 user.getCart().put(selectedItem.getItemID(), user.getCart().get(selectedItem.getItemID()) - 1);
                                 quantity.set(holder.getAdapterPosition(), quantity.get(holder.getAdapterPosition()) - 1);
 
@@ -255,7 +253,6 @@ public class cartAdapter extends RecyclerView.Adapter<
         for (int i = 0; i < itemArrayList.size(); i++) {
             sum = sum + (Integer.parseInt(itemArrayList.get(i).getItemPrice()) * quantity.get(i));
         }
-        System.out.println("Sum " + sum);
         total.setText(sum + " JD");
     }
 

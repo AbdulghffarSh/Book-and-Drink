@@ -138,7 +138,6 @@ public class cartFragment extends Fragment {
                     // if the user has cart
 
                     assert user != null;
-                    System.out.println("Test   " + user.getCart());
 
 
                     db.collection("Drinks").orderBy("itemName",
@@ -212,7 +211,6 @@ public class cartFragment extends Fragment {
                                                                                             }
 
 
-                                                                                            System.out.println("Test size1  " + itemArrayList.size());
 
                                                                                             ArrayList<item> newItemArrayList = new ArrayList<>();
                                                                                             for (item item : itemArrayList) {

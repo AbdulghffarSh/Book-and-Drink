@@ -25,6 +25,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import es.dmoral.toasty.Toasty;
@@ -113,18 +114,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
                             // if the user has cart
 
-                            System.out.println(user.getCart());
 
                             if (user.getCart() == null) {
                                 Map<String, Integer> newCart = new HashMap<>();
                                 user.setCart(newCart);
-                                System.out.println("Cart is Null\nCreated one");
 
 
                             }
 
                             if (user.getCart() != null) {
-                                System.out.println("User has Map");
                                 Map<String, Integer> cart = user.getCart();
                                 if (cart.containsKey(selectedItem.getItemID())) {
                                     cart.put(selectedItem.getItemID(), cart.get(item.getItemID()) + 1);
@@ -132,7 +130,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                                 if (!cart.containsKey(item.getItemID())) {
                                     cart.put(selectedItem.getItemID(), 1);
                                     user.setCart(cart);
-                                    System.out.println(user.getCart());
 
                                 }
 
@@ -164,6 +161,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return itemArrayList.size();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void setFilteredList(ArrayList<item> filteredList) {
+
+        this.itemArrayList = filteredList;
+        notifyDataSetChanged();
+
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

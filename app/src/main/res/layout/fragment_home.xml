@@ -12,7 +12,7 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <Space
+        <androidx.legacy.widget.Space
             android:layout_width="match_parent"
             android:layout_height="22dp" />
 
@@ -147,7 +147,7 @@
 
                 />
 
-            <Space
+            <androidx.legacy.widget.Space
                 android:layout_width="8dp"
                 android:layout_height="wrap_content" />
 
@@ -166,7 +166,7 @@
 
                 />
 
-            <Space
+            <androidx.legacy.widget.Space
                 android:layout_width="8dp"
                 android:layout_height="wrap_content" />
 
@@ -185,14 +185,14 @@
 
                 />
 
-            <Space
+            <androidx.legacy.widget.Space
                 android:layout_width="8dp"
                 android:layout_height="wrap_content" />
 
 
         </LinearLayout>
 
-        <Space
+        <androidx.legacy.widget.Space
             android:layout_width="match_parent"
             android:layout_height="20dp" />
 

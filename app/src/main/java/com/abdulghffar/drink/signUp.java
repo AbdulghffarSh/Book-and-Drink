@@ -192,7 +192,6 @@ public class signUp extends AppCompatActivity
         else
         {
             genderText = "Female";
-            System.out.println (checkedRadioButtonId);
         }
         assert newUser != null;
         User user =

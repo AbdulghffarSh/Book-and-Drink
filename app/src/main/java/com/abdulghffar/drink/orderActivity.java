@@ -27,7 +27,6 @@ public class orderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order);
         setup();
         String orderId = getIntent().getExtras().getString("order");
-        System.out.println(orderId);
         orderStatus.setText("Order #" + orderId + "\n in transit");
 
         db = FirebaseFirestore.getInstance();
@@ -41,9 +40,7 @@ public class orderActivity extends AppCompatActivity {
             onSuccess(DocumentSnapshot
                               documentSnapshot) {
                 order order = documentSnapshot.toObject(order.class);
-                System.out.println(order.getUserAddress());
                 ArrayList<String> addressList = new ArrayList<>(order.getUserAddress().values());
-                System.out.println(addressList);
                 address.setText(addressList.toString());
                 phoneNumber.setText(order.getUserPhoneNumber());
 
