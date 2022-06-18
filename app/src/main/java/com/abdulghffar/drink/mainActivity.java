@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,9 +29,11 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import es.dmoral.toasty.Toasty;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 import me.ibrahimsn.lib.SmoothBottomBar;
@@ -396,74 +399,106 @@ progressBar.setVisibility(View.VISIBLE);
     }
 
     public void cartFragment() {
-progressBar.setVisibility(View.VISIBLE);
 
-        header.setText("Cart");
+        try {
+            db = FirebaseFirestore.getInstance();
+            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+            if (firebaseUser != null) {
 
-        ArrayList<String> cartItemIds = new ArrayList<>(user.getCart().keySet());
-        ArrayList<Integer> cartItemCount = new ArrayList<>(user.getCart().values());
-
-
-        ArrayList<String> itemsIDArrayList = new ArrayList<>();
-        ArrayList<String> itemsPicURLArrayList = new ArrayList<>();
-        ArrayList<String> itemsNameArrayList = new ArrayList<>();
-        ArrayList<String> itemsPriceArrayList = new ArrayList<>();
-        ArrayList<String> itemsDescriptionArrayList = new ArrayList<>();
-        ArrayList<String> itemsTagArrayList = new ArrayList<>();
-
-
-        ArrayList<item> itemArrayList1 = new ArrayList<>();
-        ArrayList<item> itemArrayList = new ArrayList<>();
-        itemArrayList1.addAll(drinksItemArrayList);
-        itemArrayList1.addAll(booksItemArrayList);
+                DocumentReference docRef =
+                        db.collection("Users").document(firebaseUser.getUid());
+                docRef.get().addOnSuccessListener(new OnSuccessListener<
+                        DocumentSnapshot>() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void
+                    onSuccess(DocumentSnapshot
+                                      documentSnapshot) {
+                        user = documentSnapshot.toObject(User.class);
+                    }
 
 
+                });
 
 
-        for (int i = 0; i < (itemArrayList1.size()); i++) {
-            if (cartItemIds.contains(itemArrayList1.get(i).getItemID())) {
-                itemArrayList.add(itemArrayList1.get(i));
+            }
+            progressBar.setVisibility(View.VISIBLE);
+
+            header.setText("Cart");
+
+            ArrayList<String> cartItemIds = new ArrayList<>(user.getCart().keySet());
+            ArrayList<Integer> cartItemCount = new ArrayList<>(user.getCart().values());
+
+
+            ArrayList<String> itemsIDArrayList = new ArrayList<>();
+            ArrayList<String> itemsPicURLArrayList = new ArrayList<>();
+            ArrayList<String> itemsNameArrayList = new ArrayList<>();
+            ArrayList<String> itemsPriceArrayList = new ArrayList<>();
+            ArrayList<String> itemsDescriptionArrayList = new ArrayList<>();
+            ArrayList<String> itemsTagArrayList = new ArrayList<>();
+
+
+            ArrayList<item> itemArrayList1 = new ArrayList<>();
+            ArrayList<item> itemArrayList = new ArrayList<>();
+            itemArrayList1.addAll(drinksItemArrayList);
+            itemArrayList1.addAll(booksItemArrayList);
+
+
+
+
+            for (int i = 0; i < (itemArrayList1.size()); i++) {
+                if (cartItemIds.contains(itemArrayList1.get(i).getItemID())) {
+                    itemArrayList.add(itemArrayList1.get(i));
+
+                }
 
             }
 
-        }
+
+
+            for (item item : itemArrayList) {
+                itemsIDArrayList.add(item.getItemID());
+                itemsPicURLArrayList.add(item.getItemPicURL());
+                itemsNameArrayList.add(item.getItemName());
+                itemsPriceArrayList.add(item.getItemPrice());
+                itemsDescriptionArrayList.add(item.getItemDescription());
+                itemsTagArrayList.add(item.getItemTag());
+            }
 
 
 
-        for (item item : itemArrayList) {
-            itemsIDArrayList.add(item.getItemID());
-            itemsPicURLArrayList.add(item.getItemPicURL());
-            itemsNameArrayList.add(item.getItemName());
-            itemsPriceArrayList.add(item.getItemPrice());
-            itemsDescriptionArrayList.add(item.getItemDescription());
-            itemsTagArrayList.add(item.getItemTag());
-        }
+            Bundle bundle = new Bundle();
 
 
-
-        Bundle bundle = new Bundle();
-
-
-        bundle.putStringArrayList("itemsDescriptionArrayList", itemsDescriptionArrayList);
-        bundle.putStringArrayList("itemsIDArrayList", itemsIDArrayList);
-        bundle.putStringArrayList("itemsPicURLArrayList", itemsPicURLArrayList);
-        bundle.putStringArrayList("itemsNameArrayList", itemsNameArrayList);
-        bundle.putStringArrayList("itemsPriceArrayList", itemsPriceArrayList);
-        bundle.putStringArrayList("itemsTagArrayList", itemsTagArrayList);
-        bundle.putIntegerArrayList("cartItemCount", cartItemCount);
+            bundle.putStringArrayList("itemsDescriptionArrayList", itemsDescriptionArrayList);
+            bundle.putStringArrayList("itemsIDArrayList", itemsIDArrayList);
+            bundle.putStringArrayList("itemsPicURLArrayList", itemsPicURLArrayList);
+            bundle.putStringArrayList("itemsNameArrayList", itemsNameArrayList);
+            bundle.putStringArrayList("itemsPriceArrayList", itemsPriceArrayList);
+            bundle.putStringArrayList("itemsTagArrayList", itemsTagArrayList);
+            bundle.putIntegerArrayList("cartItemCount", cartItemCount);
 
 
-        cartFragment cartFragment = new cartFragment();
-        cartFragment.setArguments(bundle);
-        replaceFragment(cartFragment);
-        Timer timer = new Timer ();
-        timer.schedule (new TimerTask()
-        {
-            public void run ()
+            cartFragment cartFragment = new cartFragment();
+            cartFragment.setArguments(bundle);
+            replaceFragment(cartFragment);
+            Timer timer = new Timer ();
+            timer.schedule (new TimerTask()
             {
+                public void run ()
+                {
 
-                progressBar.setVisibility(View.INVISIBLE);}
-        }, 2000);
+                    progressBar.setVisibility(View.INVISIBLE);}
+            }, 2000);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toasty.info (mainActivity.this,
+                    "The cart is empty",
+                    Toast.LENGTH_SHORT,
+                    true).show ();
+
+        }
+
 
     }
 

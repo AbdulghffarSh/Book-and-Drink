@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -29,6 +30,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import es.dmoral.toasty.Toasty;
 
 public class cartFragment extends Fragment {
     View view;
@@ -84,16 +88,39 @@ public class cartFragment extends Fragment {
                                                           onSuccess(DocumentSnapshot
                                                                             documentSnapshot) {
                                                               user = documentSnapshot.toObject(User.class);
-
-                                                              order order = new order(timeStamp, user.getAddress(), user.getPhoneNumber(), false, total.getText().toString(), user.getuID(), user.getCart());
-
-
                                                               assert user != null;
+                                                              if (user.getCart().size()<1){
 
-                                                              db.collection("Orders").document(timeStamp).set(order);
-                                                              Bundle bundle = new Bundle();
-                                                              bundle.putString("order", timeStamp);
-                                                              startActivity(new Intent(getActivity(), orderActivity.class).putExtras(bundle));
+                                                                  Toasty.warning(requireActivity(),
+                                                                          "Your cart is empty"
+                                                                          , Toast.LENGTH_LONG, true).show();
+                                                                  return;
+                                                              }
+                                                              try {
+                                                                  if (user.getAddress()!=null){
+
+                                                                      order order = new order(timeStamp, user.getAddress(), user.getPhoneNumber(), false, total.getText().toString(), user.getuID(), user.getCart());
+
+
+                                                                      assert user != null;
+
+                                                                      db.collection("Orders").document(timeStamp).set(order);
+                                                                      Bundle bundle = new Bundle();
+                                                                      bundle.putString("order", timeStamp);
+                                                                      startActivity(new Intent(getActivity(), orderActivity.class).putExtras(bundle));
+
+                                                                  }
+                                                                  else {
+                                                                      Toasty.warning(getActivity(),
+                                                                              "Your account does not have an address please add an address form profile page"
+                                                                              , Toast.LENGTH_LONG, true).show();
+                                                                  }
+
+                                                              } catch (Exception e) {
+
+System.out.println("Your account does not have an address please add an address form profile page");
+
+                                                          }
 
 
                                                           }
@@ -244,7 +271,13 @@ public class cartFragment extends Fragment {
                                                                                                         // if the user has cart
                                                                                                         int sum = 0;
                                                                                                         ArrayList<Integer> quantity = new ArrayList(user.getCart().values());
-
+                                                                                                        if(user.getCart().isEmpty()){
+                                                                                                            Toasty.info (view.getContext(),
+                                                                                                                    "Your cart is empty",
+                                                                                                                    Toast.LENGTH_SHORT,
+                                                                                                                    true).show ();
+                                                                                                            return;
+                                                                                                        }
 
                                                                                                     }
                                                                                                 });
